@@ -82,6 +82,7 @@
       trimmed.startsWith('http://') ||
       trimmed.startsWith('https://') ||
       trimmed.startsWith('/static/uploads/') ||
+      trimmed.startsWith('/api/media/private/') ||
       trimmed.startsWith('/uploads/') ||
       trimmed.startsWith('data:image/')
     ) {
@@ -98,12 +99,31 @@
       const avatarEl = document.getElementById('userSidebarAvatar');
       const nameEl = document.getElementById('userSidebarName');
       const emailEl = document.getElementById('userSidebarEmail');
-      if (avatarEl) avatarEl.src = safeAvatar(user.avatarUrl);
+      if (avatarEl) {
+        avatarEl.onerror = function () {
+          avatarEl.src = '/static/image/avatar-placeholder.svg';
+        };
+        avatarEl.src = safeAvatar(user.avatarUrl);
+      }
       if (nameEl) nameEl.textContent = user.name || 'Laddar...';
       if (emailEl) emailEl.textContent = user.email || '';
     } catch (_err) {
       // ignore sidebar hydration failures
     }
+  }
+
+  function formatValidationDetails(details) {
+    if (!details || typeof details !== 'object') return '';
+    const fieldErrors = details.fieldErrors && typeof details.fieldErrors === 'object' ? details.fieldErrors : {};
+    const formErrors = Array.isArray(details.formErrors) ? details.formErrors : [];
+    const lines = [];
+    Object.entries(fieldErrors).forEach(([field, errors]) => {
+      const list = Array.isArray(errors) ? errors.filter(Boolean) : [];
+      if (!list.length) return;
+      lines.push(`${field}: ${list.join(', ')}`);
+    });
+    formErrors.filter(Boolean).forEach((e) => lines.push(String(e)));
+    return lines.length ? lines.join(' | ') : '';
   }
 
   function createDraftListingId() {
@@ -210,10 +230,11 @@
       body: formData,
     });
 
-    if (!result?.imageUrl) {
+    const chosenUrl = result?.signedUrl || result?.imageUrl || '';
+    if (!chosenUrl) {
       throw new Error('Kunde inte spara bilden');
     }
-    return result.imageUrl;
+    return chosenUrl;
   }
 
   function initStep1() {
@@ -882,11 +903,13 @@
         window.location.href = `submitted_success.html?${params.toString()}`;
       } catch (err) {
         const msg = document.getElementById('createListingError');
+        const detail = formatValidationDetails(err?.body?.details);
+        const text = detail ? `${err.message || 'Kunde inte skapa annons'} (${detail})` : (err.message || 'Kunde inte skapa annons');
         if (msg) {
-          msg.textContent = err.message || 'Kunde inte skapa annons';
+          msg.textContent = text;
           msg.classList.remove('hidden');
         } else {
-          alert(err.message || 'Kunde inte skapa annons');
+          alert(text);
         }
       } finally {
         submitBtn.disabled = false;

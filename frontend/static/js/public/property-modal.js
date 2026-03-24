@@ -180,6 +180,7 @@ function safeImageUrl(url, fallback) {
   if (!trimmed) return fallback;
   if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) return trimmed;
   if (trimmed.startsWith('/static/uploads/')) return trimmed;
+  if (trimmed.startsWith('/api/media/private/')) return trimmed;
   if (trimmed.startsWith('/uploads/')) return trimmed;
   if (trimmed.startsWith('data:image/')) return trimmed;
   return fallback;

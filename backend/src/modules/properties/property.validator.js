@@ -26,8 +26,8 @@ const optionalAssetUrl = z.preprocess(
   z
     .string()
     .max(2048, 'URL is too long')
-    .refine((value) => /^https?:\/\/.+/i.test(value) || /^\/static\/uploads\/.+/i.test(value), {
-      message: 'URL must be http(s) or /static/uploads path',
+    .refine((value) => /^https?:\/\/.+/i.test(value) || /^\/static\/uploads\/.+/i.test(value) || /^\/api\/media\/private\/.+/i.test(value), {
+      message: 'URL must be http(s), /static/uploads path, or /api/media/private path',
     })
     .optional()
 );
