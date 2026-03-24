@@ -5,6 +5,15 @@
     return window.RimalisI18n?.t?.(key, fallback) || fallback;
   }
 
+  function appendIcon(parent, classes) {
+    if (!parent) return;
+    const icon = document.createElement('i');
+    icon.className = String(classes || '').trim();
+    icon.setAttribute('aria-hidden', 'true');
+    parent.appendChild(icon);
+    parent.appendChild(document.createTextNode(' '));
+  }
+
   async function ensureI18nReady() {
     if (window.RimalisI18n?.refresh) {
       await window.RimalisI18n.refresh(window.RimalisI18n.getLang?.());
