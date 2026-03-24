@@ -45,6 +45,16 @@ backend/
 
 Detailed production hardening: `docs/PRODUCTION_SECURITY.md`
 
+## Email (SMTP)
+
+On Render (and most PaaS), `sendmail` is not available. Admin inloggning (2FA-kod) och vissa notiser skickas därför via SMTP.
+
+Set these env vars in production:
+
+- `SMTP_HOST`, `SMTP_PORT`
+- `SMTP_USER`, `SMTP_PASS` (if your provider requires auth)
+- `SMTP_FROM` (default sender)
+
 ## Setup
 
 1. Install dependencies:

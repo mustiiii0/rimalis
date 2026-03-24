@@ -1,4 +1,84 @@
 const { execFile } = require('node:child_process');
+const nodemailer = require('nodemailer');
+
+let cachedTransport = null;
+let cachedTransportKey = '';
+
+function resolveSmtpConfig(override = {}) {
+  const host = String(override.smtpHost || process.env.SMTP_HOST || '').trim();
+  const portRaw = override.smtpPort ?? process.env.SMTP_PORT ?? '';
+  const port = Number(portRaw || 587);
+  const user = String(override.smtpUser || process.env.SMTP_USER || '').trim();
+  const pass = String(
+    override.smtpPass ||
+      process.env.SMTP_PASS ||
+      process.env.SMTP_PASSWORD ||
+      ''
+  ).trim();
+  const secureEnv = String(override.smtpSecure ?? process.env.SMTP_SECURE ?? '')
+    .trim()
+    .toLowerCase();
+  const secure = secureEnv ? secureEnv === 'true' : port === 465;
+
+  const fromEmail = String(
+    override.fromEmail ||
+      override.supportEmail ||
+      process.env.SMTP_FROM ||
+      process.env.SUPPORT_EMAIL ||
+      user ||
+      'support@rimalis.se'
+  ).trim();
+
+  return { host, port, user, pass, secure, fromEmail };
+}
+
+function getSmtpTransport(config) {
+  if (!config.host) return null;
+
+  const key = JSON.stringify({
+    host: config.host,
+    port: config.port,
+    secure: config.secure,
+    user: config.user,
+    pass: config.pass ? '1' : '0',
+  });
+
+  if (cachedTransport && cachedTransportKey === key) return cachedTransport;
+
+  const transport = nodemailer.createTransport({
+    host: config.host,
+    port: config.port,
+    secure: config.secure,
+    auth:
+      config.user && config.pass ? { user: config.user, pass: config.pass } : undefined,
+    connectionTimeout: 8000,
+    greetingTimeout: 8000,
+    socketTimeout: 12000,
+  });
+
+  cachedTransport = transport;
+  cachedTransportKey = key;
+  return transport;
+}
+
+async function sendViaSmtp({ toEmail, subject, bodyText, fromEmail, smtpOverride = {} }) {
+  const smtpConfig = resolveSmtpConfig({ ...smtpOverride, fromEmail });
+  const transport = getSmtpTransport(smtpConfig);
+  if (!transport) return { sent: false, reason: 'smtp-not-configured' };
+
+  try {
+    const info = await transport.sendMail({
+      from: smtpConfig.fromEmail,
+      to: toEmail,
+      replyTo: smtpConfig.fromEmail,
+      subject,
+      text: String(bodyText || ''),
+    });
+    return { sent: true, reason: 'delivered-via-smtp', messageId: info?.messageId };
+  } catch (err) {
+    return { sent: false, reason: 'smtp-failed', error: err?.message || 'smtp-failed' };
+  }
+}
 
 function buildEmailText({ subject, reply, originalMessage, supportEmail }) {
   return [
@@ -20,11 +100,37 @@ function buildEmailText({ subject, reply, originalMessage, supportEmail }) {
     .join('\n');
 }
 
-async function sendSupportReplyEmail({ smtpHost, smtpPort, smtpUser, supportEmail, toEmail, subject, reply, originalMessage }) {
+async function sendSupportReplyEmail({
+  smtpHost,
+  smtpPort,
+  smtpUser,
+  smtpPass,
+  smtpSecure,
+  supportEmail,
+  toEmail,
+  subject,
+  reply,
+  originalMessage,
+}) {
   if (!toEmail) return { sent: false, reason: 'missing-recipient' };
 
-  const fromEmail = supportEmail || smtpUser || 'support@rimalis.se';
   const body = buildEmailText({ subject, reply, originalMessage, supportEmail });
+  const smtp = await sendViaSmtp({
+    toEmail,
+    subject: `[Rimalis Support] ${subject}`,
+    bodyText: body,
+    fromEmail: supportEmail || undefined,
+    smtpOverride: { smtpHost, smtpPort, smtpUser, smtpPass, smtpSecure, supportEmail },
+  });
+  if (smtp.sent) return smtp;
+
+  const fromEmail = String(
+    supportEmail ||
+      smtpUser ||
+      process.env.SMTP_FROM ||
+      process.env.SUPPORT_EMAIL ||
+      'support@rimalis.se'
+  ).trim();
   const emailPayload = [
     `From: ${fromEmail}`,
     `To: ${toEmail}`,
@@ -39,7 +145,10 @@ async function sendSupportReplyEmail({ smtpHost, smtpPort, smtpUser, supportEmai
   return new Promise((resolve) => {
     const child = execFile('/usr/sbin/sendmail', ['-t', '-i'], { timeout: 8000 }, (error) => {
       if (error) {
-        resolve({ sent: false, reason: 'sendmail-failed' });
+        resolve({
+          sent: false,
+          reason: smtp.reason === 'smtp-not-configured' ? 'no-mail-transport' : 'sendmail-failed',
+        });
         return;
       }
       resolve({ sent: true, reason: 'delivered-via-sendmail' });
@@ -56,7 +165,6 @@ async function sendSupportReplyEmail({ smtpHost, smtpPort, smtpUser, supportEmai
 
 async function sendAdminTwoFactorEmail({ toEmail, userName, code, ttlMinutes }) {
   if (!toEmail) return { sent: false, reason: 'missing-recipient' };
-  const fromEmail = 'support@rimalis.se';
   const body = [
     `Hej ${userName || 'admin'},`,
     '',
@@ -68,11 +176,22 @@ async function sendAdminTwoFactorEmail({ toEmail, userName, code, ttlMinutes }) 
     '',
     'Om du inte försökte logga in, ignorera detta mejl.',
   ].join('\n');
+  const subject = '[Rimalis Admin] Verifieringskod';
+
+  const smtp = await sendViaSmtp({
+    toEmail,
+    subject,
+    bodyText: body,
+    fromEmail: process.env.SMTP_FROM || process.env.SUPPORT_EMAIL || undefined,
+  });
+  if (smtp.sent) return smtp;
+
+  const fromEmail = String(process.env.SMTP_FROM || process.env.SUPPORT_EMAIL || 'support@rimalis.se').trim();
   const emailPayload = [
     `From: ${fromEmail}`,
     `To: ${toEmail}`,
     `Reply-To: ${fromEmail}`,
-    'Subject: [Rimalis Admin] Verifieringskod',
+    `Subject: ${subject}`,
     'Content-Type: text/plain; charset=UTF-8',
     '',
     body,
@@ -82,7 +201,10 @@ async function sendAdminTwoFactorEmail({ toEmail, userName, code, ttlMinutes }) 
   return new Promise((resolve) => {
     const child = execFile('/usr/sbin/sendmail', ['-t', '-i'], { timeout: 8000 }, (error) => {
       if (error) {
-        resolve({ sent: false, reason: 'sendmail-failed' });
+        resolve({
+          sent: false,
+          reason: smtp.reason === 'smtp-not-configured' ? 'no-mail-transport' : 'sendmail-failed',
+        });
         return;
       }
       resolve({ sent: true, reason: 'delivered-via-sendmail' });
@@ -99,7 +221,10 @@ async function sendAdminTwoFactorEmail({ toEmail, userName, code, ttlMinutes }) 
 
 async function sendTransactionalEmail({ toEmail, subject, bodyText, fromEmail }) {
   if (!toEmail) return { sent: false, reason: 'missing-recipient' };
-  const sender = fromEmail || 'support@rimalis.se';
+  const smtp = await sendViaSmtp({ toEmail, subject, bodyText, fromEmail });
+  if (smtp.sent) return smtp;
+
+  const sender = String(fromEmail || process.env.SMTP_FROM || process.env.SUPPORT_EMAIL || 'support@rimalis.se').trim();
   const emailPayload = [
     `From: ${sender}`,
     `To: ${toEmail}`,
@@ -114,7 +239,10 @@ async function sendTransactionalEmail({ toEmail, subject, bodyText, fromEmail })
   return new Promise((resolve) => {
     const child = execFile('/usr/sbin/sendmail', ['-t', '-i'], { timeout: 8000 }, (error) => {
       if (error) {
-        resolve({ sent: false, reason: 'sendmail-failed' });
+        resolve({
+          sent: false,
+          reason: smtp.reason === 'smtp-not-configured' ? 'no-mail-transport' : 'sendmail-failed',
+        });
         return;
       }
       resolve({ sent: true, reason: 'delivered-via-sendmail' });
