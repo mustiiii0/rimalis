@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title data-i18n="title_user_create_listing_start">Rimalis Group | Skapa annons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/mobile/mobile.css">
+  <link rel="stylesheet" href="/static/css/mobile/user.css">
+  <link rel="stylesheet" href="/static/css/mobile/user/create-listing.css">
+</head>
+<body class="mobile-user-create-listing-page mobile-user-create-listing-start-page">
+  <div class="mobile-create-shell">
+    <header class="mobile-create-topbar">
+      <a class="mobile-create-icon-btn" href="../dashboard.html" aria-label="Tillbaka" data-i18n-aria-label="auth_back">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      <div class="mobile-create-topbar__titles">
+        <h1 data-i18n="home_mobile_create_listing">Skapa annons</h1>
+        <p data-i18n="listing_start_subtitle">Skapa din annons i 3 enkla steg.</p>
+      </div>
+      <span class="mobile-create-topbar__spacer" aria-hidden="true"></span>
+    </header>
+
+    <main class="mobile-create-content">
+      <section class="mobile-create-stepper-card">
+        <div class="mobile-create-inline-meta">
+          <span class="mobile-create-pill" data-i18n="listing_three_step_flow">3-stegsflöde</span>
+          <strong data-i18n="listing_start_eta">Tar ca 2–3 minuter</strong>
+        </div>
+        <div class="mobile-create-stepper mobile-create-stepper--spaced">
+          <div class="mobile-create-stepper__item is-active">
+            <span class="mobile-create-stepper__circle">1</span>
+            <span class="mobile-create-stepper__label" data-i18n="listing_step_basic_info">Grundinfo</span>
+          </div>
+          <div class="mobile-create-stepper__item">
+            <span class="mobile-create-stepper__circle">2</span>
+            <span class="mobile-create-stepper__label" data-i18n="listing_step_media">Media</span>
+          </div>
+          <div class="mobile-create-stepper__item">
+            <span class="mobile-create-stepper__circle">3</span>
+            <span class="mobile-create-stepper__label" data-i18n="listing_step_review">Granska</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mobile-create-tip-card">
+        <i class="fas fa-lightbulb"></i>
+        <div>
+          <strong data-i18n="listing_start_tip_title">Tips</strong>
+          <p data-i18n="listing_start_tip_desc">Ha pris, adress och bilder redo så går det snabbare.</p>
+        </div>
+      </section>
+
+      <section class="mobile-create-checklist-card">
+        <h3 class="mobile-create-card-title" data-i18n="listing_start_whats_needed_title">Det här behöver du</h3>
+        <ul class="mobile-create-checklist">
+          <li><i class="fas fa-check-circle"></i><span data-i18n="listing_start_need_1">Rubrik, pris och adress</span></li>
+          <li><i class="fas fa-check-circle"></i><span data-i18n="listing_start_need_2">Minst 1 bild</span></li>
+          <li><i class="fas fa-check-circle"></i><span data-i18n="listing_start_need_3">Beskrivning (kort räcker)</span></li>
+        </ul>
+      </section>
+
+      <div class="mobile-create-actions mobile-create-actions--stack">
+        <a class="mobile-create-btn mobile-create-btn--primary" href="step1_listing_info.html" data-i18n="user_create_new_listing">Skapa ny annons</a>
+        <a class="mobile-create-btn mobile-create-btn--ghost" href="../my_listings.html" data-i18n="cancel">Avbryt</a>
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/js/public/i18n.js"></script>
+</body>
+</html>
+

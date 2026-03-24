@@ -625,6 +625,7 @@
       '/templates/user/profile_settings.html': 'title_user_profile_settings',
       '/templates/user/bookings.html': 'title_user_bookings',
       '/templates/user/saved-searches.html': 'title_user_saved_searches',
+      '/templates/user/create_listing/start.html': 'title_user_create_listing_start',
       '/templates/user/create_listing/step1_listing_info.html': 'title_user_create_listing_step1',
       '/templates/user/create_listing/step2_media.html': 'title_user_create_listing_step2',
       '/templates/user/create_listing/step3_preview_submit.html': 'title_user_create_listing_step3',
