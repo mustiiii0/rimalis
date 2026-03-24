@@ -18,7 +18,7 @@
       { key: 'area', label: 'Area (kvm)', type: 'number', min: 1, placeholder: '85', required: true },
       { key: 'buildYear', label: 'Byggår', type: 'number', min: 1700, max: 2100, placeholder: '2018', required: false },
       { key: 'floor', label: 'Våning', type: 'number', min: 0, placeholder: '4', required: false },
-      { key: 'rooms', label: 'Antal rum', type: 'number', min: 0, placeholder: '3', required: true },
+      { key: 'rooms', label: 'Antal rum', type: 'number', min: 1, placeholder: '3', required: true },
       { key: 'balconies', label: 'Antal balkong', type: 'number', min: 0, placeholder: '1', required: false },
       { key: 'bathrooms', label: 'Antal badrum', type: 'number', min: 0, placeholder: '1', required: false },
       { key: 'toilets', label: 'Antal toalett', type: 'number', min: 0, placeholder: '1', required: false },
@@ -28,7 +28,7 @@
       { key: 'buildArea', label: 'Byggarea (kvm)', type: 'number', min: 0, placeholder: '220', required: false },
       { key: 'lotArea', label: 'Tomtarea (kvm)', type: 'number', min: 0, placeholder: '950', required: false },
       { key: 'buildYear', label: 'Byggår', type: 'number', min: 1700, max: 2100, placeholder: '2012', required: false },
-      { key: 'rooms', label: 'Antal rum', type: 'number', min: 0, placeholder: '6', required: true },
+      { key: 'rooms', label: 'Antal rum', type: 'number', min: 1, placeholder: '6', required: true },
       { key: 'floors', label: 'Antal våningar', type: 'number', min: 1, placeholder: '2', required: false },
       { key: 'bathrooms', label: 'Antal badrum', type: 'number', min: 0, placeholder: '2', required: false },
       { key: 'toilets', label: 'Antal toalett', type: 'number', min: 0, placeholder: '2', required: false },
@@ -407,9 +407,14 @@
       };
 
       const requiredByType = (CATEGORY_FIELDS[selectedType] || []).filter((x) => x.required);
-      const missingRequiredTypeField = requiredByType.some((x) => {
-        const v = listingDetails[x.key];
-        return v === undefined || v === null || v === '';
+      const missingRequiredTypeField = requiredByType.some((meta) => {
+        const v = listingDetails[meta.key];
+        if (v === undefined || v === null || v === '') return true;
+        const asNumber = meta.type === 'number' ? Number(v) : NaN;
+        if (meta.type === 'number' && !Number.isFinite(asNumber)) return true;
+        if (meta.type === 'number' && Number.isFinite(meta.min) && asNumber < meta.min) return true;
+        if (meta.type === 'number' && Number.isFinite(meta.max) && asNumber > meta.max) return true;
+        return false;
       });
 
       if (!payload.title || !payload.city || payload.price <= 0 || payload.description.length < 20 || !selectedType || missingRequiredTypeField) {
@@ -840,26 +845,32 @@
       submitBtn.textContent = 'Skickar...';
 
       try {
+        const payload = {
+          title: draft.title,
+          location: draft.city,
+          price: draft.price,
+          propertyType: draft.propertyType || '',
+          address: draft.address || '',
+          description: draft.description || '',
+          listingDetails: draft.listingDetails || {},
+          imageUrl: ((Array.isArray(draft.imageUrls) && draft.imageUrls[0]) || draft.imageUrl || ''),
+          imageUrls: Array.isArray(draft.imageUrls)
+            ? draft.imageUrls.filter((x) => typeof x === 'string' && x.trim())
+            : (draft.imageUrl ? [draft.imageUrl] : []),
+          videoUrl: draft.videoUrl || '',
+          floorPlanUrl: draft.floorPlanUrl || '',
+        };
+
+        const livingArea = Number(draft.livingArea ?? draft.listingDetails?.area ?? 0);
+        if (Number.isFinite(livingArea) && livingArea > 0) payload.livingArea = livingArea;
+
+        const rooms = Number(draft.listingDetails?.rooms ?? draft.rooms ?? 0);
+        if (Number.isFinite(rooms) && rooms > 0) payload.rooms = rooms;
+
         const body = await window.RimalisAPI.request('/users/me/listings', {
           method: 'POST',
           auth: true,
-          body: JSON.stringify({
-            title: draft.title,
-            location: draft.city,
-            price: draft.price,
-            propertyType: draft.propertyType || '',
-            livingArea: draft.livingArea || 0,
-            rooms: draft.rooms || Number(draft.listingDetails?.rooms || 0),
-            address: draft.address || '',
-            description: draft.description || '',
-            listingDetails: draft.listingDetails || {},
-            imageUrl: ((Array.isArray(draft.imageUrls) && draft.imageUrls[0]) || draft.imageUrl || ''),
-            imageUrls: Array.isArray(draft.imageUrls)
-              ? draft.imageUrls.filter((x) => typeof x === 'string' && x.trim())
-              : (draft.imageUrl ? [draft.imageUrl] : []),
-            videoUrl: draft.videoUrl || '',
-            floorPlanUrl: draft.floorPlanUrl || '',
-          }),
+          body: JSON.stringify(payload),
         });
 
         clearDraft();
