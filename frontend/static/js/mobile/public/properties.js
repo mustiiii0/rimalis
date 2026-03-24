@@ -42,7 +42,7 @@
     if (window.RimalisI18n?.formatCurrencySEK) {
       return window.RimalisI18n.formatCurrencySEK(amount, { compact: false });
     }
-    return `${amount.toLocaleString('sv-SE')} kr`;
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(amount);
   }
 
   function safeImage(url) {

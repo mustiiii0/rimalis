@@ -182,7 +182,9 @@
 
   function formatSek(value) {
     const num = Number(value || 0);
-    return num > 0 ? `${new Intl.NumberFormat('sv-SE').format(num)} kr` : '-';
+    if (!(num > 0)) return '-';
+    if (window.RimalisI18n?.formatCurrencySEK) return window.RimalisI18n.formatCurrencySEK(num, { compact: false });
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
   }
 
   function getDynamicValues() {

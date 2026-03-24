@@ -40,7 +40,7 @@
   function fmtPriceSek(price) {
     if (window.RimalisI18n?.formatCurrencySEK) return window.RimalisI18n.formatCurrencySEK(price, { compact: false });
     const num = Number(price || 0);
-    return `${new Intl.NumberFormat('sv-SE').format(num)} kr`;
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
   }
 
   function esc(value) {

@@ -147,7 +147,9 @@
   }
 
   function mkr(price) {
-    return new Intl.NumberFormat('sv-SE').format(Number(price || 0)) + ' kr';
+    const value = Number(price || 0);
+    if (window.RimalisI18n?.formatCurrencySEK) return window.RimalisI18n.formatCurrencySEK(value, { compact: false });
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
   }
 
   async function loadImageFromFile(file) {

@@ -532,7 +532,8 @@
   function formatPrice(value) {
     const amount = Number(value || 0);
     if (!amount) return 'Pris saknas';
-    return `${amount.toLocaleString('sv-SE')} kr`;
+    if (window.RimalisI18n?.formatCurrencySEK) return window.RimalisI18n.formatCurrencySEK(amount, { compact: false });
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(amount);
   }
 
   function escapeHtml(value) {

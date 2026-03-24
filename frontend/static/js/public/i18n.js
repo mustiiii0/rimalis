@@ -64,16 +64,15 @@
     if (!Number.isFinite(n) || n <= 0) return '-';
     const lang = getLang();
     const compact = options.compact !== false;
-    if (!compact) {
-      const amount = new Intl.NumberFormat(localeFor(lang), { maximumFractionDigits: 0 }).format(Math.round(n));
-      return lang === 'en' ? `${amount} SEK` : `${amount} kr`;
-    }
-    if (n >= 1000000) {
-      const short = `${(n / 1000000).toFixed(1)}`;
-      return lang === 'en' ? `${short} MSEK` : `${short} Mkr`;
-    }
-    const amount = new Intl.NumberFormat(localeFor(lang), { maximumFractionDigits: 0 }).format(Math.round(n));
-    return lang === 'en' ? `${amount} SEK` : `${amount} kr`;
+    const locale = localeFor(lang);
+    const nf = new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: 'USD',
+      currencyDisplay: 'narrowSymbol',
+      maximumFractionDigits: 0,
+      ...(compact ? { notation: 'compact', compactDisplay: 'short' } : {}),
+    });
+    return nf.format(Math.round(n));
   }
 
   function formatDate(value, options = {}) {

@@ -82,12 +82,16 @@ function initPriceDropdown() {
             const max = option.dataset.max;
             
             if (minPrice) {
-                minPrice.value = min ? (window.RimalisI18n?.formatCurrencySEK?.(parseInt(min, 10), { compact: false }) || `${formatI18nNumber(parseInt(min, 10))} kr`) : '';
+                minPrice.value = min
+                  ? (window.RimalisI18n?.formatCurrencySEK?.(parseInt(min, 10), { compact: false })
+                    || new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(parseInt(min, 10)))
+                  : '';
             }
             
             if (maxPrice) {
                 if (max) {
-                    maxPrice.value = window.RimalisI18n?.formatCurrencySEK?.(parseInt(max, 10), { compact: false }) || `${formatI18nNumber(parseInt(max, 10))} kr`;
+                    maxPrice.value = window.RimalisI18n?.formatCurrencySEK?.(parseInt(max, 10), { compact: false })
+                      || new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(parseInt(max, 10));
                 } else {
                     maxPrice.value = i18n('filters_unlimited');
                 }
