@@ -101,10 +101,12 @@ npm start
 - Favorites: `/api/favorites/*`
 - Reviews: `/api/reviews/*`
 
-## Seeded admin user
+## Seeded users
 
-- Email: `support@rimalis.se`
-- Password: `Admin1234`
+- Admin email: `ADMIN_SEED_EMAIL` (default `admin@rimalis.se`)
+- User email: `USER_SEED_EMAIL` (default `user@rimalis.se`)
+- Development: if `ADMIN_SEED_PASSWORD` / `USER_SEED_PASSWORD` are unset, `npm run seed` generates strong passwords and prints them once.
+- Production: `ADMIN_SEED_PASSWORD` and `USER_SEED_PASSWORD` must be set (the seed script refuses to run otherwise).
 
 ## Database
 

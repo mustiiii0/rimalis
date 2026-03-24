@@ -28,7 +28,7 @@ function expectStatus(response, body, expected, label) {
 
 async function main() {
   const email = `smoke_${Date.now()}_${crypto.randomInt(1000, 9999)}@example.com`;
-  const password = 'Admin1234';
+  const password = String(process.env.SMOKE_PASSWORD || crypto.randomBytes(18).toString('base64url'));
   const name = 'Smoke User';
 
   console.log(`Running smoke tests against ${BASE_URL}`);

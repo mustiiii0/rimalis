@@ -16,6 +16,7 @@
     "smoke:i18n:live": "node scripts/smoke-i18n-live.js",
     "check:links": "node scripts/check-links.js",
     "lint:i18n": "node scripts/lint-i18n.js",
+    "check:repo": "node scripts/check-repo-clean.js",
     "cleanup:uploads": "node scripts/cleanup-orphan-uploads.js",
     "cleanup:cron:install": "bash scripts/install-media-cleanup-cron.sh",
     "migrate:seed": "npm run migrate && npm run seed",

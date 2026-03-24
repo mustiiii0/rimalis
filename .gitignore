@@ -1,2 +1,15 @@
 node_modules/
 **/node_modules/
+.DS_Store
+
+# Local env files (never commit)
+backend/.env
+backend/.env.production
+
+# Runtime/generated data
+backend/logs/*.log
+frontend/static/uploads/**
+!frontend/static/uploads/.gitkeep
+
+# Local notes
+antec.txt

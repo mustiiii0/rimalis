@@ -12,6 +12,6 @@
     "migrate": "cd backend && npm run migrate",
     "seed": "cd backend && npm run seed",
     "test": "cd backend && npm run test",
-    "check": "cd backend && npm run check"
+    "check": "cd backend && npm run check && npm run check:repo"
   }
 }

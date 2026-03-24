@@ -1,13 +1,38 @@
 const { v4: uuid } = require('uuid');
+const crypto = require('node:crypto');
 const { query, pool } = require('../src/db/client');
 const { hashPassword } = require('../src/common/utils/password');
 const { ROLES } = require('../src/common/constants/roles');
 
+function isProduction() {
+  return String(process.env.NODE_ENV || '').trim().toLowerCase() === 'production';
+}
+
+function strongRandomPassword() {
+  return crypto.randomBytes(24).toString('base64url');
+}
+
+function requiredSeedValue(name, value) {
+  const v = String(value || '').trim();
+  if (v) return v;
+  throw new Error(`${name} must be set when seeding in production`);
+}
+
 async function run() {
   try {
     const seedDemoProperties = process.env.SEED_DEMO_PROPERTIES === 'true';
-    const adminHash = await hashPassword('Admin1234');
-    const userHash = await hashPassword('User12345');
+    const adminEmail = String(process.env.ADMIN_SEED_EMAIL || 'admin@rimalis.se').trim().toLowerCase();
+    const userEmail = String(process.env.USER_SEED_EMAIL || 'user@rimalis.se').trim().toLowerCase();
+
+    const adminPassword = isProduction()
+      ? requiredSeedValue('ADMIN_SEED_PASSWORD', process.env.ADMIN_SEED_PASSWORD)
+      : String(process.env.ADMIN_SEED_PASSWORD || strongRandomPassword()).trim();
+    const userPassword = isProduction()
+      ? requiredSeedValue('USER_SEED_PASSWORD', process.env.USER_SEED_PASSWORD)
+      : String(process.env.USER_SEED_PASSWORD || strongRandomPassword()).trim();
+
+    const adminHash = await hashPassword(adminPassword);
+    const userHash = await hashPassword(userPassword);
 
     await query(
       `INSERT INTO users (id, name, email, password_hash, role)
@@ -18,7 +43,7 @@ async function run() {
          password_hash = EXCLUDED.password_hash,
          role = EXCLUDED.role,
          updated_at = NOW()`,
-      [uuid(), 'Admin Rimalis Group', 'admin@rimalis.se', adminHash, ROLES.ADMIN]
+      [uuid(), 'Admin Rimalis Group', adminEmail, adminHash, ROLES.ADMIN]
     );
 
     const userRes = await query(
@@ -31,7 +56,7 @@ async function run() {
          role = EXCLUDED.role,
          updated_at = NOW()
        RETURNING id`,
-      [uuid(), 'User One', 'user@rimalis.se', userHash, ROLES.USER]
+      [uuid(), 'User One', userEmail, userHash, ROLES.USER]
     );
     const userId = userRes.rows?.[0]?.id;
 
@@ -96,9 +121,17 @@ async function run() {
 
     await query('INSERT INTO app_settings (id) VALUES (1) ON CONFLICT (id) DO NOTHING');
 
-    process.stdout.write(
-      `Seed complete${seedDemoProperties ? ' (with demo properties)' : ' (without demo properties)'}\n`
-    );
+    const lines = [];
+    lines.push(`Seed complete${seedDemoProperties ? ' (with demo properties)' : ' (without demo properties)'}`);
+    lines.push(`Admin: ${adminEmail}`);
+    lines.push(`User:  ${userEmail}`);
+    if (!isProduction()) {
+      lines.push('');
+      lines.push('Generated seed passwords (development only):');
+      if (!process.env.ADMIN_SEED_PASSWORD) lines.push(`- ADMIN_SEED_PASSWORD=${adminPassword}`);
+      if (!process.env.USER_SEED_PASSWORD) lines.push(`- USER_SEED_PASSWORD=${userPassword}`);
+    }
+    process.stdout.write(`${lines.join('\n')}\n`);
   } catch (err) {
     const msg = err?.message || err?.detail || err?.code || JSON.stringify(err);
     process.stderr.write(`Seed failed: ${msg}\n`);

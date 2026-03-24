@@ -4,7 +4,6 @@ const { env } = require('../../config/env');
 const { CSRF_COOKIE_NAME } = require('../../common/middleware/csrf');
 
 const REFRESH_COOKIE_NAME = 'rimalis_refresh_token';
-const LEGACY_REFRESH_COOKIE_NAME = 'rimalis_refresh_token';
 
 function isProductionRuntime() {
   return String(process.env.NODE_ENV || env.nodeEnv) === 'production';
@@ -37,7 +36,7 @@ function setCsrfCookie(res) {
 }
 
 function getRefreshToken(req) {
-  return req.cookies?.[REFRESH_COOKIE_NAME] || req.cookies?.[LEGACY_REFRESH_COOKIE_NAME] || '';
+  return req.cookies?.[REFRESH_COOKIE_NAME] || '';
 }
 
 async function register(req, res, next) {
@@ -114,10 +113,6 @@ async function logout(req, res, next) {
       ...refreshCookieOptions(),
       maxAge: 0,
     });
-    res.clearCookie(LEGACY_REFRESH_COOKIE_NAME, {
-      ...refreshCookieOptions(),
-      maxAge: 0,
-    });
     res.clearCookie(CSRF_COOKIE_NAME, {
       ...csrfCookieOptions(),
       maxAge: 0,
@@ -137,6 +132,5 @@ module.exports = {
   refreshCookieOptions,
   csrfCookieOptions,
   REFRESH_COOKIE_NAME,
-  LEGACY_REFRESH_COOKIE_NAME,
   isProductionRuntime,
 };
