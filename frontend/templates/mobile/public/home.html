@@ -42,7 +42,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="icon-btn" type="button" data-mobile-login-target="../auth/login.html" aria-label="Profil">
+                <button class="icon-btn" type="button" data-mobile-login-target="../auth/login.html" data-mobile-auth-target="../user/profile.html" aria-label="Profil">
                     <i class="far fa-user"></i>
                 </button>
             </div>
@@ -59,17 +59,20 @@
         <div class="search-section">
             <div class="search-container">
                 <input type="text" class="search-input" id="searchInput" placeholder="Sök på plats, område..." data-i18n-placeholder="home_mobile_search_placeholder">
+                <button class="search-clear-btn" id="clearSearchButton" type="button" aria-label="Rensa sökning">
+                    <i class="fas fa-times"></i>
+                </button>
                 <button class="search-submit-btn" id="pageSearchButton" type="button" data-perform-search aria-label="Sök">
                     <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
             <div class="quick-filters">
-                <span class="filter-chip active" data-i18n="messages_tab_all">Alla</span>
-                <span class="filter-chip" data-i18n="property_type_apartment">Lägenhet</span>
-                <span class="filter-chip" data-i18n="property_type_house">Villa</span>
-                <span class="filter-chip" data-i18n="property_type_townhouse">Radhus</span>
-                <span class="filter-chip" data-i18n="property_type_holiday_home">Fritidshus</span>
-                <span class="filter-chip" data-i18n="property_tag_new_build">Nyproduktion</span>
+                <span class="filter-chip active" data-filter-type="" data-i18n="messages_tab_all">Alla</span>
+                <span class="filter-chip" data-filter-type="Lägenhet" data-i18n="property_type_apartment">Lägenhet</span>
+                <span class="filter-chip" data-filter-type="Villa/Hus" data-i18n="property_type_house">Villa</span>
+                <span class="filter-chip" data-filter-type="Radhus" data-i18n="property_type_townhouse">Radhus</span>
+                <span class="filter-chip" data-filter-type="Fritidshus" data-i18n="property_type_holiday_home">Fritidshus</span>
+                <a class="filter-chip filter-chip--link" href="properties.html" data-i18n="filters_more">Fler filter</a>
             </div>
             <div class="mobile-home-hook-panel" aria-hidden="true" id="mobileFilterPanel">
                 <select id="propertyType" tabindex="-1">
@@ -171,7 +174,7 @@
                     <i class="far fa-comment"></i>
                     <span data-i18n="nav_chat">Chat</span>
                 </a>
-                <a href="../auth/login.html" class="nav-item">
+                <a href="../user/profile.html" class="nav-item" data-mobile-login-target="../auth/login.html" data-mobile-auth-target="../user/profile.html">
                     <i class="fas fa-user"></i>
                     <span data-i18n="nav_profile">Profil</span>
                 </a>

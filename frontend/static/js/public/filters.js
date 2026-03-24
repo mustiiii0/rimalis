@@ -41,6 +41,7 @@ function setPriceButtonLabel(labelText) {
 function initFilters() {
     initPriceDropdown();
     initSearchChips();
+    initSearchClearButton();
     initPopularSearches();
     initSelectFilters();
     initSearchActions();
@@ -130,6 +131,20 @@ function initSelectFilters() {
 function initSearchChips() {
     document.querySelectorAll('.filter-chip').forEach(chip => {
         chip.addEventListener('click', function() {
+            if (document.body?.classList?.contains('mobile-home-app')) {
+                const type = this.getAttribute('data-filter-type') || '';
+                document.querySelectorAll('.filter-chip.active').forEach((node) => node.classList.remove('active'));
+                this.classList.add('active');
+
+                const searchInput = document.getElementById('searchInput');
+                const q = String(searchInput?.value || '').trim();
+                const params = new URLSearchParams();
+                if (q) params.set('q', q);
+                if (type) params.set('type', type);
+                window.location.href = `properties.html${params.toString() ? `?${params.toString()}` : ''}`;
+                return;
+            }
+
             this.classList.toggle('active');
             
             const filterText = this.textContent.trim();
@@ -151,6 +166,27 @@ function initSearchActions() {
             performSearch();
         });
     });
+}
+
+function initSearchClearButton() {
+    const btn = document.getElementById('clearSearchButton');
+    const searchInput = document.getElementById('searchInput');
+    if (!btn || !searchInput) return;
+    if (btn.dataset.clearBound === '1') return;
+    btn.dataset.clearBound = '1';
+
+    const sync = () => {
+        btn.hidden = !String(searchInput.value || '').trim();
+    };
+    sync();
+
+    btn.addEventListener('click', (event) => {
+        event.preventDefault();
+        searchInput.value = '';
+        searchInput.focus();
+        sync();
+    });
+    searchInput.addEventListener('input', sync);
 }
 
 // ===== POPULÄRA SÖKNINGAR =====
@@ -204,6 +240,15 @@ function performSearch() {
     
     if (searchTerm && searchTerm.trim() !== '') {
         showNotification(`${i18n('filters_searching_for')}: ${searchTerm}`, 'info');
+        if (document.body?.classList?.contains('mobile-home-app')) {
+            const active = document.querySelector('.filter-chip.active');
+            const type = active?.getAttribute?.('data-filter-type') || '';
+            const params = new URLSearchParams();
+            params.set('q', String(searchTerm).trim());
+            if (type) params.set('type', type);
+            window.location.href = `properties.html?${params.toString()}`;
+            return;
+        }
         window.location.href = `properties.html?q=${encodeURIComponent(searchTerm)}`;
     } else {
         showNotification(i18n('filters_enter_search_term'), 'error');

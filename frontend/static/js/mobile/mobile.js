@@ -80,9 +80,12 @@
     document.querySelectorAll('[data-mobile-login-target]').forEach((el) => {
       if (el.dataset.mobileActionBound === '1') return;
       el.dataset.mobileActionBound = '1';
-      el.addEventListener('click', () => {
+      el.addEventListener('click', (event) => {
+        event.preventDefault();
         const href = el.getAttribute('data-mobile-login-target') || '../auth/login.html';
-        window.location.href = href;
+        const authTarget = el.getAttribute('data-mobile-auth-target');
+        const isLoggedIn = Boolean(window.RimalisAPI?.getAccessToken?.());
+        window.location.href = isLoggedIn && authTarget ? authTarget : href;
       });
     });
 

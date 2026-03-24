@@ -704,6 +704,7 @@
   "filters_reset_all_success": "Alla filter har återställts",
   "filters_searching_for": "Söker efter",
   "filters_unlimited": "Obegränsat",
+  "filters_more": "Fler filter",
   "property_agent_default_name": "Publicerad av användare",
   "property_agent_fallback": "Annonsör",
   "property_detail_balcony": "Balkong",

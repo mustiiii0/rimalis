@@ -704,6 +704,7 @@
   "filters_reset_all_success": "All filters have been reset",
   "filters_searching_for": "Searching for",
   "filters_unlimited": "Unlimited",
+  "filters_more": "More filters",
   "property_agent_default_name": "Published by user",
   "property_agent_fallback": "Seller",
   "property_detail_balcony": "Balcony",

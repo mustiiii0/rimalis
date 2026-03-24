@@ -196,8 +196,13 @@
 }
 
 .mobile-home-app .search-section {
-  padding: 0 20px 28px;
-  background: transparent;
+  position: sticky;
+  top: calc(68px + env(safe-area-inset-top, 0px));
+  z-index: 15;
+  padding: 10px 20px 18px;
+  background: rgba(11, 18, 32, 0.62);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(39, 50, 70, 0.55);
 }
 
 .mobile-home-app .search-container {
@@ -211,7 +216,7 @@
   background: #141d30;
   border: 1px solid #273246;
   border-radius: 32px;
-  padding: 0 68px 0 20px;
+  padding: 0 112px 0 20px;
   font-family: 'Outfit', sans-serif;
   font-size: 0.92rem;
   color: #ffffff;
@@ -220,8 +225,36 @@
 }
 
 [dir="rtl"] .mobile-home-app .search-input {
-  padding: 0 20px 0 68px;
+  padding: 0 20px 0 112px;
   text-align: right;
+}
+
+.mobile-home-app .search-clear-btn {
+  position: absolute;
+  top: 7px;
+  right: 56px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.82);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mobile-home-app .search-clear-btn:active {
+  transform: scale(0.96);
+}
+
+[dir="rtl"] .mobile-home-app .search-clear-btn {
+  right: auto;
+  left: 56px;
 }
 
 .mobile-home-app .search-input::placeholder {
@@ -302,6 +335,18 @@
   transition: all 0.2s;
 }
 
+.mobile-home-app .filter-chip--link {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile-home-app .filter-chip--link::after {
+  content: '›';
+  opacity: 0.7;
+}
+
 .mobile-home-app .filter-chip.active {
   background: #e5ff00;
   border-color: #e5ff00;
@@ -357,6 +402,29 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+
+.mobile-home-app #featuredPropertiesGrid {
+  flex-direction: row;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+  scroll-snap-type: x mandatory;
+}
+
+.mobile-home-app #featuredPropertiesGrid::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-home-app #featuredPropertiesGrid .prop-card {
+  flex: 0 0 320px;
+  scroll-snap-align: start;
+}
+
+@media (max-width: 380px) {
+  .mobile-home-app #featuredPropertiesGrid .prop-card {
+    flex-basis: 290px;
+  }
 }
 
 .mobile-home-app .property-card,
