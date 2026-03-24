@@ -112,6 +112,20 @@ function i18n(key, fallback = key) {
   return window.RimalisI18n?.t?.(key, fallback) || fallback;
 }
 
+function localizePropertyType(value) {
+  const raw = String(value || '').trim();
+  if (!raw) return i18n('property_type_default', 'Bostad');
+
+  const normalized = raw.toLowerCase();
+  if (['villa', 'villa/hus', 'hus', 'house'].includes(normalized)) return i18n('property_type_house', 'Villa');
+  if (['lägenhet', 'lagenhet', 'apartment'].includes(normalized)) return i18n('property_type_apartment', 'Lägenhet');
+  if (['radhus', 'townhouse'].includes(normalized)) return i18n('property_type_townhouse', 'Radhus');
+  if (['fritidshus', 'fritid', 'holiday home', 'holiday_home'].includes(normalized)) return i18n('property_type_holiday_home', 'Fritidshus');
+  if (['byggmark', 'plot', 'land', 'tomt'].includes(normalized)) return i18n('property_type_plot', 'Byggmark');
+  if (['odlingsmark', 'farm', 'farmland'].includes(normalized)) return i18n('property_type_farm', 'Odlingsmark');
+  return raw;
+}
+
 async function requestJson(path, options = {}) {
   const method = options.method || 'GET';
   const headers = { ...(options.headers || {}) };
@@ -784,7 +798,7 @@ function updatePropertyInfo(property) {
     setIconClass('featureFloorIcon', 'fas fa-building');
   }
 
-  setElementText('featurePropertyType', property.features.propertyType);
+  setElementText('featurePropertyType', localizePropertyType(property.features.propertyType));
   setElementText('featurePropertyTypeLabel', i18n('property_feature_type', 'Annons typ'));
   renderPropertyDetails(property);
   updatePropertyMap(property);
