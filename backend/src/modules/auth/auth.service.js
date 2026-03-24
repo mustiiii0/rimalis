@@ -3,6 +3,7 @@ const { ROLES } = require('../../common/constants/roles');
 const { AppError } = require('../../common/errors/app-error');
 const { hashPassword, comparePassword } = require('../../common/utils/password');
 const { sendAdminTwoFactorEmail } = require('../../common/utils/mailer');
+const { logError } = require('../../common/utils/logger');
 const {
   createAccessToken,
   createRefreshToken,
@@ -82,6 +83,14 @@ async function login(payload, context = {}) {
       code: challengeCode,
       ttlMinutes: ADMIN_2FA_TTL_MINUTES,
     });
+    if (!emailDelivery?.sent) {
+      logError('auth.admin_2fa.delivery_failed', {
+        userId: user.id,
+        toEmail: user.email,
+        reason: emailDelivery?.reason || 'unknown',
+        error: emailDelivery?.error || null,
+      });
+    }
     if (process.env.NODE_ENV === 'production' && !emailDelivery.sent) {
       throw new AppError(500, 'Could not deliver 2FA code');
     }
