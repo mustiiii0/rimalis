@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="/static/css/mobile/mobile.css">
   <link rel="stylesheet" href="/static/css/mobile/user.css">
-  <link rel="stylesheet" href="/static/css/mobile/user/favorites.css">
+  <link rel="stylesheet" href="/static/css/mobile/user/favorites.css?v=20260324a">
 </head>
 <body class="mobile-user-favorites-page">
   <div id="nav-container"></div>
@@ -32,29 +32,21 @@
       <a href="profile.html" class="mobile-favorites-icon-btn" aria-label="Tillbaka" data-i18n-aria-label="auth_back">
         <i class="fas fa-arrow-left"></i>
       </a>
-      <h1 class="mobile-favorites-topbar__title" data-i18n="nav_saved">Sparade</h1>
-        <button class="mobile-favorites-icon-btn" type="button" id="favoritesEditModeBtn" aria-label="Redigera favoriter" data-i18n-aria-label="edit">
+
+      <div class="mobile-favorites-topbar__center">
+        <h1 class="mobile-favorites-topbar__title" data-i18n="nav_saved">Sparade</h1>
+        <div class="mobile-favorites-topbar__meta">
+          <span class="mobile-favorites-count-pill"><strong id="favoritesCountNumber">0</strong> <span id="favoritesCountText" data-i18n="favorites_count_plural">favoriter</span></span>
+        </div>
+      </div>
+
+      <button class="mobile-favorites-icon-btn" type="button" id="favoritesEditModeBtn" aria-label="Redigera favoriter" data-i18n-aria-label="edit">
         <i class="fas fa-pen"></i>
       </button>
     </header>
 
     <main class="mobile-favorites-content">
-      <section class="mobile-favorites-stats" id="favoritesStats">
-        <article class="mobile-favorites-stat">
-          <div class="mobile-favorites-stat__number" id="favoritesStatTotal">0</div>
-          <div class="mobile-favorites-stat__label" data-i18n="favorites_total">Totalt</div>
-        </article>
-        <article class="mobile-favorites-stat">
-          <div class="mobile-favorites-stat__number" id="favoritesStatVilla">0</div>
-          <div class="mobile-favorites-stat__label" data-i18n="favorites_houses">Villor</div>
-        </article>
-        <article class="mobile-favorites-stat">
-          <div class="mobile-favorites-stat__number" id="favoritesStatApartment">0</div>
-          <div class="mobile-favorites-stat__label" data-i18n="favorites_apartments">Lägenh.</div>
-        </article>
-      </section>
-
-      <section class="mobile-favorites-controls-card">
+      <section class="mobile-favorites-controls-card" aria-label="Favoritfilter">
         <div class="mobile-favorites-search">
           <i class="fas fa-search"></i>
           <input type="text" id="favoritesSearchInput" placeholder="Sök bland sparade..." data-i18n-placeholder="favorites_search_placeholder">
@@ -70,7 +62,6 @@
         </div>
 
         <div class="mobile-favorites-sortbar">
-          <span class="mobile-favorites-sortbar__info"><strong id="favoritesCountNumber">0</strong> <span id="favoritesCountText" data-i18n="favorites_count_plural">favoriter</span></span>
           <label class="mobile-favorites-sortbar__select">
             <select id="userFavoritesSort" aria-label="Sortera favoriter" data-i18n-aria-label="user_sort_by">
               <option id="userFavoritesSortLatest" value="latest" data-i18n="favorites_sort_latest">Senast</option>
@@ -83,7 +74,7 @@
         </div>
       </section>
 
-      <section class="mobile-favorites-list-card">
+      <section class="mobile-favorites-list-card" aria-label="Favoriter">
         <div class="mobile-favorites-list mobile-favorites-list--stack active" id="favoritesList"></div>
         <div class="mobile-favorites-grid" id="favoritesGrid" hidden></div>
       </section>

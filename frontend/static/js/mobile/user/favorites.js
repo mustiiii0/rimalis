@@ -7,6 +7,7 @@ let selectedFavorites = new Set();
 document.addEventListener('DOMContentLoaded', async function () {
   if (!window.RimalisAPI) return;
   bindFavoritesChrome();
+  renderFavoritesSkeleton();
   await hydrateFavoritesPage();
 
   const sortSelect = document.getElementById('userFavoritesSort');
@@ -236,7 +237,14 @@ function renderFavoritesFromState() {
   if (!sorted.length) {
     const box = document.createElement('div');
     box.className = 'mobile-favorites-empty';
-    box.textContent = i18n('user_no_favorites_yet', 'Du har inga favoriter ännu.');
+    const title = document.createElement('div');
+    title.className = 'mobile-favorites-empty__title';
+    title.textContent = i18n('user_no_favorites_yet', 'Du har inga favoriter ännu.');
+    const link = document.createElement('a');
+    link.className = 'mobile-favorites-empty__link';
+    link.href = '/templates/mobile/public/properties.html';
+    link.textContent = i18n('favorites_browse_cta', 'Utforska bostäder');
+    box.append(title, link);
     list.appendChild(box);
     updateEditBar();
     return;
@@ -256,6 +264,39 @@ function appendIcon(parent, classes) {
   icon.className = classes;
   parent.appendChild(icon);
   return icon;
+}
+
+function renderFavoritesSkeleton(count = 6) {
+  const list = document.getElementById('favoritesList');
+  if (!list) return;
+  list.textContent = '';
+  for (let idx = 0; idx < count; idx += 1) {
+    const card = document.createElement('article');
+    card.className = 'list-item list-item--skeleton';
+
+    const img = document.createElement('div');
+    img.className = 'fav-skel fav-skel--img';
+
+    const content = document.createElement('div');
+    content.className = 'list-item__content';
+
+    const line1 = document.createElement('div');
+    line1.className = 'fav-skel fav-skel--line lg';
+    line1.style.width = '70%';
+    const line2 = document.createElement('div');
+    line2.className = 'fav-skel fav-skel--line';
+    line2.style.width = '90%';
+    const line3 = document.createElement('div');
+    line3.className = 'fav-skel fav-skel--line';
+    line3.style.width = '60%';
+    const line4 = document.createElement('div');
+    line4.className = 'fav-skel fav-skel--line';
+    line4.style.width = '78%';
+
+    content.append(line1, line2, line3, line4);
+    card.append(img, content);
+    list.appendChild(card);
+  }
 }
 
 function createFavoriteDetail(iconClass, label) {
