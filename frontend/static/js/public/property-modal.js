@@ -69,7 +69,29 @@ async function fetchPropertyById(rawId) {
   const candidates = getPropertyIdCandidates(rawId);
   let lastError = null;
 
+  const hasAccessToken = (() => {
+    try {
+      return Boolean(localStorage.getItem('rimalis_access_token'));
+    } catch (_err) {
+      return false;
+    }
+  })();
+
   for (const id of candidates) {
+    if (hasAccessToken) {
+      try {
+        const body = await withTimeout(
+          requestJson(`/properties/private/${encodeURIComponent(id)}`, { auth: true }),
+          12000,
+          i18n('property_request_timeout', 'Tidsgränsen nåddes vid hämtning av objektet')
+        );
+        if (body?.property) return body.property;
+      } catch (err) {
+        lastError = err;
+        if (err?.status && ![401, 403, 404].includes(err.status)) break;
+      }
+    }
+
     try {
       const body = await withTimeout(
         requestJson(`/properties/${encodeURIComponent(id)}`),

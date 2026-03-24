@@ -60,6 +60,21 @@ async function getProperty(id) {
   throw new AppError(404, 'Property not found');
 }
 
+async function getPropertyPrivate(id, user) {
+  const userId = user?.id || null;
+  const role = String(user?.role || '').toLowerCase();
+
+  for (const candidateId of propertyIdCandidates(id)) {
+    const prop = await model.findById(candidateId);
+    if (!prop) continue;
+    if (prop.status === 'published') return prop;
+    if (role === 'admin') return prop;
+    if (userId && prop.ownerId && prop.ownerId === userId) return prop;
+  }
+
+  throw new AppError(404, 'Property not found');
+}
+
 async function setPropertyStatus(id, status) {
   const normalizedId = String(id || '').trim();
   const candidates = [normalizedId];
@@ -117,6 +132,7 @@ module.exports = {
   listPublicProperties,
   listAllProperties,
   getProperty,
+  getPropertyPrivate,
   setPropertyStatus,
   createMyListing,
   clearPublicPropertiesCache,

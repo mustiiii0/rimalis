@@ -276,6 +276,29 @@ test('public property lookup only returns published listings', async () => {
   }
 });
 
+test('private property lookup allows owner to view pending listing', async () => {
+  const propertyModel = require('../modules/properties/property.model');
+  const propertyService = require('../modules/properties/property.service');
+  const originalFindById = propertyModel.findById;
+
+  try {
+    const seen = [];
+    propertyModel.findById = async (id) => {
+      seen.push(id);
+      if (id === 'listing-secret') {
+        return { id, status: 'pending', ownerId: 'u1' };
+      }
+      return null;
+    };
+
+    const property = await propertyService.getPropertyPrivate('secret', { id: 'u1', role: 'user' });
+    assert.equal(property.id, 'listing-secret');
+    assert.deepEqual(seen, ['secret', 'listing-secret']);
+  } finally {
+    propertyModel.findById = originalFindById;
+  }
+});
+
 test('public viewing access requires the property to be published', async () => {
   const viewingModel = require('../modules/viewings/viewing.model');
   const viewingService = require('../modules/viewings/viewing.service');

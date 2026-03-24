@@ -29,6 +29,15 @@ async function getById(req, res, next) {
   }
 }
 
+async function getPrivateById(req, res, next) {
+  try {
+    const property = await service.getPropertyPrivate(req.params.id, req.user);
+    return res.json({ success: true, property });
+  } catch (err) {
+    return next(err);
+  }
+}
+
 async function patchStatus(req, res, next) {
   try {
     const property = await service.setPropertyStatus(req.params.id, req.body.status);
@@ -65,4 +74,4 @@ async function restoreForAdmin(req, res, next) {
   }
 }
 
-module.exports = { listPublic, listAll, getById, patchStatus, createMine, deleteForAdmin, restoreForAdmin };
+module.exports = { listPublic, listAll, getById, getPrivateById, patchStatus, createMine, deleteForAdmin, restoreForAdmin };

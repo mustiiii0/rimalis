@@ -13,6 +13,7 @@ const router = Router();
 
 router.get('/public', controller.listPublic);
 router.post('/me', requireAuth, validate(createPropertySchema), controller.createMine);
+router.get('/private/:id', requireAuth, controller.getPrivateById);
 router.get('/:id', controller.getById);
 router.get('/', requireAuth, requireRole(ROLES.ADMIN), controller.listAll);
 router.patch(
