@@ -61,6 +61,7 @@ async function main() {
   const mediaSignedUrlEnabled = boolEnv('MEDIA_SIGNED_URL_ENABLED');
   const probeUrl = nonEmpty('PRODUCTION_BASE_URL');
   const smtpHost = nonEmpty('SMTP_HOST');
+  const sendgridKey = nonEmpty('SENDGRID_API_KEY');
 
   if (nodeEnv !== 'production') {
     warns.push(`NODE_ENV is '${nodeEnv}', not 'production'`);
@@ -71,7 +72,9 @@ async function main() {
   if (!strongSecret(nonEmpty('JWT_ACCESS_SECRET'))) findings.push('JWT_ACCESS_SECRET is missing or weak');
   if (!strongSecret(nonEmpty('JWT_REFRESH_SECRET'))) findings.push('JWT_REFRESH_SECRET is missing or weak');
   if (!['local', 'r2'].includes(storageDriver)) findings.push(`STORAGE_DRIVER must be 'local' or 'r2', got '${storageDriver}'`);
-  if (!smtpHost) warns.push('SMTP_HOST is missing (admin 2FA and notification emails will not work on Render)');
+  if (!smtpHost && !sendgridKey) {
+    warns.push('Neither SMTP_HOST nor SENDGRID_API_KEY is set (admin 2FA and notification emails will not work)');
+  }
 
   if (storageDriver === 'r2') {
     if (!nonEmpty('R2_ENDPOINT')) findings.push('R2_ENDPOINT is missing');

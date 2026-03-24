@@ -1,4 +1,5 @@
 const { execFile } = require('node:child_process');
+const sgMail = require('@sendgrid/mail');
 const nodemailer = require('nodemailer');
 
 let cachedTransport = null;
@@ -6,6 +7,10 @@ let cachedTransportKey = '';
 
 function isProduction() {
   return String(process.env.NODE_ENV || '').trim().toLowerCase() === 'production';
+}
+
+function getSendGridApiKey() {
+  return String(process.env.SENDGRID_API_KEY || process.env.SENDGRID_KEY || '').trim();
 }
 
 function resolveSmtpConfig(override = {}) {
@@ -65,6 +70,29 @@ function getSmtpTransport(config) {
   return transport;
 }
 
+async function sendViaSendGridApi({ toEmail, subject, bodyText, fromEmail }) {
+  const apiKey = getSendGridApiKey();
+  if (!apiKey) return { sent: false, reason: 'sendgrid-not-configured' };
+
+  const from = String(fromEmail || process.env.SMTP_FROM || process.env.SUPPORT_EMAIL || '').trim();
+  if (!from) return { sent: false, reason: 'missing-from-email' };
+
+  try {
+    sgMail.setApiKey(apiKey);
+    await sgMail.send({
+      to: toEmail,
+      from,
+      replyTo: from,
+      subject,
+      text: String(bodyText || ''),
+    });
+    return { sent: true, reason: 'delivered-via-sendgrid-api' };
+  } catch (err) {
+    const msg = err?.response?.body?.errors?.[0]?.message || err?.message || 'sendgrid-failed';
+    return { sent: false, reason: 'sendgrid-failed', error: msg };
+  }
+}
+
 async function sendViaSmtp({ toEmail, subject, bodyText, fromEmail, smtpOverride = {} }) {
   const smtpConfig = resolveSmtpConfig({ ...smtpOverride, fromEmail });
   const transport = getSmtpTransport(smtpConfig);
@@ -119,6 +147,16 @@ async function sendSupportReplyEmail({
   if (!toEmail) return { sent: false, reason: 'missing-recipient' };
 
   const body = buildEmailText({ subject, reply, originalMessage, supportEmail });
+
+  const sendgrid = await sendViaSendGridApi({
+    toEmail,
+    subject: `[Rimalis Support] ${subject}`,
+    bodyText: body,
+    fromEmail: supportEmail || undefined,
+  });
+  if (sendgrid.sent) return sendgrid;
+  if (isProduction() && sendgrid.reason !== 'sendgrid-not-configured') return sendgrid;
+
   const smtp = await sendViaSmtp({
     toEmail,
     subject: `[Rimalis Support] ${subject}`,
@@ -184,6 +222,15 @@ async function sendAdminTwoFactorEmail({ toEmail, userName, code, ttlMinutes }) 
   ].join('\n');
   const subject = '[Rimalis Admin] Verifieringskod';
 
+  const sendgrid = await sendViaSendGridApi({
+    toEmail,
+    subject,
+    bodyText: body,
+    fromEmail: process.env.SMTP_FROM || process.env.SUPPORT_EMAIL || undefined,
+  });
+  if (sendgrid.sent) return sendgrid;
+  if (isProduction() && sendgrid.reason !== 'sendgrid-not-configured') return sendgrid;
+
   const smtp = await sendViaSmtp({
     toEmail,
     subject,
@@ -229,6 +276,10 @@ async function sendAdminTwoFactorEmail({ toEmail, userName, code, ttlMinutes }) 
 
 async function sendTransactionalEmail({ toEmail, subject, bodyText, fromEmail }) {
   if (!toEmail) return { sent: false, reason: 'missing-recipient' };
+  const sendgrid = await sendViaSendGridApi({ toEmail, subject, bodyText, fromEmail });
+  if (sendgrid.sent) return sendgrid;
+  if (isProduction() && sendgrid.reason !== 'sendgrid-not-configured') return sendgrid;
+
   const smtp = await sendViaSmtp({ toEmail, subject, bodyText, fromEmail });
   if (smtp.sent) return smtp;
   if (isProduction() && smtp.reason !== 'smtp-not-configured') return smtp;

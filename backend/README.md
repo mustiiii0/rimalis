@@ -55,6 +55,13 @@ Set these env vars in production:
 - `SMTP_USER`, `SMTP_PASS` (if your provider requires auth)
 - `SMTP_FROM` (default sender)
 
+### SendGrid recommended (Web API)
+
+Some PaaS block outbound SMTP ports (587/465/2525). If SMTP times out, use SendGrid Web API instead (HTTPS).
+
+- `SENDGRID_API_KEY`
+- `SMTP_FROM` (must be a verified sender in SendGrid)
+
 ## Setup
 
 1. Install dependencies:
