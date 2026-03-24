@@ -39,12 +39,18 @@ function errorHandler(err, req, res, _next) {
     });
   }
 
-  logError('Unhandled error', { requestId: req.requestId, error: err.message });
+  logError('Unhandled error', {
+    requestId: req.requestId,
+    error: err?.message || 'unknown',
+    code: err?.code || null,
+    stack: err?.stack || null,
+  });
   logSecurityEvent(req, {
     eventType: 'request.server_error',
     severity: 'critical',
     metadata: {
-      message: err.message,
+      message: err?.message || 'unknown',
+      code: err?.code || null,
     },
   });
   return res.status(500).json({
