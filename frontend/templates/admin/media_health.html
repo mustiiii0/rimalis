@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="title_admin_media_health">Rimalis Group | Media health</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="/static/css/admin/admin.css" />
+  <link rel="stylesheet" href="/static/css/admin/media-health.css" />
+</head>
+<body>
+  <div class="admin-shell">
+    <div class="admin-layout">
+      <aside class="admin-sidebar">
+        <div class="brand">
+          <div class="brand-badge"><i class="fas fa-crown"></i></div>
+          <div>
+            <h1 data-i18n="admin_brand_title">Rimalis Group Admin</h1>
+            <p>Intern kontrollpanel</p>
+          </div>
+        </div>
+        <nav class="nav-list">
+          <a class="nav-link" href="dashboard.html"><i class="fas fa-chart-line"></i><span data-i18n="admin_sidebar_overview">Översikt</span></a>
+          <a class="nav-link" href="properties.html"><i class="fas fa-building"></i><span data-i18n="admin_sidebar_properties">Fastigheter</span></a>
+          <a class="nav-link" href="users.html"><i class="fas fa-users"></i><span data-i18n="admin_sidebar_users">Användare</span></a>
+          <a class="nav-link" href="review_queue.html"><i class="fas fa-clipboard-check"></i><span data-i18n="admin_sidebar_review_queue">Granska annonser</span></a>
+          <a class="nav-link " href="viewings.html"><i class="fas fa-calendar-check"></i><span>Visningar</span></a>
+          <a class="nav-link" href="messages.html"><i class="fas fa-envelope"></i><span data-i18n="admin_sidebar_messages">Meddelanden</span></a>
+          <a class="nav-link" href="support.html"><i class="fas fa-life-ring"></i><span data-i18n="admin_sidebar_support">Support</span></a>
+          <a class="nav-link active" href="media_health.html"><i class="fas fa-hard-drive"></i><span data-i18n="admin_sidebar_media_health">Media health</span></a>
+          <a class="nav-link" href="settings.html"><i class="fas fa-sliders-h"></i><span data-i18n="admin_sidebar_settings">Inställningar</span></a>
+          <a class="nav-link" href="site_controls.html"><i class="fas fa-sitemap"></i><span data-i18n="admin_sidebar_site_controls">Sidstyrning</span></a>
+          <a class="nav-link" href="audit_log.html"><i class="fas fa-shield-alt"></i><span>Audit-logg</span></a>
+          <a class="nav-link logout" href="../auth/login.html"><i class="fas fa-sign-out-alt"></i><span data-i18n="common_logout">Logga ut</span></a>
+        </nav>
+      </aside>
+
+      <main class="admin-main">
+        <header class="topbar">
+          <div>
+            <h2 class="page-title" data-i18n="admin_media_health_title">Media health</h2>
+            <p class="page-subtitle" data-i18n="admin_media_health_subtitle">Lagringsstatus, orphan-estimat och snabb cleanup.</p>
+          </div>
+          <div class="admin-top-actions">
+            <div class="admin-lang">
+              <button class="admin-lang-btn" id="adminLanguageBtn" type="button">
+                <span id="adminSelectedLanguage">🇸🇪 SV</span>
+                <i class="fas fa-chevron-down text-xs"></i>
+              </button>
+              <div class="admin-lang-menu" id="adminLanguageMenu">
+                <button class="admin-lang-option active" type="button" data-lang="sv">🇸🇪 Svenska</button>
+                <button class="admin-lang-option" type="button" data-lang="en">🇬🇧 English</button>
+              </div>
+            </div>
+            <button class="btn" id="mediaDryRunBtn" type="button" data-i18n="admin_media_health_dry_run">Dry run</button>
+            <button class="btn btn-primary" id="mediaApplyCleanupBtn" type="button" data-i18n="admin_media_health_apply_cleanup">Kör cleanup</button>
+            <select id="mediaSavedView" class="select">
+              <option value="default">Saved views</option>
+              <option value="orphans-focus">Orphans focus</option>
+            </select>
+            <button class="btn" id="mediaSaveViewBtn" type="button">Save view</button>
+            <button class="btn" id="mediaRefreshBtn" type="button" data-i18n="admin_support_refresh">Uppdatera</button>
+          </div>
+        </header>
+
+        <section class="row cols-4">
+          <article class="card">
+            <p class="kpi-label" data-i18n="admin_media_health_total_storage">Total lagring</p>
+            <p class="kpi-value" id="mediaTotalStorage">-</p>
+          </article>
+          <article class="card">
+            <p class="kpi-label" data-i18n="admin_media_health_total_objects">Objekt</p>
+            <p class="kpi-value" id="mediaObjectCount">-</p>
+          </article>
+          <article class="card">
+            <p class="kpi-label" data-i18n="admin_media_health_orphan_estimate">Orphan-estimat</p>
+            <p class="kpi-value" id="mediaOrphanCount">-</p>
+          </article>
+          <article class="card">
+            <p class="kpi-label" data-i18n="admin_media_health_driver">Storage driver</p>
+            <p class="kpi-value media-driver" id="mediaDriver">-</p>
+          </article>
+        </section>
+
+        <section class="row cols-2">
+          <article class="card media-card">
+            <h3 data-i18n="admin_media_health_bucket_breakdown">Bucket-fördelning</h3>
+            <div class="media-breakdown">
+              <div class="media-breakdown-item">
+                <p class="small" data-i18n="admin_media_health_images_prefix">Bilder (uploads/images)</p>
+                <p id="mediaImagesStats">-</p>
+              </div>
+              <div class="media-breakdown-item">
+                <p class="small" data-i18n="admin_media_health_avatars_prefix">Avatarer (uploads/avatars)</p>
+                <p id="mediaAvatarsStats">-</p>
+              </div>
+            </div>
+            <div class="media-cron">
+              <p class="small" data-i18n="admin_media_health_cron">Daglig cleanup-cron</p>
+              <p id="mediaCronInfo">-</p>
+            </div>
+            <div class="media-cleanup-controls">
+              <label for="mediaOlderThanDays" class="small" data-i18n="admin_media_health_older_than_days">Rensa äldre än (dagar)</label>
+              <input id="mediaOlderThanDays" class="input" type="number" min="0" max="3650" value="30" />
+              <label for="mediaPrefix" class="small" data-i18n="admin_media_health_prefix">Prefix</label>
+              <input id="mediaPrefix" class="input" type="text" value="uploads/images/" />
+            </div>
+          </article>
+
+          <article class="card media-card">
+            <h3 data-i18n="admin_media_health_orphan_sample">Orphan-sample</h3>
+            <div id="mediaOrphanSample" class="media-list"></div>
+          </article>
+        </section>
+
+        <section class="card media-card">
+          <h3 data-i18n="admin_media_health_largest_listings">Största annonser (flest bilder)</h3>
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th data-i18n="admin_media_health_listing_ref">Ref</th>
+                  <th data-i18n="admin_media_health_listing_title">Titel</th>
+                  <th data-i18n="admin_media_health_listing_images">Bilder</th>
+                  <th>Storage</th>
+                  <th>Orphan risk</th>
+                  <th>Health score</th>
+                  <th data-i18n="admin_media_health_listing_updated">Uppdaterad</th>
+                </tr>
+              </thead>
+              <tbody id="mediaLargestListingsBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="/static/js/shared/api.js"></script>
+  <script src="/static/js/shared/page-guards.js"></script>
+  <script src="/static/js/shared/menu-config.js"></script>
+  <script src="/static/js/admin/admin-menu.js"></script>
+  <script src="/static/js/public/i18n.js"></script>
+  <script src="/static/js/admin/admin-language.js"></script>
+  <script src="/static/js/admin/admin-live.js"></script>
+  <script src="/static/js/admin/media-health.js?v=20260305c"></script>
+</body>
+</html>

@@ -1,0 +1,1056 @@
+/* Mobile user settings page */
+
+.mobile-user-profile-page {
+  background: #060b14;
+  color: #ffffff;
+  font-family: 'Outfit', sans-serif;
+}
+
+.mobile-user-profile-page #nav-container {
+  display: none;
+}
+
+.mobile-profile-shell {
+  max-width: 450px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #0b1220;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.45);
+}
+
+.mobile-profile-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: max(12px, env(safe-area-inset-top)) 20px 14px;
+  background: rgba(11, 18, 32, 0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid #273246;
+}
+
+.mobile-profile-topbar__title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.mobile-profile-icon-btn {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 14px;
+  background: #141d30;
+  color: #e5ff00;
+}
+
+.mobile-profile-content {
+  padding: 18px 20px 28px;
+}
+
+.mobile-profile-hero-card,
+.mobile-profile-card {
+  margin-bottom: 16px;
+  padding: 18px;
+  border: 1px solid #273246;
+  border-radius: 24px;
+  background: #111827;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+
+.mobile-profile-hero-card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.mobile-profile-hero-card__avatar {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.mobile-profile-hero-card__avatar-frame {
+  width: 82px;
+  height: 82px;
+  overflow: hidden;
+  border: 4px solid #e2ff31;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #12161c, #0b0f14);
+}
+
+.mobile-profile-hero-card__avatar-edit {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+  border-radius: 10px;
+  background: #e2ff31;
+  color: #0b0f14;
+}
+
+.mobile-profile-name {
+  margin: 0 0 4px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #12161c;
+}
+
+.mobile-profile-email {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 10px;
+  color: #667085;
+  font-size: 0.88rem;
+}
+
+.mobile-profile-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: #f4ffb8;
+  color: #0b0f14;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.mobile-profile-desc {
+  margin: 10px 0 0;
+  color: #667085;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.mobile-profile-photo-hint {
+  margin: 8px 0 0;
+  color: #8f98a8;
+  font-size: 0.78rem;
+}
+
+.mobile-profile-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.mobile-profile-section-head h2 {
+  margin: 0;
+  color: #12161c;
+  font-size: 1.08rem;
+  font-weight: 700;
+}
+
+.mobile-profile-form {
+  display: grid;
+  gap: 14px;
+}
+
+.mobile-profile-form-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.mobile-profile-form label {
+  display: grid;
+  gap: 6px;
+}
+
+.mobile-profile-form label span {
+  color: #667085;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.mobile-user-profile-page .input-field,
+.mobile-user-profile-page input,
+.mobile-user-profile-page select,
+.mobile-user-profile-page textarea {
+  min-height: 48px !important;
+  border: 1px solid #ebefd0;
+  border-radius: 16px !important;
+  background: #f6f8ec;
+  color: #12161c;
+  box-shadow: none;
+}
+
+.mobile-user-profile-page .input-field::placeholder,
+.mobile-user-profile-page input::placeholder,
+.mobile-user-profile-page textarea::placeholder {
+  color: #98a1af;
+}
+
+.mobile-profile-actions {
+  display: grid;
+  gap: 10px;
+}
+
+.mobile-user-profile-page .btn-primary {
+  background: #e2ff31;
+  color: #0b0f14;
+  border: 0;
+}
+
+.mobile-user-profile-page .btn-outline {
+  border: 1px solid #ebefd0;
+  background: #ffffff;
+  color: #12161c;
+}
+
+.mobile-profile-preference-list {
+  display: grid;
+  gap: 10px;
+}
+
+.mobile-profile-preference-row {
+  padding: 14px;
+  border-radius: 18px;
+  background: #f6f8ec;
+}
+
+.mobile-profile-preference-row h3 {
+  margin: 0 0 4px;
+  color: #12161c;
+  font-size: 0.96rem;
+  font-weight: 700;
+}
+
+.mobile-profile-preference-row p {
+  margin: 0;
+  color: #667085;
+  font-size: 0.8rem;
+}
+
+.mobile-profile-toggle {
+  position: relative;
+  display: inline-flex;
+  width: 52px;
+  height: 30px;
+  flex: 0 0 auto;
+}
+
+.mobile-profile-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.mobile-profile-toggle span {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: #dfe4cc;
+  transition: 0.25s ease;
+}
+
+.mobile-profile-toggle span::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: #ffffff;
+  transition: 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.mobile-profile-toggle input:checked + span {
+  background: #e2ff31;
+}
+
+.mobile-profile-toggle input:checked + span::before {
+  transform: translateX(22px);
+}
+
+.mobile-profile-danger {
+  border-color: rgba(239, 68, 68, 0.18);
+  background: #fffafa;
+}
+
+.mobile-profile-danger p {
+  margin: 0 0 14px;
+  color: #7a6161;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.mobile-profile-danger h2 {
+  color: #ef4444;
+}
+
+.mobile-profile-danger-btn {
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 999px;
+  background: #fee2e2;
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.mobile-user-settings-page .mobile-settings-topbar {
+  gap: 12px;
+}
+
+.mobile-settings-content {
+  padding-bottom: 34px;
+}
+
+.mobile-settings-search-card {
+  margin-bottom: 16px;
+}
+
+.mobile-settings-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 0 16px;
+  border: 1px solid #ebefd0;
+  border-radius: 20px;
+  background: #f8faef;
+}
+
+.mobile-settings-search i {
+  color: #7a8496;
+}
+
+.mobile-settings-search input {
+  width: 100%;
+  min-height: 52px !important;
+  border: 0;
+  background: transparent;
+  color: #12161c;
+}
+
+.mobile-settings-search input::placeholder {
+  color: #98a2b3;
+}
+
+.mobile-settings-search input:focus {
+  outline: none;
+}
+
+.mobile-settings-hero-card {
+  align-items: flex-start;
+}
+
+.mobile-settings-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 8px;
+}
+
+.mobile-settings-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #f8faef;
+  color: #12161c;
+  font-size: 0.74rem;
+  font-weight: 700;
+  border: 1px solid #ebefd0;
+}
+
+.mobile-settings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.mobile-settings-grid article {
+  padding: 16px 10px;
+  border: 1px solid #ebefd0;
+  border-radius: 22px;
+  background: #ffffff;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.mobile-settings-grid strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #12161c;
+}
+
+.mobile-settings-grid span {
+  display: block;
+  font-size: 0.74rem;
+  color: #667085;
+}
+
+.mobile-settings-card {
+  margin-bottom: 16px;
+}
+
+.mobile-settings-section-kicker,
+.mobile-settings-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.mobile-settings-section-kicker {
+  background: #f8faef;
+  color: #667085;
+  border: 1px solid #ebefd0;
+}
+
+.mobile-settings-pill {
+  background: #e2ff31;
+  color: #12161c;
+}
+
+.mobile-settings-list {
+  display: grid;
+  gap: 10px;
+}
+
+.mobile-settings-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid #ebefd0;
+  border-radius: 22px;
+  background: #f8faef;
+  color: #12161c;
+  text-align: left;
+  text-decoration: none;
+}
+
+.mobile-settings-row__icon {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: #ffffff;
+  color: #12161c;
+  border: 1px solid #ebefd0;
+}
+
+.mobile-settings-row__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mobile-settings-row__body strong {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #12161c;
+}
+
+.mobile-settings-row__body small {
+  font-size: 0.78rem;
+  color: #667085;
+}
+
+.mobile-settings-row__value,
+.mobile-settings-row__arrow {
+  color: #667085;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.mobile-settings-storage {
+  margin-top: 14px;
+  padding: 16px;
+  border-radius: 22px;
+  background: #12161c;
+  color: #f8fbef;
+}
+
+.mobile-settings-storage__head,
+.mobile-settings-storage__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mobile-settings-storage__head span {
+  color: rgba(248, 251, 239, 0.76);
+  font-size: 0.88rem;
+}
+
+.mobile-settings-storage__head strong {
+  color: #e2ff31;
+  font-size: 1rem;
+}
+
+.mobile-settings-storage__track {
+  height: 10px;
+  margin: 12px 0 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.mobile-settings-storage__track span {
+  display: block;
+  width: 45%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #e2ff31, #f4ff9f);
+}
+
+.mobile-settings-storage__meta small {
+  color: rgba(248, 251, 239, 0.66);
+  font-size: 0.76rem;
+}
+
+.mobile-settings-danger {
+  background: #fff8f6;
+  border-color: #ffd9cc;
+}
+
+.mobile-settings-quick-links a {
+  background: #f8faef;
+}
+
+@media (max-width: 380px) {
+  .mobile-profile-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .mobile-profile-hero-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 420px) {
+  .mobile-settings-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Compatibility layer for the current settings markup. */
+.mobile-user-settings-page .hidden {
+  display: none !important;
+}
+
+.mobile-user-settings-page .app {
+  max-width: 450px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #0b1220;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.45);
+}
+
+.mobile-user-settings-page .header,
+.mobile-user-settings-page .panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: max(12px, env(safe-area-inset-top)) 20px 14px;
+  background: #0b1220;
+  border-bottom: 1px solid rgba(229, 255, 0, 0.12);
+}
+
+.mobile-user-settings-page .header {
+  justify-content: space-between;
+}
+
+.mobile-user-settings-page .back-btn,
+.mobile-user-settings-page .settings-spacer {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+}
+
+.mobile-user-settings-page .back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 14px;
+  background: #141d30;
+  color: #e5ff00;
+  text-decoration: none;
+}
+
+.mobile-user-settings-page .header-title,
+.mobile-user-settings-page .panel-title {
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.mobile-user-settings-page .search-section,
+.mobile-user-settings-page .profile-card,
+.mobile-user-settings-page .menu-section,
+.mobile-user-settings-page .danger,
+.mobile-user-settings-page .logout-wrap,
+.mobile-user-settings-page .info-content {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.mobile-user-settings-page .search-section {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.mobile-user-settings-page .search-container {
+  position: relative;
+}
+
+.mobile-user-settings-page .search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7a8496;
+}
+
+.mobile-user-settings-page .search-input,
+.mobile-user-settings-page .profile-submit-btn {
+  font-family: inherit;
+}
+
+.mobile-user-settings-page .search-input {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 18px 0 46px;
+  border-radius: 999px;
+  border: 1px solid rgba(229, 255, 0, 0.12);
+  background: #141d30;
+  color: #ffffff;
+}
+
+.mobile-user-settings-page .search-input::placeholder {
+  color: #7a8496;
+}
+
+.mobile-user-settings-page .profile-card {
+  display: flex;
+  gap: 16px;
+  padding-top: 8px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(229, 255, 0, 0.08);
+}
+
+.mobile-user-settings-page .profile-avatar {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.mobile-user-settings-page .avatar-image {
+  width: 82px;
+  height: 82px;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid #e5ff00;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #e5ff00, #95a800);
+}
+
+.mobile-user-settings-page .avatar-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mobile-user-settings-page .avatar-initials {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: #12161c;
+  font-size: 1.9rem;
+  font-weight: 800;
+}
+
+.mobile-user-settings-page .edit-avatar {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 2px solid #0b1220;
+  background: #e5ff00;
+  color: #12161c;
+}
+
+.mobile-user-settings-page .profile-info,
+.mobile-user-settings-page .menu-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile-user-settings-page .profile-name,
+.mobile-user-settings-page .menu-title {
+  color: #ffffff;
+}
+
+.mobile-user-settings-page .profile-name {
+  margin: 0 0 6px;
+  font-size: 1.45rem;
+  font-weight: 700;
+}
+
+.mobile-user-settings-page .profile-email,
+.mobile-user-settings-page .menu-subtitle {
+  color: #98a2b3;
+}
+
+.mobile-user-settings-page .profile-email {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  font-size: 0.88rem;
+}
+
+.mobile-user-settings-page .profile-email-icon {
+  color: #e5ff00;
+}
+
+.mobile-user-settings-page .badge,
+.mobile-user-settings-page .badge-new {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(229, 255, 0, 0.12);
+  color: #e5ff00;
+  border: 1px solid rgba(229, 255, 0, 0.2);
+}
+
+.mobile-user-settings-page .menu-section {
+  margin-bottom: 14px;
+}
+
+.mobile-user-settings-page .section-title {
+  display: block;
+  padding: 0 0 10px;
+  color: #e5ff00;
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mobile-user-settings-page .menu-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 22px;
+  border: 1px solid #273246;
+  background: #111827;
+  cursor: pointer;
+}
+
+.mobile-user-settings-page .menu-item + .menu-item {
+  margin-top: 10px;
+}
+
+.mobile-user-settings-page .menu-item:active {
+  background: #141d30;
+}
+
+.mobile-user-settings-page .menu-icon {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: #141d30;
+  color: #e5ff00;
+}
+
+.mobile-user-settings-page .arrow {
+  color: #6b7280;
+}
+
+.mobile-user-settings-page .settings-form {
+  display: grid;
+  gap: 12px;
+  padding: 0;
+}
+
+.mobile-user-settings-page .profile-submit-btn,
+.mobile-user-settings-page .danger-btn,
+.mobile-user-settings-page .logout-btn {
+  width: 100%;
+  min-height: 52px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.mobile-user-settings-page .profile-submit-btn {
+  border: 0;
+  background: #e5ff00;
+  color: #12161c;
+}
+
+.mobile-user-settings-page .danger {
+  margin-top: 6px;
+  margin-bottom: 0;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  border-radius: 22px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.22);
+}
+
+.mobile-user-settings-page .danger-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.mobile-user-settings-page .danger-text,
+.mobile-user-settings-page .version-info {
+  color: #98a2b3;
+}
+
+.mobile-user-settings-page .danger-text {
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.mobile-user-settings-page .danger-btn,
+.mobile-user-settings-page .logout-btn {
+  border: 1px solid rgba(239, 68, 68, 0.26);
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.mobile-user-settings-page .logout-wrap {
+  padding-top: 8px;
+  padding-bottom: calc(96px + env(safe-area-inset-bottom));
+}
+
+.mobile-user-settings-page .version-info {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.mobile-user-settings-page .info-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: auto;
+  z-index: 120;
+  display: block;
+  width: min(100vw, 450px);
+  max-width: 100vw;
+  margin: 0;
+  background: #0b1220;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.45);
+  transform: translate3d(100%, 0, 0);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.2s ease, visibility 0.2s ease;
+  overflow-y: auto;
+}
+
+.mobile-user-settings-page .info-panel.open {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.mobile-user-settings-page .info-content {
+  padding-top: 18px;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+}
+
+.mobile-user-settings-page .info-field {
+  margin-bottom: 18px;
+}
+
+.mobile-user-settings-page .info-label {
+  margin-bottom: 8px;
+  color: #e5ff00;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.mobile-user-settings-page .info-value {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 18px;
+  border: 1px solid #273246;
+  background: #111827;
+  color: #ffffff;
+}
+
+/* Shared mobile zoom-out pass */
+.mobile-user-settings-page .settings-header {
+  padding: max(10px, env(safe-area-inset-top)) 18px 12px;
+}
+
+.mobile-user-settings-page .settings-header-title {
+  font-size: 1.14rem;
+}
+
+.mobile-user-settings-page .settings-header-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+}
+
+.mobile-user-settings-page .settings-main {
+  padding: 14px 18px 24px;
+}
+
+.mobile-user-settings-page .profile-card,
+.mobile-user-settings-page .menu-card,
+.mobile-user-settings-page .settings-section,
+.mobile-user-settings-page .info-panel {
+  border-radius: 20px;
+}
+
+.mobile-user-settings-page .profile-card,
+.mobile-user-settings-page .settings-section {
+  padding: 16px;
+}
+
+.mobile-user-settings-page .profile-avatar {
+  width: 74px;
+  height: 74px;
+  border-radius: 24px;
+}
+
+.mobile-user-settings-page .profile-name {
+  font-size: 1.34rem;
+}
+
+.mobile-user-settings-page .settings-input,
+.mobile-user-settings-page .info-value,
+.mobile-user-settings-page .settings-save-btn {
+  min-height: 48px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+}
+
+.mobile-user-settings-page .settings-headline,
+.mobile-user-settings-page .profile-headline,
+.mobile-user-settings-page .settings-hero-value {
+  font-size: 1.58rem;
+}
+
+.mobile-user-settings-page .settings-section-title,
+.mobile-user-settings-page .info-panel-title {
+  font-size: 1.04rem;
+}
+
+.mobile-user-settings-page .settings-badge,
+.mobile-user-settings-page .settings-chip {
+  min-height: 28px;
+  padding: 0 10px;
+  font-size: 0.7rem;
+}
+
+.mobile-user-settings-page .info-panel {
+  padding: 20px 18px calc(18px + env(safe-area-inset-bottom));
+  border-radius: 24px 0 0 24px;
+}
+
+.mobile-user-settings-page .language-options {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.mobile-user-settings-page .language-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 0 16px;
+  border: 1px solid #273246;
+  border-radius: 18px;
+  background: #111827;
+  color: #ffffff;
+  text-align: left;
+}
+
+.mobile-user-settings-page .language-option__flag {
+  font-size: 1.2rem;
+}
+
+.mobile-user-settings-page .language-option__label {
+  flex: 1;
+  font-size: 0.96rem;
+  font-weight: 600;
+}
+
+.mobile-user-settings-page .language-option__check {
+  color: transparent;
+  transition: color 0.2s ease;
+}
+
+.mobile-user-settings-page .language-option.is-active {
+  border-color: rgba(229, 255, 0, 0.35);
+  background: rgba(229, 255, 0, 0.08);
+  color: #e5ff00;
+}
+
+.mobile-user-settings-page .language-option.is-active .language-option__check {
+  color: #e5ff00;
+}
+
+html[dir="rtl"] .mobile-user-settings-page .language-option {
+  text-align: right;
+}

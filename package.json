@@ -1,0 +1,17 @@
+{
+  "name": "rimalis-platform",
+  "private": true,
+  "scripts": {
+    "dev": "cd backend && npm run dev",
+    "start": "cd backend && npm run start",
+    "start:all": "npm run start",
+    "dev:all": "npm run dev",
+    "generate:syrian-purchase-contract": "python3 backend/scripts/generate_syrian_purchase_contract.py",
+    "bootstrap": "cd backend && npm run migrate && npm run seed",
+    "run": "npm run bootstrap && npm run start",
+    "migrate": "cd backend && npm run migrate",
+    "seed": "cd backend && npm run seed",
+    "test": "cd backend && npm run test",
+    "check": "cd backend && npm run check"
+  }
+}

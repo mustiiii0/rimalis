@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title data-i18n="title_user_create_listing_success">Skapa annons | Klart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/mobile/mobile.css">
+  <link rel="stylesheet" href="/static/css/mobile/user.css">
+  <link rel="stylesheet" href="/static/css/mobile/user/create-listing.css">
+</head>
+<body class="mobile-user-create-listing-page" data-create-step="success">
+  <div class="mobile-create-shell">
+    <header class="mobile-create-topbar">
+      <a class="mobile-create-icon-btn" href="../my_listings.html">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      <div class="mobile-create-topbar__titles">
+        <h1 data-i18n="listing_submitted_title">Annons skickad</h1>
+        <p data-i18n="listing_submitted_desc">Flödet är klart och annonsen väntar nu på granskning</p>
+      </div>
+      <span class="mobile-create-topbar__draft" data-i18n="done">Klart</span>
+    </header>
+
+    <main class="mobile-create-content">
+      <section class="mobile-create-stepper-card">
+        <div class="mobile-create-inline-meta">
+          <span class="mobile-create-pill" data-i18n="done">Färdigt</span>
+          <strong data-progress-text>100% klart</strong>
+        </div>
+        <div class="mobile-create-progress--inline">
+          <div class="mobile-create-progress__track"><span data-progress-fill></span></div>
+        </div>
+        <div class="mobile-create-stepper mobile-create-stepper--spaced">
+          <div class="mobile-create-stepper__item is-complete" data-stepper>
+            <span class="mobile-create-stepper__circle">1</span>
+            <span class="mobile-create-stepper__label" data-i18n="listing_step_basic_info">Grundinfo</span>
+          </div>
+          <div class="mobile-create-stepper__item is-complete" data-stepper>
+            <span class="mobile-create-stepper__circle">2</span>
+            <span class="mobile-create-stepper__label" data-i18n="listing_step_media">Media</span>
+          </div>
+          <div class="mobile-create-stepper__item is-complete" data-stepper>
+            <span class="mobile-create-stepper__circle"><i class="fas fa-check"></i></span>
+            <span class="mobile-create-stepper__label" data-i18n="listing_step_sent">Skickad</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mobile-create-card mobile-create-card--soft mobile-create-card--centered">
+        <div class="mobile-create-success-icon">
+          <i class="fas fa-check"></i>
+        </div>
+        <h2 class="mobile-create-success-title" data-i18n="listing_submitted_title">Annonsen är inskickad</h2>
+        <p class="mobile-create-success-text">
+          <span data-i18n="listing_submitted_saved">Din annons är nu sparad i databasen och skickad till granskning innan publicering.</span>
+        </p>
+        <div class="mobile-create-publish-note mobile-create-publish-note--spaced">
+          <i class="fas fa-receipt"></i>
+          <div>
+            <strong data-i18n="listing_reference_prefix">Annonsreferens</strong>
+            <p id="submittedListingMeta" data-i18n="common_loading">Laddar...</p>
+          </div>
+        </div>
+        <div class="mobile-create-checklist-card mobile-create-checklist-card--spaced mobile-create-checklist-card--left">
+          <ul class="mobile-create-checklist">
+            <li><i class="fas fa-check-circle"></i><span data-i18n="listing_submitted_check_1">Grundinfo sparad korrekt</span></li>
+            <li><i class="fas fa-check-circle"></i><span data-i18n="listing_submitted_check_2">Bilder uppladdade via API</span></li>
+            <li><i class="fas fa-check-circle"></i><span data-i18n="listing_submitted_check_3">Status satt till väntande granskning</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="mobile-create-actions mobile-create-actions--stack">
+        <a class="mobile-create-btn mobile-create-btn--primary" href="../my_listings.html" data-i18n="listing_go_to_my_listings">Gå till mina annonser</a>
+        <a class="mobile-create-btn mobile-create-btn--ghost" href="step1_listing_info.html" data-i18n="listing_create_new">Skapa ny annons</a>
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/js/shared/api.js"></script>
+  <script src="/static/js/shared/page-guards.js"></script>
+  <script src="/static/js/public/i18n.js"></script>
+  <script src="/static/js/mobile/user/create-listing.js"></script>
+</body>
+</html>

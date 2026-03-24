@@ -1,0 +1,47 @@
+E-post: support@rimalis.se
+Lösenord: Admin1234
+
+http://localhost:8080/templates/public/home.html
+
+
+Annonsrubrik
+Bostadskategori:lägenhet
+Stad       adress
+area
+Byggår
+vånigg
+antla rum
+Antal balkong
+Antal badrum
+Antal toalet
+Beskrivning
+
+Annonsrubrik
+Bostadskategori:vila/hus
+Stad       adress
+area
+Byggsarea
+TOMTAREA
+Byggår
+Antal rum
+Antal våningar
+Antal badrum
+Antal toalet
+Antal balkong
+Beskrivning
+
+Annonsrubrik
+Bostadskategori:odlingsmark
+Stad       adress
+area
+längd 
+breed
+Beskrivning
+
+Annonsrubrik
+Bostadskategori:byggmark
+Stad       adress
+area
+längd 
+breed
+Beskrivning

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rimalis Group | Skapa annons - Steg 3</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/public/style.css">
+  <link rel="stylesheet" href="/static/css/public/components.css">
+  <link rel="stylesheet" href="/static/css/public/responsive.css">
+  <link rel="stylesheet" href="/static/css/user/dashboard.css">
+</head>
+<body class="bg-[#0a0a0a] text-white antialiased">
+  <div id="nav-container"></div>
+  <main class="pt-40 lg:pt-44">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-12 py-12">
+      <div class="grid lg:grid-cols-4 gap-8">
+        <aside class="lg:col-span-1">
+          <div class="glass-dark rounded-[40px] p-8 sticky top-32">
+            <div class="text-center mb-8">
+              <div class="w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden border-4 border-[#e2ff31]">
+                <img id="userSidebarAvatar" src="/static/image/avatar-placeholder.svg" alt="Användare" class="w-full h-full object-cover">
+              </div>
+              <h3 class="text-2xl font-bold" id="userSidebarName">Laddar...</h3>
+              <p class="text-white/40 text-base" id="userSidebarEmail">laddar...</p>
+            </div>
+            <nav class="space-y-2">
+              <a href="../dashboard.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-chart-pie w-6 text-xl"></i><span data-i18n="user_sidebar_overview">Översikt</span></a>
+              <a href="../favorites.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-heart w-6 text-xl"></i><span data-i18n="user_sidebar_favorites">Favoriter</span></a>
+              <a href="../my_listings.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg bg-[#e2ff31] text-black"><i class="fas fa-home w-6 text-xl"></i><span data-i18n="user_sidebar_my_listings">Mina annonser</span></a>
+              <a href="../messages.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-envelope w-6 text-xl"></i><span data-i18n="user_sidebar_messages">Meddelanden</span></a>
+              <a href="../profile_settings.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-user w-6 text-xl"></i><span data-i18n="user_sidebar_profile">Profil</span></a>
+              <a href="/templates/auth/login.html" data-logout-trigger class="flex items-center gap-4 p-5 rounded-2xl hover:bg-red-500/20 hover:text-red-500 transition-all text-lg mt-8"><i class="fas fa-sign-out-alt w-6 text-xl"></i><span data-i18n="common_logout">Logga ut</span></a>
+            </nav>
+          </div>
+        </aside>
+        <div class="lg:col-span-3">
+<div class="space-y-8">
+    <div class="flex flex-col xl:flex-row xl:items-end xl:justify-between gap-6">
+        <div>
+            <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-2">
+                Förhandsgranska <span class="text-[#e2ff31]">annons</span>
+            </h1>
+            <p class="text-white/60 text-lg">Steg 3 av 3: Kontrollera och skicka in</p>
+        </div>
+        <div class="glass-dark rounded-2xl px-6 py-4 min-w-[260px]">
+            <p class="text-white/50 text-xs uppercase tracking-[0.14em] mb-2">Process</p>
+            <div class="h-2 rounded-full bg-white/10 overflow-hidden">
+                <div class="h-full w-full bg-[#e2ff31]"></div>
+            </div>
+            <p class="text-sm mt-3 text-white/80">100% klart, redo för granskning</p>
+        </div>
+    </div>
+
+    <div class="grid xl:grid-cols-3 gap-6">
+        <div class="xl:col-span-2 space-y-6">
+            <div class="glass-dark rounded-[40px] overflow-hidden">
+                <div class="h-[340px] relative">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200"
+                         class="w-full h-full object-cover"
+                         id="previewImage"
+                         alt="Förhandsvisning">
+                    <div class="absolute top-6 left-6 badge badge-new">Förhandsvisning</div>
+                    <div class="absolute top-6 right-6 bg-black/60 border border-white/20 rounded-full px-4 py-2 text-xs font-bold text-white/90">
+                        Status: Väntar på granskning
+                    </div>
+                </div>
+                <div class="p-8">
+                    <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
+                        <div>
+                            <h2 class="text-3xl font-black mb-2" id="previewTitle">-</h2>
+                            <p class="text-white/40 mb-2"><i class="fas fa-map-pin mr-2"></i><span id="previewLocation">-</span></p>
+                            <p class="text-white/50 text-sm"><span id="previewAddress">-</span></p>
+                        </div>
+                        <p class="text-[#e2ff31] text-3xl font-black" id="previewPrice">-</p>
+                    </div>
+
+                    <p class="text-white/60 mb-6 leading-relaxed" id="previewDescription">-</p>
+
+                    <div class="grid md:grid-cols-3 gap-3 text-sm">
+                        <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                            <p class="text-white/40 mb-1">Bostadstyp</p>
+                            <p class="font-bold text-white" id="previewPropertyType">-</p>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                            <p class="text-white/40 mb-1">Boarea</p>
+                            <p class="font-bold text-white"><span id="previewLivingArea">-</span> kvm</p>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                            <p class="text-white/40 mb-1">Antal rum</p>
+                            <p class="font-bold text-white"><span id="previewRooms">-</span> rum</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 grid md:grid-cols-2 gap-3 text-sm" id="previewExtraDetails"></div>
+
+                    <div class="mt-5 flex flex-wrap gap-2 text-xs">
+                        <span id="previewHasVideo" class="hidden px-3 py-1 rounded-full bg-[#e2ff31]/15 border border-[#e2ff31]/40 text-[#e2ff31]">Video bifogad</span>
+                        <span id="previewHasFloorPlan" class="hidden px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white/80">Planritning bifogad</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-dark rounded-[30px] p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold">Vill du ändra något?</h3>
+                    <span class="text-white/40 text-sm">Snabbredigering</span>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-3">
+                    <a href="step1_listing_info.html" class="btn-outline w-full justify-center">Redigera grundinfo</a>
+                    <a href="step2_media.html" class="btn-outline w-full justify-center">Redigera media</a>
+                </div>
+            </div>
+        </div>
+
+        <aside class="glass-dark rounded-[40px] p-8 h-fit xl:sticky xl:top-32">
+            <h3 class="text-2xl font-bold mb-4">Inskick</h3>
+            <p class="text-white/60 mb-6">När du skickar in annonsen granskas den av admin innan publicering.</p>
+            <ul class="space-y-3 text-white/60 text-sm mb-8">
+                <li><i class="fas fa-check text-[#e2ff31] mr-2"></i>Steg 1: Grundinfo klart</li>
+                <li><i class="fas fa-check text-[#e2ff31] mr-2"></i>Steg 2: Media klart</li>
+                <li><i class="fas fa-clock text-yellow-400 mr-2"></i>Steg 3: Väntar på inskick</li>
+            </ul>
+
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-4 mb-6">
+                <p class="text-white/50 text-xs uppercase tracking-[0.14em] mb-2">Kvalitetskontroll</p>
+                <ul class="space-y-2 text-sm">
+                    <li id="checkTitleRow" class="text-white/70"><i id="checkTitleIcon" class="fas fa-circle text-white/30 mr-2"></i>Rubrik</li>
+                    <li id="checkDescriptionRow" class="text-white/70"><i id="checkDescriptionIcon" class="fas fa-circle text-white/30 mr-2"></i>Beskrivning</li>
+                    <li id="checkImageRow" class="text-white/70"><i id="checkImageIcon" class="fas fa-circle text-white/30 mr-2"></i>Bild</li>
+                    <li id="checkAddressRow" class="text-white/70"><i id="checkAddressIcon" class="fas fa-circle text-white/30 mr-2"></i>Adress</li>
+                </ul>
+            </div>
+
+            <p class="text-sm text-red-300 mb-4 hidden" id="createListingError"></p>
+            <div class="space-y-3">
+                <a href="step2_media.html" class="btn-outline w-full justify-center">Tillbaka</a>
+                <button class="btn-primary w-full justify-center" id="submitListingBtn" type="button">Skicka till granskning</button>
+            </div>
+        </aside>
+    </div>
+</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/static/js/shared/api.js"></script>
+  <script src="/static/js/shared/page-guards.js"></script>
+  <script src="/static/js/shared/menu-config.js"></script>
+  <script src="/static/js/user/user-menu.js"></script>
+  <script src="/static/js/public/navigation.js"></script>
+  <script src="/static/js/public/i18n.js"></script>
+  <script src="/static/js/public/favorites.js"></script>
+  <script src="/static/js/user/create-listing-desktop.js?v=20260309a"></script>
+  
+</body>
+</html>

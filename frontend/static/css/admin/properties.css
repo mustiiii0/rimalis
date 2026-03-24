@@ -1,0 +1,9 @@
+.property-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.property-name {
+  font-weight: 700;
+}

@@ -1,0 +1,25 @@
+.msg {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  text-align: left;
+}
+
+.msg.unread {
+  border-left: 3px solid var(--accent);
+}
+
+.msg.active {
+  border-color: rgba(226, 255, 49, 0.6) !important;
+  background: rgba(226, 255, 49, 0.1);
+}
+
+.filters--messages {
+  grid-template-columns: 1fr 180px 180px;
+}
+
+.reply-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}

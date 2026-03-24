@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title data-i18n="title_user_create_listing_step1">Rimalis Group | Skapa annons - Steg 1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/mobile/mobile.css">
+  <link rel="stylesheet" href="/static/css/mobile/user.css">
+  <link rel="stylesheet" href="/static/css/mobile/user/create-listing.css">
+</head>
+<body class="mobile-user-create-listing-page" data-create-step="1">
+  <div class="mobile-create-shell">
+    <header class="mobile-create-topbar">
+      <a class="mobile-create-icon-btn" href="../my_listings.html" aria-label="Tillbaka" data-i18n-aria-label="auth_back">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      <div class="mobile-create-topbar__titles">
+        <h1 data-i18n="home_mobile_create_listing">Skapa annons</h1>
+        <p data-i18n="listing_step1_subtitle">Steg 1 av 3: Grundinfo och rätt objektdetaljer</p>
+      </div>
+      <button class="mobile-create-topbar__draft" id="saveDraftBtn" type="button" data-i18n="user_status_draft">Utkast</button>
+    </header>
+
+    <main class="mobile-create-content">
+      <section class="mobile-create-stepper-card">
+        <div class="mobile-create-inline-meta">
+          <span class="mobile-create-pill" data-i18n="listing_three_step_flow">3-stegsflöde</span>
+          <strong data-progress-text>33% klart</strong>
+        </div>
+        <div class="mobile-create-progress--inline">
+          <div class="mobile-create-progress__track"><span data-progress-fill></span></div>
+        </div>
+        <div class="mobile-create-stepper mobile-create-stepper--spaced">
+          <div class="mobile-create-stepper__item is-active" data-stepper>
+            <span class="mobile-create-stepper__circle">1</span>
+            <span class="mobile-create-stepper__label" data-i18n="listing_step_basic_info">Grundinfo</span>
+          </div>
+          <div class="mobile-create-stepper__item" data-stepper>
+            <span class="mobile-create-stepper__circle">2</span>
+            <span class="mobile-create-stepper__label" data-i18n="listing_step_media">Media</span>
+          </div>
+          <div class="mobile-create-stepper__item" data-stepper>
+            <span class="mobile-create-stepper__circle">3</span>
+            <span class="mobile-create-stepper__label" data-i18n="listing_step_review">Granska</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mobile-create-tip-card">
+        <i class="fas fa-map-marked-alt"></i>
+        <div>
+          <strong data-i18n="listing_city_first_title">Stad först, adress sen</strong>
+          <p data-i18n="listing_city_first_desc">Välj stad först. När staden är ifylld får du adressförslag kopplade till just den staden.</p>
+        </div>
+      </section>
+
+      <section class="mobile-create-card mobile-create-card--soft">
+        <div class="mobile-create-section-head">
+          <h3 data-i18n="listing_step_basic_info">Grundinfo</h3>
+          <span id="step1Status">0/7 klara</span>
+        </div>
+        <div class="mobile-create-form mobile-create-form-grid">
+          <label class="mobile-create-form-grid__full">
+            <span><span data-i18n="listing_property_type_label">Objektstyp</span> <span class="mobile-create-required">*</span></span>
+            <div class="choice-grid">
+              <button class="choice active" type="button" data-type="Villa/Hus" data-i18n="property_type_house">Villa/Hus</button>
+              <button class="choice" type="button" data-type="Lägenhet" data-i18n="property_type_apartment">Lägenhet</button>
+              <button class="choice" type="button" data-type="Byggmark" data-i18n="property_type_plot">Byggmark</button>
+              <button class="choice" type="button" data-type="Odlingsmark" data-i18n="property_type_farm">Odlingsmark</button>
+            </div>
+          </label>
+
+          <label>
+            <span><span data-i18n="listing_field_title">Rubrik</span> <span class="mobile-create-required">*</span></span>
+            <input class="input-field" id="titleInput" type="text" placeholder="Ex: Modern villa med sjöutsikt" data-i18n-placeholder="listing_title_placeholder">
+          </label>
+
+          <label>
+            <span><span data-i18n="price">Pris</span> <span class="mobile-create-required">*</span></span>
+            <input class="input-field" id="priceInput" type="number" min="1" placeholder="5495000" data-i18n-placeholder="listing_price_placeholder">
+          </label>
+
+          <label>
+            <span><span data-i18n="city">Stad</span> <span class="mobile-create-required">*</span></span>
+            <input class="input-field" id="locationInput" type="text" placeholder="Stockholm" data-i18n-placeholder="listing_city_placeholder">
+          </label>
+
+          <label>
+            <span data-i18n="user_profile_postal_code">Postnummer</span>
+            <input class="input-field" id="postalCodeInput" type="text" placeholder="111 22" data-i18n-placeholder="listing_postal_code_placeholder">
+          </label>
+
+          <label class="mobile-create-form-grid__full">
+            <span><span data-i18n="listing_field_address">Adress</span> <span class="mobile-create-required">*</span></span>
+            <input class="input-field" id="addressInput" type="text" placeholder="Välj stad först" data-i18n-placeholder="listing_choose_city_first" list="addressSuggestions" autocomplete="off" disabled>
+            <datalist id="addressSuggestions"></datalist>
+            <small id="addressHint" data-i18n="listing_address_hint_waiting">Fyll i stad först. Därefter får du adressförslag inom den staden.</small>
+          </label>
+
+          <div class="mobile-create-form-grid mobile-create-form-grid__full" id="dynamicFields"></div>
+
+          <label class="mobile-create-form-grid__full">
+            <span><span data-i18n="listing_field_description">Beskrivning</span> <span class="mobile-create-required">*</span></span>
+            <textarea class="input-field mobile-create-textarea" id="descriptionInput" placeholder="Beskriv bostaden, läget och det viktigaste för köparen." data-i18n-placeholder="listing_description_placeholder"></textarea>
+          </label>
+        </div>
+        <p id="stepMessage" class="mobile-create-error"></p>
+      </section>
+
+      <section class="mobile-create-checklist-card">
+        <h3 class="mobile-create-card-title" data-i18n="listing_saved_to_database_title">Det här sparas i databasen</h3>
+        <ul class="mobile-create-checklist">
+          <li><i class="fas fa-check-circle"></i><span data-i18n="listing_saved_to_database_1">Titel, pris, stad och adress</span></li>
+          <li><i class="fas fa-check-circle"></i><span data-i18n="listing_saved_to_database_2">Typstyrda fält i listingDetails</span></li>
+          <li><i class="fas fa-check-circle"></i><span data-i18n="listing_saved_to_database_3">Beskrivning som följer med till förhandsgranskning</span></li>
+        </ul>
+      </section>
+
+      <div class="mobile-create-actions">
+        <a class="mobile-create-btn mobile-create-btn--ghost" href="../my_listings.html" data-i18n="cancel">Avbryt</a>
+        <button class="mobile-create-btn mobile-create-btn--primary" id="nextStepBtn" type="button" data-i18n="listing_continue_to_media">Fortsätt till media</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/js/shared/api.js"></script>
+  <script src="/static/js/shared/page-guards.js"></script>
+  <script src="/static/js/public/i18n.js"></script>
+  <script src="/static/js/mobile/user/create-listing.js"></script>
+</body>
+</html>

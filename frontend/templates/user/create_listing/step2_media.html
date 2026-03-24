@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rimalis Group | Skapa annons - Steg 2</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/public/style.css">
+  <link rel="stylesheet" href="/static/css/public/components.css">
+  <link rel="stylesheet" href="/static/css/public/responsive.css">
+  <link rel="stylesheet" href="/static/css/user/dashboard.css">
+</head>
+<body class="bg-[#0a0a0a] text-white antialiased">
+  <div id="nav-container"></div>
+  <main class="pt-40 lg:pt-44">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-12 py-12">
+      <div class="grid lg:grid-cols-4 gap-8">
+        <aside class="lg:col-span-1">
+          <div class="glass-dark rounded-[40px] p-8 sticky top-32">
+            <div class="text-center mb-8">
+              <div class="w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden border-4 border-[#e2ff31]">
+                <img id="userSidebarAvatar" src="/static/image/avatar-placeholder.svg" alt="Användare" class="w-full h-full object-cover">
+              </div>
+              <h3 class="text-2xl font-bold" id="userSidebarName">Laddar...</h3>
+              <p class="text-white/40 text-base" id="userSidebarEmail">laddar...</p>
+            </div>
+            <nav class="space-y-2">
+              <a href="../dashboard.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-chart-pie w-6 text-xl"></i><span data-i18n="user_sidebar_overview">Översikt</span></a>
+              <a href="../favorites.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-heart w-6 text-xl"></i><span data-i18n="user_sidebar_favorites">Favoriter</span></a>
+              <a href="../my_listings.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg bg-[#e2ff31] text-black"><i class="fas fa-home w-6 text-xl"></i><span data-i18n="user_sidebar_my_listings">Mina annonser</span></a>
+              <a href="../messages.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-envelope w-6 text-xl"></i><span data-i18n="user_sidebar_messages">Meddelanden</span></a>
+              <a href="../profile_settings.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-user w-6 text-xl"></i><span data-i18n="user_sidebar_profile">Profil</span></a>
+              <a href="/templates/auth/login.html" data-logout-trigger class="flex items-center gap-4 p-5 rounded-2xl hover:bg-red-500/20 hover:text-red-500 transition-all text-lg mt-8"><i class="fas fa-sign-out-alt w-6 text-xl"></i><span data-i18n="common_logout">Logga ut</span></a>
+            </nav>
+          </div>
+        </aside>
+        <div class="lg:col-span-3">
+<div class="space-y-8">
+    <div class="flex flex-col xl:flex-row xl:items-end xl:justify-between gap-6">
+        <div>
+            <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-2">
+                Skapa <span class="text-[#e2ff31]">annons</span>
+            </h1>
+            <p class="text-white/60 text-lg">Steg 2 av 3: Bilder och media</p>
+        </div>
+        <div class="glass-dark rounded-2xl px-6 py-4 min-w-[260px]">
+            <p class="text-white/50 text-xs uppercase tracking-[0.14em] mb-2">Process</p>
+            <div class="h-2 rounded-full bg-white/10 overflow-hidden">
+                <div class="h-full w-2/3 bg-[#e2ff31]"></div>
+            </div>
+            <p class="text-sm mt-3 text-white/80">67% klart</p>
+        </div>
+    </div>
+
+    <div class="grid xl:grid-cols-3 gap-6">
+        <div class="xl:col-span-2 glass-dark p-8 rounded-[40px]">
+            <form class="space-y-6" id="createListingStep2Form">
+                <div class="border border-dashed border-white/20 rounded-3xl p-10 text-center bg-white/5">
+                    <i class="fas fa-images text-4xl text-[#e2ff31] mb-4"></i>
+                    <p class="font-bold text-xl mb-2">Ladda upp bilder</p>
+                    <p class="text-white/50 mb-6">Dra och släpp bilder här eller välj filer</p>
+                    <input id="listingImages" class="hidden" type="file" accept="image/*" multiple>
+                    <button class="btn-outline px-8" type="button" data-click-target="listingImages">
+                        Välj bilder
+                    </button>
+                    <p id="selectedFilesText" class="text-white/40 text-sm mt-4">Inga filer valda</p>
+                </div>
+
+                <div id="listingUploadProgressWrap" class="hidden rounded-3xl border border-white/10 bg-white/5 p-5">
+                    <div class="flex items-center justify-between gap-4 mb-3">
+                        <p class="text-sm uppercase tracking-[0.12em] text-white/60">Uppladdningsstatus</p>
+                        <p id="listingUploadOverallText" class="text-xs text-white/70"></p>
+                    </div>
+                    <div class="h-2 rounded-full bg-white/10 overflow-hidden mb-4">
+                        <div id="listingUploadOverallBar" class="h-full bg-[#e2ff31] listing-upload-overall-bar"></div>
+                    </div>
+                    <div id="listingUploadProgressList" class="grid md:grid-cols-2 gap-3"></div>
+                </div>
+
+                <div id="imagePreviewCard" class="hidden rounded-3xl overflow-hidden border border-white/10 bg-white/5">
+                    <img id="imagePreviewThumb" src="" alt="Bildförhandsvisning" class="w-full h-[260px] object-cover">
+                    <div class="p-4">
+                        <p class="text-sm text-white/70">Första valda bilden används i förhandsgranskningen.</p>
+                    </div>
+                </div>
+
+                <div id="listingImageGridWrap" class="hidden rounded-3xl border border-white/10 bg-white/5 p-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <p class="text-sm text-white/70">Valda bilder</p>
+                        <p id="listingImageGridCount" class="text-xs text-white/50">0</p>
+                    </div>
+                    <div id="listingImageGrid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3"></div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="text-white/60 text-sm font-bold mb-2 block">Huvudbild URL (valfritt)</label>
+                        <input class="input-field" type="url" placeholder="https://bild-url..." id="listingImageUrl">
+                    </div>
+                    <div>
+                        <label class="text-white/60 text-sm font-bold mb-2 block">Video-länk (valfritt)</label>
+                        <input class="input-field" type="url" placeholder="https://..." id="listingVideoUrl">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="text-white/60 text-sm font-bold mb-2 block">Planritning (valfritt)</label>
+                        <input class="input-field" type="url" placeholder="https://planritning-url..." id="listingFloorPlanUrl">
+                        <div class="mt-3 flex items-center gap-3">
+                            <input id="listingFloorPlanFile" class="hidden" type="file" accept="image/*">
+                            <button class="btn-outline px-5 py-2 text-xs" type="button" data-click-target="listingFloorPlanFile">
+                                Ladda upp planritning
+                            </button>
+                            <span id="selectedFloorPlanFileText" class="text-white/40 text-sm">Ingen fil vald</span>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="inline-flex items-center gap-3 text-sm text-white/80">
+                            <input id="listingWatermarkEnabled" type="checkbox" class="accent-[#e2ff31] w-4 h-4">
+                            <span>Lägg watermark på publicerade bilder</span>
+                        </label>
+                    </div>
+                </div>
+
+                <p class="text-sm text-red-300 hidden" id="createListingStep2Error"></p>
+                <div class="flex justify-between pt-4">
+                    <a href="step1_listing_info.html" class="btn-outline px-8">Tillbaka</a>
+                    <button class="btn-primary px-8" type="submit">Förhandsgranska</button>
+                </div>
+            </form>
+        </div>
+
+        <aside class="glass-dark rounded-[40px] p-8 h-fit xl:sticky xl:top-32">
+            <h3 class="text-2xl font-bold mb-4">Krav för Steg 2</h3>
+            <p class="text-white/60 mb-6">Lägg minst en bild via fil eller URL för starkare annons.</p>
+            <ul class="space-y-3 text-sm mb-6">
+                <li id="step2CheckImageRow" class="text-white/70"><i id="step2CheckImageIcon" class="fas fa-circle text-white/30 mr-2"></i>Minst en bild vald</li>
+                <li id="step2CheckVideoRow" class="text-white/70"><i id="step2CheckVideoIcon" class="fas fa-circle text-white/30 mr-2"></i>Video (valfritt)</li>
+                <li id="step2CheckFloorPlanRow" class="text-white/70"><i id="step2CheckFloorPlanIcon" class="fas fa-circle text-white/30 mr-2"></i>Planritning (valfritt)</li>
+            </ul>
+            <div class="rounded-2xl bg-white/5 border border-white/10 p-4 text-sm text-white/70">
+                Tips: Om både fil och URL finns används filen i förhandsgranskningen.
+            </div>
+        </aside>
+    </div>
+</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/static/js/shared/api.js"></script>
+  <script src="/static/js/shared/page-guards.js"></script>
+  <script src="/static/js/shared/menu-config.js"></script>
+  <script src="/static/js/user/user-menu.js"></script>
+  <script src="/static/js/public/navigation.js"></script>
+  <script src="/static/js/public/i18n.js"></script>
+  <script src="/static/js/public/favorites.js"></script>
+  <script src="/static/js/user/create-listing-desktop.js?v=20260309a"></script>
+  
+</body>
+</html>

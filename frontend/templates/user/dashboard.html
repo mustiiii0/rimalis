@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rimalis Group | Mina sidor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/public/style.css">
+  <link rel="stylesheet" href="/static/css/public/components.css">
+  <link rel="stylesheet" href="/static/css/public/responsive.css">
+  <link rel="stylesheet" href="/static/css/user/dashboard.css">
+</head>
+<body class="bg-[#0a0a0a] text-white antialiased">
+  <div id="nav-container"></div>
+  <main class="pt-40 lg:pt-44">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-12 py-12">
+      <div class="grid lg:grid-cols-4 gap-8">
+        <aside class="lg:col-span-1">
+          <div class="glass-dark rounded-[40px] p-8 sticky top-32">
+            <div class="text-center mb-8">
+              <div class="w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden border-4 border-[#e2ff31]">
+                <img id="userSidebarAvatar" src="/static/image/avatar-placeholder.svg" alt="Användare" class="w-full h-full object-cover">
+              </div>
+              <h3 class="text-2xl font-bold" id="userSidebarName">Laddar...</h3>
+              <p class="text-white/40 text-base" id="userSidebarEmail">laddar...</p>
+            </div>
+            <nav class="space-y-2">
+              <a href="dashboard.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg bg-[#e2ff31] text-black"><i class="fas fa-chart-pie w-6 text-xl"></i><span data-i18n="user_sidebar_overview">Översikt</span></a>
+              <a href="favorites.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-heart w-6 text-xl"></i><span data-i18n="user_sidebar_favorites">Favoriter</span></a>
+              <a href="my_listings.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-home w-6 text-xl"></i><span data-i18n="user_sidebar_my_listings">Mina annonser</span></a>
+              <a href="messages.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-envelope w-6 text-xl"></i><span data-i18n="user_sidebar_messages">Meddelanden</span></a>
+              <a href="profile_settings.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-user w-6 text-xl"></i><span data-i18n="user_sidebar_profile">Profil</span></a>
+              <a href="/templates/auth/login.html" data-logout-trigger class="flex items-center gap-4 p-5 rounded-2xl hover:bg-red-500/20 hover:text-red-500 transition-all text-lg mt-8"><i class="fas fa-sign-out-alt w-6 text-xl"></i><span data-i18n="common_logout">Logga ut</span></a>
+            </nav>
+          </div>
+        </aside>
+        <div class="lg:col-span-3">
+<div class="space-y-12">
+    <!-- Välkomstmeddelande -->
+    <div class="pt-2">
+        <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-2" id="dashboardWelcome">
+            <span id="dashboardWelcomePrefix" data-i18n="user_dashboard_welcome_prefix">Välkommen tillbaka,</span> <span class="text-[#e2ff31]" id="dashboardWelcomeName">...</span>
+        </h1>
+        <p class="text-white/60 text-xl" id="dashboardIntroText">Här är en översikt över ditt konto och dina aktiviteter.</p>
+    </div>
+
+    <!-- Statistik-kort -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="glass-dark p-8 rounded-3xl hover:border-[#e2ff31] transition-all">
+            <div class="flex items-center justify-between mb-4">
+                <i class="fas fa-heart text-3xl text-[#e2ff31]"></i>
+                <span class="text-4xl font-black text-[#e2ff31]" id="statFavorites">0</span>
+            </div>
+            <h3 class="text-xl font-bold mb-1" id="statFavoritesTitle" data-i18n="user_dashboard_saved_favorites_title">Sparade favoriter</h3>
+            <p class="text-white/40" id="statFavoritesText">Du har 0 sparade objekt</p>
+            <a href="favorites.html" class="inline-flex items-center gap-2 text-[#e2ff31] hover:gap-3 transition-all mt-4">
+                <span id="statFavoritesCta">Visa alla</span>
+                <i class="fas fa-arrow-right text-sm"></i>
+            </a>
+        </div>
+
+        <div class="glass-dark p-8 rounded-3xl hover:border-[#e2ff31] transition-all">
+            <div class="flex items-center justify-between mb-4">
+                <i class="fas fa-calendar-check text-3xl text-[#e2ff31]"></i>
+                <span class="text-4xl font-black text-[#e2ff31]" id="statBookings">0</span>
+            </div>
+            <h3 class="text-xl font-bold mb-1" id="statBookingsTitle" data-i18n="user_dashboard_booked_viewings_title">Bokade visningar</h3>
+            <p class="text-white/40" id="statBookingsText">0 kommande visningar</p>
+            <a href="bookings.html" class="inline-flex items-center gap-2 text-[#e2ff31] hover:gap-3 transition-all mt-4">
+                <span id="statBookingsCta">Se tider</span>
+                <i class="fas fa-arrow-right text-sm"></i>
+            </a>
+        </div>
+
+        <div class="glass-dark p-8 rounded-3xl hover:border-[#e2ff31] transition-all">
+            <div class="flex items-center justify-between mb-4">
+                <i class="fas fa-bell text-3xl text-[#e2ff31]"></i>
+                <span class="text-4xl font-black text-[#e2ff31]" id="statSavedSearches">0</span>
+            </div>
+            <h3 class="text-xl font-bold mb-1" id="statSavedSearchesTitle">Aktiva bevakningar</h3>
+            <p class="text-white/40" id="statSavedSearchesText">0 sparade sökningar</p>
+            <a href="saved-searches.html" class="inline-flex items-center gap-2 text-[#e2ff31] hover:gap-3 transition-all mt-4">
+                <span id="statSavedSearchesCta">Hantera</span>
+                <i class="fas fa-arrow-right text-sm"></i>
+            </a>
+        </div>
+
+        <div class="glass-dark p-8 rounded-3xl hover:border-[#e2ff31] transition-all">
+            <div class="flex items-center justify-between mb-4">
+                <i class="fas fa-envelope text-3xl text-[#e2ff31]"></i>
+                <span class="text-4xl font-black text-[#e2ff31]" id="statUnreadMessages">0</span>
+            </div>
+            <h3 class="text-xl font-bold mb-1" id="statUnreadMessagesTitle">Olästa meddelanden</h3>
+            <p class="text-white/40" id="statUnreadMessagesText">0 nya meddelanden</p>
+            <a href="messages.html" class="inline-flex items-center gap-2 text-[#e2ff31] hover:gap-3 transition-all mt-4">
+                <span id="statUnreadMessagesCta">Läs</span>
+                <i class="fas fa-arrow-right text-sm"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Snabbåtgärder -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="recentPropertiesGrid"></div>
+
+    <!-- Senaste aktivitet -->
+    <section class="glass-dark rounded-[40px] p-8">
+        <h2 class="text-2xl font-bold mb-6" id="recentActivityTitle">Senaste aktivitet</h2>
+        
+        <div class="space-y-4" id="recentActivityFeed"></div>
+    </section>
+</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/static/js/shared/api.js"></script>
+  <script src="/static/js/shared/page-guards.js"></script>
+  <script src="/static/js/shared/menu-config.js"></script>
+  <script src="/static/js/user/user-menu.js"></script>
+  <script src="/static/js/public/navigation.js"></script>
+  <script src="/static/js/public/i18n.js"></script>
+  <script src="/static/js/public/favorites.js"></script>
+  <script src="/static/js/user/dashboard.js"></script>
+</body>
+</html>

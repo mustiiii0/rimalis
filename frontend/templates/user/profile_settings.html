@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rimalis Group | Profilinställningar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/public/style.css">
+  <link rel="stylesheet" href="/static/css/public/components.css">
+  <link rel="stylesheet" href="/static/css/public/responsive.css">
+  <link rel="stylesheet" href="/static/css/user/dashboard.css">
+</head>
+<body class="bg-[#0a0a0a] text-white antialiased">
+  <div id="nav-container"></div>
+  <main class="pt-40 lg:pt-44">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-12 py-12">
+      <div class="grid lg:grid-cols-4 gap-8">
+        <aside class="lg:col-span-1">
+          <div class="glass-dark rounded-[40px] p-8 sticky top-32">
+            <div class="text-center mb-8">
+              <div class="w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden border-4 border-[#e2ff31]">
+                <img id="userProfileSidebarAvatar" src="/static/image/avatar-placeholder.svg" alt="Användare" class="w-full h-full object-cover">
+              </div>
+              <h3 class="text-2xl font-bold" id="userSidebarName">Laddar...</h3>
+              <p class="text-white/40 text-base" id="userSidebarEmail">laddar...</p>
+            </div>
+            <nav class="space-y-2">
+              <a href="dashboard.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-chart-pie w-6 text-xl"></i><span data-i18n="user_sidebar_overview">Översikt</span></a>
+              <a href="favorites.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-heart w-6 text-xl"></i><span data-i18n="user_sidebar_favorites">Favoriter</span></a>
+              <a href="my_listings.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-home w-6 text-xl"></i><span data-i18n="user_sidebar_my_listings">Mina annonser</span></a>
+              <a href="messages.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-envelope w-6 text-xl"></i><span data-i18n="user_sidebar_messages">Meddelanden</span></a>
+              <a href="profile_settings.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg bg-[#e2ff31] text-black"><i class="fas fa-user w-6 text-xl"></i><span data-i18n="user_sidebar_profile">Profil</span></a>
+              <a href="/templates/auth/login.html" data-logout-trigger class="flex items-center gap-4 p-5 rounded-2xl hover:bg-red-500/20 hover:text-red-500 transition-all text-lg mt-8"><i class="fas fa-sign-out-alt w-6 text-xl"></i><span data-i18n="common_logout">Logga ut</span></a>
+            </nav>
+          </div>
+        </aside>
+        <div class="lg:col-span-3">
+<div class="space-y-8">
+    <!-- Header -->
+    <div>
+        <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-2" id="userProfileTitle">
+            Profil<span class="text-[#e2ff31]">inställningar</span>
+        </h1>
+        <p class="text-white/60 text-lg" id="userProfileDesc">Hantera dina personuppgifter och inställningar</p>
+    </div>
+
+    <!-- Profilformulär -->
+    <div class="glass-dark p-8 rounded-[40px]">
+        <form class="space-y-8" id="userProfileMainForm">
+            <!-- Avatar -->
+            <div class="flex items-center gap-8">
+                <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-[#e2ff31]">
+                    <img id="userProfileAvatarPreview" src="/static/image/avatar-placeholder.svg"
+                        class="w-full h-full object-cover" alt="Profilbild">
+                </div>
+                <div>
+                    <button class="btn-outline" type="button" id="userProfileChangePhotoBtn">Byt profilbild</button>
+                    <input id="userProfileAvatarInput" type="file" accept="image/*" class="hidden">
+                    <p class="text-white/40 text-sm mt-2" data-i18n="user_profile_photo_hint">Max 5MB. JPG, PNG eller GIF</p>
+                </div>
+            </div>
+
+            <!-- Personuppgifter -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <label class="text-white/60 text-sm font-bold mb-2 block" data-i18n="user_profile_first_name">Förnamn</label>
+                    <input id="profileFirstName" type="text" class="input-field" placeholder="Förnamn" data-i18n-placeholder="user_profile_first_name">
+                </div>
+                <div>
+                    <label class="text-white/60 text-sm font-bold mb-2 block" data-i18n="user_profile_last_name">Efternamn</label>
+                    <input id="profileLastName" type="text" class="input-field" placeholder="Efternamn" data-i18n-placeholder="user_profile_last_name">
+                </div>
+                <div>
+                    <label class="text-white/60 text-sm font-bold mb-2 block" data-i18n="user_profile_email">E-post</label>
+                    <input id="profileEmail" type="email" class="input-field" placeholder="E-post" data-i18n-placeholder="user_profile_email">
+                </div>
+                <div>
+                    <label class="text-white/60 text-sm font-bold mb-2 block" data-i18n="user_profile_phone">Telefon</label>
+                    <input id="profilePhone" type="tel" class="input-field" placeholder="070-123 45 67" data-i18n-placeholder="user_profile_phone_placeholder">
+                </div>
+                <div>
+                    <label class="text-white/60 text-sm font-bold mb-2 block" data-i18n="user_profile_whatsapp_country_code">WhatsApp landskod</label>
+                    <select id="profileWhatsappCountryCode" class="input-field">
+                        <option value="+46">🇸🇪 +46</option>
+                        <option value="+47">🇳🇴 +47</option>
+                        <option value="+45">🇩🇰 +45</option>
+                        <option value="+358">🇫🇮 +358</option>
+                        <option value="+49">🇩🇪 +49</option>
+                        <option value="+44">🇬🇧 +44</option>
+                        <option value="+31">🇳🇱 +31</option>
+                        <option value="+33">🇫🇷 +33</option>
+                        <option value="+39">🇮🇹 +39</option>
+                        <option value="+34">🇪🇸 +34</option>
+                        <option value="+90">🇹🇷 +90</option>
+                        <option value="+963">🇸🇾 +963</option>
+                        <option value="+966">🇸🇦 +966</option>
+                        <option value="+971">🇦🇪 +971</option>
+                        <option value="+20">🇪🇬 +20</option>
+                        <option value="+1">🇺🇸 +1</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-white/60 text-sm font-bold mb-2 block" data-i18n="user_profile_whatsapp_number">WhatsApp mobilnummer</label>
+                    <input id="profileWhatsappNumber" type="tel" class="input-field" placeholder="701234567" data-i18n-placeholder="user_profile_whatsapp_number_placeholder">
+                </div>
+                <div>
+                    <label class="text-white/60 text-sm font-bold mb-2 block" data-i18n="user_profile_address">Adress</label>
+                    <input id="profileAddress" type="text" class="input-field" placeholder="Birger Jarlsgatan 18" data-i18n-placeholder="user_profile_address_placeholder">
+                </div>
+                <div>
+                    <label class="text-white/60 text-sm font-bold mb-2 block" data-i18n="user_profile_postal_code">Postnummer</label>
+                    <input id="profilePostalCode" type="text" class="input-field" placeholder="114 34" data-i18n-placeholder="user_profile_postal_code_placeholder">
+                </div>
+                <div>
+                    <label class="text-white/60 text-sm font-bold mb-2 block" data-i18n="user_profile_city">Stad</label>
+                    <input id="profileCity" type="text" class="input-field" placeholder="Stockholm" data-i18n-placeholder="user_profile_city_placeholder">
+                </div>
+                <div>
+                    <label class="text-white/60 text-sm font-bold mb-2 block" data-i18n="user_profile_country">Land</label>
+                    <input id="profileCountry" type="text" class="input-field" placeholder="Sverige" data-i18n-placeholder="user_profile_country_placeholder">
+                </div>
+            </div>
+
+            <!-- Spara knappar -->
+            <div class="flex gap-4 pt-4">
+                <button class="btn-primary px-8" type="submit" data-i18n="user_profile_save_changes">Spara ändringar</button>
+                <button class="btn-outline px-8" type="button" data-i18n="common_cancel">Ångra</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Ändra lösenord -->
+    <div class="glass-dark p-8 rounded-[40px]">
+        <h2 class="text-2xl font-bold mb-6" data-i18n="user_profile_change_password_title">Ändra lösenord</h2>
+        
+        <form class="space-y-6 max-w-md" id="userPasswordForm">
+            <div>
+                <label class="text-white/60 text-sm font-bold mb-2 block" data-i18n="user_profile_current_password">Nuvarande lösenord</label>
+                <input id="profileCurrentPassword" type="password" class="input-field" placeholder="••••••••">
+            </div>
+            <div>
+                <label class="text-white/60 text-sm font-bold mb-2 block" data-i18n="user_profile_new_password">Nytt lösenord</label>
+                <input id="profileNewPassword" type="password" class="input-field" placeholder="••••••••">
+            </div>
+            <div>
+                <label class="text-white/60 text-sm font-bold mb-2 block" data-i18n="user_profile_confirm_new_password">Bekräfta nytt lösenord</label>
+                <input id="profileConfirmPassword" type="password" class="input-field" placeholder="••••••••">
+            </div>
+            <button class="btn-primary" type="submit" data-i18n="user_profile_update_password">Uppdatera lösenord</button>
+        </form>
+    </div>
+
+    <!-- Notisinställningar -->
+    <div class="glass-dark p-8 rounded-[40px]">
+        <h2 class="text-2xl font-bold mb-6" data-i18n="user_profile_notifications_title">Notisinställningar</h2>
+        
+        <div class="space-y-4">
+            <div class="flex items-center justify-between p-4 bg-white/5 rounded-2xl">
+                <div>
+                    <h3 class="font-bold" data-i18n="user_profile_notify_newsletter_title">Nyhetsbrev</h3>
+                    <p class="text-white/40 text-sm" data-i18n="user_profile_notify_newsletter_desc">Få vårt nyhetsbrev med nya objekt</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-white/10 rounded-full peer peer-checked:bg-[#e2ff31] peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                </label>
+            </div>
+
+            <div class="flex items-center justify-between p-4 bg-white/5 rounded-2xl">
+                <div>
+                    <h3 class="font-bold" data-i18n="user_profile_notify_booking_title">Bokningspåminnelser</h3>
+                    <p class="text-white/40 text-sm" data-i18n="user_profile_notify_booking_desc">Få påminnelser inför bokade visningar</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-white/10 rounded-full peer peer-checked:bg-[#e2ff31] peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                </label>
+            </div>
+
+            <div class="flex items-center justify-between p-4 bg-white/5 rounded-2xl">
+                <div>
+                    <h3 class="font-bold" data-i18n="user_profile_notify_agent_messages_title">Meddelanden från mäklare</h3>
+                    <p class="text-white/40 text-sm" data-i18n="user_profile_notify_agent_messages_desc">Få notiser när mäklare hör av sig</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-white/10 rounded-full peer peer-checked:bg-[#e2ff31] peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                </label>
+            </div>
+
+            <div class="flex items-center justify-between p-4 bg-white/5 rounded-2xl">
+                <div>
+                    <h3 class="font-bold" data-i18n="user_profile_notify_marketing_title">Marknadsföring</h3>
+                    <p class="text-white/40 text-sm" data-i18n="user_profile_notify_marketing_desc">Få erbjudanden och kampanjer</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" class="sr-only peer">
+                    <div class="w-11 h-6 bg-white/10 rounded-full peer peer-checked:bg-[#e2ff31] peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ta bort konto -->
+    <div class="glass-dark p-8 rounded-[40px] border border-red-500/20">
+        <h2 class="text-2xl font-bold text-red-500 mb-4" data-i18n="user_profile_delete_account_title">Ta bort konto</h2>
+        <p class="text-white/60 mb-6" data-i18n="user_profile_delete_account_desc">När du tar bort ditt konto försvinner alla dina uppgifter, favoriter och bokningar permanent. Detta går inte att ångra.</p>
+        <button
+            id="deleteAccountButton"
+            class="bg-red-500/10 text-red-500 border border-red-500/20 px-8 py-4 rounded-full font-bold hover:bg-red-500/20 transition-all"
+            type="button">
+            <i class="fas fa-exclamation-triangle mr-2"></i><span data-i18n="user_profile_delete_account_btn">Ta bort mitt konto permanent</span>
+        </button>
+    </div>
+</div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="/static/js/shared/api.js"></script>
+    <script src="/static/js/shared/page-guards.js"></script>
+  <script src="/static/js/shared/menu-config.js"></script>
+  <script src="/static/js/user/user-menu.js"></script>
+  <script src="/static/js/public/navigation.js"></script>
+  <script src="/static/js/public/i18n.js"></script>
+  <script src="/static/js/public/favorites.js"></script>
+  <script src="/static/js/user/profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rimalis Group | Logga in</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Våra egna CSS-filer -->
+    <link rel="stylesheet" href="/static/css/public/style.css">
+    <link rel="stylesheet" href="/static/css/public/components.css">
+    <link rel="stylesheet" href="/static/css/public/responsive.css">
+</head>
+
+<body class="min-h-screen">
+    <section class="hero-bg relative min-h-screen flex items-center justify-center px-6 lg:px-12">
+        <div class="absolute inset-0 bg-black/45"></div>
+        <a href="../public/home.html" class="absolute top-8 left-8 z-20 text-white/80 hover:text-white transition-colors text-sm font-bold uppercase tracking-widest">
+            <i class="fas fa-arrow-left mr-2"></i>Tillbaka
+        </a>
+
+        <div class="modal-content relative z-10">
+        <div class="text-center mb-8">
+            <img src="/static/image/Rimalis-Group.png" alt="Rimalis Group" class="brand-logo brand-logo--auth mx-auto mb-4">
+            <h1 class="text-2xl font-black tracking-tighter" data-i18n="login_welcome_back">Welcome back</h1>
+            <p class="text-white/40 text-sm mt-2" data-i18n="login_modal_subtitle">Log in to manage your listings and messages</p>
+        </div>
+
+        <form class="space-y-4" id="loginForm">
+            <input type="email" placeholder="E-post" class="input-field" id="loginEmail" required>
+            <input type="password" placeholder="Lösenord" class="input-field" id="loginPassword" required>
+
+            <div class="flex justify-between items-center text-sm">
+                <label class="flex items-center gap-2 text-white/50">
+                    <input type="checkbox" class="accent-[#e2ff31]" checked>
+                    <span id="loginRememberMe">Kom ihåg mig</span>
+                </label>
+                <a href="forgot_password.html" class="text-[#e2ff31] hover:underline">Glömt lösenord?</a>
+            </div>
+
+            <button type="submit" class="btn-primary w-full justify-center mt-6">
+                Logga in
+            </button>
+
+            <p class="text-center text-white/40 text-sm mt-6">
+                <span id="loginNoAccountText">Har du inget konto?</span>
+                <a href="register.html" class="text-[#e2ff31] hover:underline">Registrera dig</a>
+            </p>
+
+            <p id="loginFeedback" class="text-center text-sm text-white/50 mt-4"></p>
+        </form>
+        </div>
+    </section>
+
+    <script src="/static/js/shared/api.js"></script>
+    <script src="/static/js/auth/auth.js"></script>
+    <script src="/static/js/public/i18n.js"></script>
+    
+
+</body>
+
+</html>

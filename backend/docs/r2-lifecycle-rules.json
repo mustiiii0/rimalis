@@ -1,0 +1,30 @@
+[
+  {
+    "id": "tmp-objects-7d",
+    "enabled": true,
+    "prefix": "uploads/tmp/",
+    "conditions": {
+      "maxAge": 604800
+    },
+    "delete": true
+  },
+  {
+    "id": "preview-objects-30d",
+    "enabled": true,
+    "prefix": "uploads/previews/",
+    "conditions": {
+      "maxAge": 2592000
+    },
+    "delete": true
+  },
+  {
+    "id": "old-derivatives-120d",
+    "enabled": true,
+    "prefix": "uploads/images/",
+    "conditions": {
+      "maxAge": 10368000
+    },
+    "delete": false,
+    "note": "Use app orphan-cleanup for referenced files. Keep delete=false unless you also mark stale prefixes."
+  }
+]

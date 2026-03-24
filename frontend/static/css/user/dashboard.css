@@ -1,0 +1,364 @@
+/* ===== USER EXPERIENCE V2 ===== */
+
+:root {
+  --user-panel-bg: linear-gradient(165deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+  --user-panel-border: rgba(255, 255, 255, 0.08);
+  --user-panel-border-strong: rgba(226, 255, 49, 0.28);
+  --user-soft: rgba(255, 255, 255, 0.62);
+  --user-muted: rgba(255, 255, 255, 0.42);
+  --user-accent: #e2ff31;
+  --user-radius-lg: 28px;
+  --user-radius-md: 20px;
+}
+
+/* Layout rhythm */
+main.pt-40.lg\:pt-44 {
+  padding-top: 152px;
+}
+
+main .max-w-\[1600px\].mx-auto.px-6.lg\:px-12.py-12 {
+  max-width: 1480px;
+}
+
+main .grid.lg\:grid-cols-4.gap-8 {
+  gap: 22px;
+}
+
+/* Elevated panels */
+main .glass-dark {
+  background: var(--user-panel-bg);
+  border: 1px solid var(--user-panel-border);
+  box-shadow: 0 26px 56px -34px rgba(0, 0, 0, 0.9);
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+main .glass-dark:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+main .glass-dark.rounded-\[40px\],
+main .glass-dark.rounded-3xl {
+  border-radius: var(--user-radius-lg) !important;
+}
+
+/* Sidebar */
+aside .glass-dark {
+  overflow: hidden;
+  background: linear-gradient(170deg, rgba(12, 14, 18, 0.93), rgba(12, 14, 18, 0.74));
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+aside .text-center.mb-8 {
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+aside .w-28.h-28 {
+  width: 104px;
+  height: 104px;
+  border-width: 3px;
+  box-shadow: 0 0 0 6px rgba(226, 255, 49, 0.08);
+}
+
+aside h3#userSidebarName,
+aside h3#userSidebarName,
+aside h3#userSidebarName {
+  font-size: 1.45rem;
+  letter-spacing: -0.01em;
+}
+
+aside #userSidebarEmail {
+  color: var(--user-muted);
+  font-size: 0.95rem;
+}
+
+aside nav.space-y-2 {
+  display: grid;
+  gap: 7px;
+}
+
+aside nav.space-y-2 > a {
+  border: 1px solid transparent;
+  border-radius: 16px !important;
+  min-height: 52px;
+  font-size: 1rem !important;
+  font-weight: 700;
+  padding: 12px 14px !important;
+}
+
+aside nav.space-y-2 > a:hover {
+  border-color: rgba(226, 255, 49, 0.32);
+  transform: translateX(2px);
+}
+
+html[dir='rtl'] aside nav.space-y-2 > a:hover {
+  transform: translateX(-2px);
+}
+
+aside nav.space-y-2 > a.bg-\[\#e2ff31\] {
+  border-color: var(--user-panel-border-strong);
+  box-shadow: 0 12px 28px -20px rgba(226, 255, 49, 0.8);
+}
+
+aside nav.space-y-2 > a.mt-8 {
+  margin-top: 14px !important;
+}
+
+/* Top headings */
+.space-y-12 h1.text-4xl,
+.space-y-8 h1.text-4xl,
+.space-y-8 h1.text-5xl,
+.space-y-12 h1.text-5xl {
+  letter-spacing: -0.02em;
+  line-height: 1.03;
+}
+
+.space-y-12 > div > p.text-white\/60,
+.space-y-8 > div > p.text-white\/60,
+#dashboardIntroText,
+#favoritesCountText,
+#messagesUnreadText {
+  color: var(--user-soft) !important;
+  font-size: 1.05rem !important;
+}
+
+/* Stats cards and content cards */
+.grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4.gap-6 > .glass-dark,
+#recentPropertiesGrid > .glass-dark,
+#myListingsContainer > .glass-dark,
+#savedSearchesContainer > .glass-dark,
+#bookingsContainer > .glass-dark,
+#favoritesGrid > .glass-dark,
+#userMessagesList > .glass-dark,
+#userMessagesList > div,
+#recentActivityFeed > div {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--user-radius-md);
+}
+
+.grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4.gap-6 > .glass-dark:hover,
+#recentActivityFeed > div:hover,
+#userMessagesList > div:hover {
+  border-color: rgba(226, 255, 49, 0.26);
+  transform: translateY(-2px);
+}
+
+.grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4.gap-6 > .glass-dark h3,
+.grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4.gap-6 > .glass-dark .text-xl {
+  font-size: 1.24rem !important;
+}
+
+.grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4.gap-6 > .glass-dark p,
+.grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4.gap-6 > .glass-dark .text-white\/40 {
+  color: var(--user-muted) !important;
+}
+
+/* Tabs */
+#myListingsTabs {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important;
+  gap: 8px !important;
+}
+
+#myListingsTabs > * {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 10px 16px;
+  min-height: 42px;
+  font-weight: 700;
+}
+
+#myListingsTabs > *.active,
+#myListingsTabs > *.bg-\[\#e2ff31\] {
+  border-color: rgba(226, 255, 49, 0.4);
+  box-shadow: 0 14px 28px -20px rgba(226, 255, 49, 0.9);
+}
+
+/* Form controls */
+main input,
+main select,
+main textarea {
+  border-radius: 14px !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  min-height: 48px;
+}
+
+main input:focus,
+main select:focus,
+main textarea:focus {
+  border-color: rgba(226, 255, 49, 0.62) !important;
+  box-shadow: 0 0 0 4px rgba(226, 255, 49, 0.11);
+  outline: none;
+}
+
+main label {
+  color: rgba(255, 255, 255, 0.74) !important;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* Buttons */
+main .btn-primary,
+main .btn-outline,
+main button:not(.language-btn):not(.mobile-menu-btn) {
+  border-radius: 999px;
+  min-height: 44px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+main .btn-primary:hover {
+  box-shadow: 0 18px 30px -20px rgba(226, 255, 49, 0.9);
+}
+
+/* Messages/list rows */
+#userMessagesList > div,
+#recentActivityFeed > div {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Sticky side panel stays visible in desktop */
+aside .sticky.top-32 {
+  top: 116px;
+}
+
+/* ===== RTL polish ===== */
+html[dir='rtl'] .inline-flex.items-center.gap-2 i.fas.fa-arrow-right,
+html[dir='rtl'] .inline-flex.items-center.gap-2 i.fas.fa-arrow-left {
+  transform: scaleX(-1);
+}
+
+html[dir='rtl'] aside nav.space-y-2 > a {
+  justify-content: flex-start;
+}
+
+html[dir='rtl'] aside nav.space-y-2 > a i {
+  margin-left: 10px;
+  margin-right: 0;
+}
+
+/* ===== USER PAGES MOBILE ===== */
+@media (max-width: 1200px) {
+  main.pt-40.lg\:pt-44 {
+    padding-top: 132px;
+  }
+
+  main .grid.lg\:grid-cols-4 {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  main .grid.lg\:grid-cols-4 > .lg\:col-span-3 {
+    order: 1;
+  }
+
+  main .grid.lg\:grid-cols-4 > aside.lg\:col-span-1 {
+    order: 2;
+  }
+
+  aside .sticky.top-32 {
+    position: static;
+  }
+
+  aside nav.space-y-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #recentPropertiesGrid,
+  #favoritesGrid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 768px) {
+  main.pt-40.lg\:pt-44 {
+    padding-top: 118px;
+  }
+
+  main .max-w-\[1600px\].mx-auto.px-6.lg\:px-12.py-12 {
+    padding: 14px 12px 36px;
+  }
+
+  .space-y-12 {
+    gap: 20px !important;
+  }
+
+  .space-y-8 {
+    gap: 16px !important;
+  }
+
+  .space-y-12 h1.text-4xl,
+  .space-y-8 h1.text-4xl {
+    font-size: clamp(1.9rem, 8.4vw, 2.4rem) !important;
+  }
+
+  .space-y-8 > .flex.justify-between.items-center {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .space-y-8 > .flex.justify-between.items-center .btn-primary,
+  .space-y-8 > .flex.justify-between.items-center .btn-outline {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4.gap-6 {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4.gap-6 > .glass-dark {
+    padding: 14px !important;
+  }
+
+  .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4.gap-6 > .glass-dark .text-4xl {
+    font-size: 1.7rem !important;
+  }
+
+  #myListingsTabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 6px;
+  }
+
+  #myListingsTabs > * {
+    flex: 0 0 auto;
+  }
+
+  aside .glass-dark {
+    border-radius: 22px !important;
+    padding: 14px !important;
+  }
+
+  aside nav.space-y-2 > a {
+    min-height: 44px;
+    font-size: 0.9rem !important;
+    padding: 10px 9px !important;
+  }
+
+  .glass-dark.rounded-\[40px\].p-8,
+  .glass-dark.p-8 {
+    border-radius: 20px !important;
+    padding: 14px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4.gap-6 {
+    grid-template-columns: 1fr !important;
+  }
+
+  aside nav.space-y-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .space-y-12 h1.text-4xl,
+  .space-y-8 h1.text-4xl {
+    font-size: 1.8rem !important;
+    line-height: 1.05;
+  }
+}

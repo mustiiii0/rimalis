@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title data-i18n="title_user_profile">Rimalis Group | Profil</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/mobile/mobile.css">
+    <link rel="stylesheet" href="/static/css/mobile/user.css">
+    <link rel="stylesheet" href="/static/css/mobile/user/profile.css">
+</head>
+<body class="mobile-user-profile-page">
+    <div class="modal-overlay" id="avatarModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Ändra profilbild</div>
+                <button class="modal-close" type="button" id="avatarModalCloseBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-option" id="avatarTakePhotoOption">
+                <div class="option-icon"><i class="fas fa-camera"></i></div>
+                <div class="modal-option-copy">
+                    <strong>Ta ny bild</strong>
+                    <span>Använd kameran</span>
+                </div>
+            </div>
+            <div class="modal-option" id="avatarLibraryOption">
+                <div class="option-icon"><i class="fas fa-image"></i></div>
+                <div class="modal-option-copy">
+                    <strong>Välj från bibliotek</strong>
+                    <span>Välj befintlig bild</span>
+                </div>
+            </div>
+            <div class="modal-option modal-option--danger" id="avatarRemoveOption">
+                <div class="option-icon"><i class="fas fa-trash"></i></div>
+                <div class="modal-option-copy">
+                    <strong class="modal-option-copy__danger">Ta bort bild</strong>
+                    <span>Använd initialer istället</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="app">
+        <header class="header">
+            <a href="dashboard.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <span class="header-title" data-i18n="nav_profile">Profil</span>
+            <a href="settings.html" class="settings-btn">
+                <i class="fas fa-cog"></i>
+            </a>
+        </header>
+
+        <section class="profile-section">
+            <div class="profile-avatar" id="userProfileAvatarHotspot">
+                <div class="avatar-image">
+                    <img id="userProfileAvatarPreview" src="/static/image/avatar-placeholder.svg" alt="Profilbild">
+                    <span class="avatar-initials" id="userProfileAvatarInitials">JD</span>
+                </div>
+                <div class="edit-avatar" id="userProfileChangePhotoTrigger" role="button" tabindex="0" aria-label="Byt profilbild">
+                    <i class="fas fa-pen"></i>
+                </div>
+                <button id="userProfileChangePhotoBtn" type="button" class="hidden" aria-hidden="true"></button>
+                <input id="userProfileAvatarInput" type="file" accept="image/*" class="hidden">
+            </div>
+            <div class="profile-info">
+                <img id="userProfileSidebarAvatar" src="/static/image/avatar-placeholder.svg" alt="" class="hidden">
+                <h1 class="profile-name" id="userSidebarName">Johan Davidsson</h1>
+                <div class="profile-email">
+                    <i class="fas fa-envelope profile-email-icon"></i>
+                    <span id="userSidebarEmail">johan.d@example.com</span>
+                </div>
+                <span class="badge" id="userProfilePlanBadge">
+                    <i class="fas fa-star"></i> <span data-i18n="user_role_member">Medlem</span>
+                </span>
+                <div id="userProfileDesc" class="hidden"></div>
+            </div>
+        </section>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-number" id="profileStatFavorites">12</div>
+                <div class="stat-label" data-i18n="nav_saved">Sparade</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="profileStatSearches">3</div>
+                <div class="stat-label" data-i18n="user_dashboard_viewings_short">Visningar</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="profileStatMessages">8</div>
+                <div class="stat-label" data-i18n="user_profile_contacts">Kontakter</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number" id="profileStatListings">2</div>
+                <div class="stat-label" data-i18n="user_profile_listings">Annonser</div>
+            </div>
+        </div>
+
+        <div class="menu-section">
+            <div class="section-title" data-i18n="user_profile_my_listings_title">Mina annonser</div>
+            <a class="menu-item" href="create_listing/step1_listing_info.html">
+                <div class="menu-icon"><i class="fas fa-plus-circle"></i></div>
+                <div class="menu-content">
+                    <div class="menu-title" data-i18n="user_create_new_listing">Skapa ny annons</div>
+                    <div class="menu-subtitle" data-i18n="user_profile_publish_home_free">Publicera din bostad gratis</div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+            <a class="menu-item" href="my_listings.html">
+                <div class="menu-icon"><i class="fas fa-home"></i></div>
+                <div class="menu-content">
+                    <div class="menu-title" data-i18n="user_profile_active_listings">Mina aktiva annonser</div>
+                    <div class="menu-subtitle" id="profileListingsSubtitle">2 annonser publicerade</div>
+                </div>
+                <span class="menu-value" id="profileListingsCount">2</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+            <a class="menu-item" href="my_listings.html">
+                <div class="menu-icon"><i class="fas fa-clock"></i></div>
+                <div class="menu-content">
+                    <div class="menu-title" data-i18n="user_status_draft">Utkast</div>
+                    <div class="menu-subtitle" id="profileDraftsSubtitle">Hantera dina opublicerade annonser</div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+        </div>
+
+        <div class="menu-section">
+            <div class="section-title" data-i18n="user_profile_activity_title">Aktivitet</div>
+            <a class="menu-item" href="favorites.html">
+                <div class="menu-icon"><i class="fas fa-heart"></i></div>
+                <div class="menu-content">
+                    <div class="menu-title" data-i18n="user_profile_saved_homes">Sparade bostäder</div>
+                    <div class="menu-subtitle" id="profileFavoritesSubtitle">12 sparade objekt</div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+            <a class="menu-item" href="saved-searches.html">
+                <div class="menu-icon"><i class="fas fa-search"></i></div>
+                <div class="menu-content">
+                    <div class="menu-title" data-i18n="user_profile_saved_searches">Sparade sökningar</div>
+                    <div class="menu-subtitle" id="profileSearchesSubtitle">3 aktiva bevakningar</div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+            <a class="menu-item" href="bookings.html">
+                <div class="menu-icon"><i class="fas fa-history"></i></div>
+                <div class="menu-content">
+                    <div class="menu-title" data-i18n="user_profile_viewing_history">Visningshistorik</div>
+                    <div class="menu-subtitle" id="profileMessagesSubtitle">8 senaste visningar</div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+        </div>
+
+        <div class="menu-section">
+            <div class="section-title" data-i18n="user_profile_communication_title">Kommunikation</div>
+            <a class="menu-item" href="messages.html">
+                <div class="menu-icon"><i class="fas fa-comment"></i></div>
+                <div class="menu-content">
+                    <div class="menu-title" data-i18n="user_messages_title">Meddelanden</div>
+                    <div class="menu-subtitle" id="profileUnreadMessagesSubtitle" data-i18n="common_loading">Laddar...</div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+            <a class="menu-item" href="profile.html">
+                <div class="menu-icon"><i class="fas fa-star"></i></div>
+                <div class="menu-content">
+                    <div class="menu-title" data-i18n="user_profile_reviews">Recensioner</div>
+                    <div class="menu-subtitle" data-i18n="coming_soon">Kommer snart</div>
+                </div>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+        </div>
+
+        <div class="menu-section">
+            <div class="section-title section-title--split">
+                <span data-i18n="user_profile_recently_saved">Senast sparade</span>
+                <a href="favorites.html" class="section-title-link" data-i18n="show_all">Visa alla</a>
+            </div>
+            <div class="saved-preview" id="profileRecentFavorites">
+                <div class="empty-state" data-i18n="common_loading">Laddar...</div>
+            </div>
+        </div>
+
+        <div class="logout-wrap">
+            <button class="logout-btn" type="button" id="mobileProfileLogoutBtn">
+                <i class="fas fa-sign-out-alt"></i> <span data-i18n="logout">Logga ut</span>
+            </button>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="../public/home.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span data-i18n="nav_home">Hem</span>
+            </a>
+            <a href="../public/properties.html" class="nav-item">
+                <i class="fas fa-search"></i>
+                <span data-i18n="nav_search">Sök</span>
+            </a>
+            <a href="dashboard.html" class="nav-item">
+                <i class="fas fa-chart-pie"></i>
+                <span data-i18n="nav_dashboard">Dashboard</span>
+            </a>
+            <a href="favorites.html" class="nav-item">
+                <i class="far fa-heart"></i>
+                <span data-i18n="nav_saved">Sparade</span>
+            </a>
+            <a href="messages.html" class="nav-item">
+                <i class="far fa-comment"></i>
+                <span data-i18n="nav_chat">Chat</span>
+            </a>
+            <a href="profile.html" class="nav-item active">
+                <i class="fas fa-user"></i>
+                <span data-i18n="nav_profile">Profil</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="/static/js/mobile/mobile.js"></script>
+    <script src="/static/js/shared/api.js"></script>
+    <script src="/static/js/shared/page-guards.js"></script>
+    <script src="/static/js/shared/menu-config.js"></script>
+    <script src="/static/js/user/user-menu.js"></script>
+    <script src="/static/js/public/navigation.js"></script>
+    <script src="/static/js/public/i18n.js"></script>
+    <script src="/static/js/public/favorites.js"></script>
+    <script src="/static/js/user/profile.js"></script>
+    <script src="/static/js/mobile/user/profile.js"></script>
+</body>
+</html>

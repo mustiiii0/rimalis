@@ -1,0 +1,461 @@
+/* Mobile user my listings page */
+
+.mobile-user-my-listings-page {
+  background: #060b14;
+  color: #ffffff;
+  font-family: 'Outfit', sans-serif;
+}
+
+.mobile-user-my-listings-page #nav-container {
+  display: none;
+}
+
+.mobile-my-listings-shell {
+  max-width: 450px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #0b1220;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.45);
+}
+
+.mobile-my-listings-statusbar {
+  display: flex;
+  justify-content: space-between;
+  padding: max(12px, env(safe-area-inset-top)) 20px 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.mobile-my-listings-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 20px 16px;
+  border-bottom: 1px solid #273246;
+  background: #0b1220;
+}
+
+.mobile-my-listings-topbar__title {
+  margin: 0;
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.mobile-my-listings-icon-btn,
+.mobile-my-listings-avatar {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #141d30;
+  color: #e5ff00;
+  text-decoration: none;
+}
+
+.mobile-my-listings-topbar__spacer {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+}
+
+.mobile-my-listings-content {
+  padding: 16px 20px 28px;
+}
+
+.mobile-my-listings-hero {
+  margin-bottom: 16px;
+  padding: 22px 20px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #12161c 0%, #2a313b 100%);
+  color: #ffffff;
+}
+
+.mobile-my-listings-hero__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.mobile-my-listings-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(226, 255, 49, 0.16);
+  color: #f4ffb8;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.mobile-my-listings-identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.mobile-my-listings-identity strong {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.mobile-my-listings-identity small {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.72rem;
+}
+
+.mobile-my-listings-hero h2 {
+  margin: 0 0 8px;
+  font-size: 1.95rem;
+  line-height: 1.02;
+  font-weight: 800;
+}
+
+.mobile-my-listings-hero h2 span {
+  color: #e2ff31;
+}
+
+.mobile-my-listings-hero p {
+  margin: 0 0 18px;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.5;
+}
+
+.mobile-my-listings-create-btn {
+  display: inline-flex;
+  width: 100%;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  background: #e2ff31;
+  color: #12161c;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.mobile-my-listings-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.mobile-my-listings-summary article,
+.mobile-my-listings-tabs-card,
+.mobile-my-listings-list-card {
+  border: 1px solid #ebefd0;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.mobile-my-listings-summary article {
+  padding: 16px 10px;
+  text-align: center;
+}
+
+.mobile-my-listings-summary strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #12161c;
+  font-size: 1.18rem;
+  font-weight: 800;
+}
+
+.mobile-my-listings-summary span {
+  color: #667085;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.mobile-my-listings-tabs-card,
+.mobile-my-listings-list-card {
+  padding: 16px;
+}
+
+.mobile-my-listings-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.mobile-my-listings-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.mobile-my-listings-tabs button {
+  flex: 0 0 auto;
+  min-height: 42px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: #f6f8ec;
+  color: #667085;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.mobile-my-listings-tabs button.is-active {
+  background: #12161c;
+  color: #ffffff;
+}
+
+.mobile-my-listings-list {
+  display: grid;
+  gap: 12px;
+}
+
+.mobile-my-listing-card,
+.mobile-my-listings-empty,
+.mobile-my-listings-error {
+  border-radius: 24px;
+  background: #f8faef;
+}
+
+.mobile-my-listing-card {
+  overflow: hidden;
+  border: 1px solid #ebefd0;
+}
+
+.mobile-my-listing-card__media {
+  position: relative;
+  height: 180px;
+  background: #eef2dd;
+}
+
+.mobile-my-listing-card__media img,
+.mobile-my-listing-card__media div {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mobile-my-listing-card__status {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.mobile-my-listing-card__status[data-status='published'] {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.mobile-my-listing-card__status[data-status='pending'] {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.mobile-my-listing-card__status[data-status='sold'] {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.mobile-my-listing-card__status[data-status='draft'] {
+  background: #e5e7eb;
+  color: #4b5563;
+}
+
+.mobile-my-listing-card__favorite {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+  color: #ef4444;
+}
+
+.mobile-my-listing-card__body {
+  padding: 16px;
+}
+
+.mobile-my-listing-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.mobile-my-listing-card__head h3 {
+  margin: 0 0 4px;
+  color: #12161c;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.mobile-my-listing-card__head p {
+  margin: 0;
+  color: #667085;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.mobile-my-listing-card__ref {
+  margin-top: 4px !important;
+  color: #98a2b3 !important;
+  font-size: 0.72rem !important;
+}
+
+.mobile-my-listing-card__price {
+  color: #6b7c16;
+  font-size: 1.2rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.mobile-my-listing-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.mobile-my-listing-card__meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid #ebefd0;
+  color: #4b5563;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.mobile-my-listing-card__actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.mobile-my-listing-card__actions button {
+  min-height: 46px;
+  border: 1px solid #ebefd0;
+  border-radius: 16px;
+  background: #ffffff;
+  color: #12161c;
+  font-weight: 700;
+}
+
+.mobile-my-listing-card__actions button[data-mark-sold] {
+  border-color: #d9e96a;
+  background: #f8fbef;
+  color: #6b7c16;
+}
+
+.mobile-my-listing-card__actions button[data-delete-listing] {
+  border-color: #fecaca;
+  background: #fff7f7;
+  color: #dc2626;
+}
+
+.mobile-my-listings-empty,
+.mobile-my-listings-error {
+  padding: 18px;
+  color: #667085;
+  text-align: center;
+}
+
+.mobile-my-listings-error {
+  color: #dc2626;
+  background: #fff7f7;
+}
+
+@media (max-width: 380px) {
+  .mobile-my-listings-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .mobile-my-listings-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .mobile-my-listings-hero__meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mobile-my-listing-card__actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Shared mobile zoom-out pass */
+.mobile-my-listings-header {
+  padding: calc(12px + env(safe-area-inset-top, 0px)) 18px 14px;
+}
+
+.mobile-my-listings-header__title {
+  font-size: 1.14rem;
+}
+
+.mobile-my-listings-header__btn,
+.mobile-my-listings-header__spacer {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+}
+
+.mobile-my-listings-content {
+  padding: 14px 18px 102px;
+}
+
+.mobile-my-listings-hero,
+.mobile-my-listing-card,
+.mobile-my-listings-panel,
+.mobile-my-listings-summary-card {
+  border-radius: 20px;
+}
+
+.mobile-my-listings-hero,
+.mobile-my-listing-card,
+.mobile-my-listings-panel {
+  padding: 16px;
+}
+
+.mobile-my-listings-hero__value {
+  font-size: 1.58rem;
+}
+
+.mobile-my-listing-card__media img {
+  border-radius: 14px;
+}
+
+.mobile-my-listing-card__actions button {
+  min-height: 46px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rimalis Group | Mina favoriter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/public/style.css">
+  <link rel="stylesheet" href="/static/css/public/components.css">
+  <link rel="stylesheet" href="/static/css/public/responsive.css">
+  <link rel="stylesheet" href="/static/css/user/dashboard.css">
+</head>
+<body class="bg-[#0a0a0a] text-white antialiased">
+  <div id="nav-container"></div>
+  <main class="pt-40 lg:pt-44">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-12 py-12">
+      <div class="grid lg:grid-cols-4 gap-8">
+        <aside class="lg:col-span-1">
+          <div class="glass-dark rounded-[40px] p-8 sticky top-32">
+            <div class="text-center mb-8">
+              <div class="w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden border-4 border-[#e2ff31]">
+                <img id="userSidebarAvatar" src="/static/image/avatar-placeholder.svg" alt="Användare" class="w-full h-full object-cover">
+              </div>
+              <h3 class="text-2xl font-bold" id="userSidebarName">Laddar...</h3>
+              <p class="text-white/40 text-base" id="userSidebarEmail">laddar...</p>
+            </div>
+            <nav class="space-y-2">
+              <a href="dashboard.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-chart-pie w-6 text-xl"></i><span data-i18n="user_sidebar_overview">Översikt</span></a>
+              <a href="favorites.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg bg-[#e2ff31] text-black"><i class="fas fa-heart w-6 text-xl"></i><span data-i18n="user_sidebar_favorites">Favoriter</span></a>
+              <a href="my_listings.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-home w-6 text-xl"></i><span data-i18n="user_sidebar_my_listings">Mina annonser</span></a>
+              <a href="messages.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-envelope w-6 text-xl"></i><span data-i18n="user_sidebar_messages">Meddelanden</span></a>
+              <a href="profile_settings.html" class="flex items-center gap-4 p-5 rounded-2xl hover:bg-[#e2ff31] hover:text-black transition-all text-lg "><i class="fas fa-user w-6 text-xl"></i><span data-i18n="user_sidebar_profile">Profil</span></a>
+              <a href="/templates/auth/login.html" data-logout-trigger class="flex items-center gap-4 p-5 rounded-2xl hover:bg-red-500/20 hover:text-red-500 transition-all text-lg mt-8"><i class="fas fa-sign-out-alt w-6 text-xl"></i><span data-i18n="common_logout">Logga ut</span></a>
+            </nav>
+          </div>
+        </aside>
+        <div class="lg:col-span-3">
+<div class="space-y-8">
+    <!-- Header -->
+    <div class="flex justify-between items-center">
+        <div>
+            <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-2" id="userFavoritesTitle">
+                Mina <span class="text-[#e2ff31]">favoriter</span>
+            </h1>
+            <p class="text-white/60 text-lg" id="favoritesCountText">Du har 0 sparade objekt</p>
+        </div>
+        
+        <div class="flex gap-3">
+            <select id="userFavoritesSort" class="bg-white/5 border border-white/10 rounded-full px-6 py-3 text-sm outline-none">
+                <option id="userFavoritesSortLatest" value="latest">Sortera: Senast sparade</option>
+                <option value="price_asc" data-i18n="user_favorites_sort_price_asc">Pris: Lägst först</option>
+                <option value="price_desc" data-i18n="user_favorites_sort_price_desc">Pris: Högst först</option>
+                <option value="area_asc" data-i18n="user_favorites_sort_area_asc">Område: A-Ö</option>
+            </select>
+            
+            <button class="btn-outline" data-clear-favorites>
+                <i class="fas fa-trash-alt mr-2"></i><span id="userFavoritesClearAllText">Rensa alla</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Favoritlista -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="favoritesGrid"></div>
+
+    <div class="text-center text-white/40 text-sm mt-8" id="favoritesPaginationInfo"></div>
+</div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="/static/js/shared/api.js"></script>
+    <script src="/static/js/shared/page-guards.js"></script>
+  <script src="/static/js/shared/menu-config.js"></script>
+  <script src="/static/js/user/user-menu.js"></script>
+  <script src="/static/js/public/navigation.js"></script>
+  <script src="/static/js/public/i18n.js"></script>
+  <script src="/static/js/public/favorites.js"></script>
+  <script src="/static/js/user/favorites.js?v=20260303a"></script>
+</body>
+</html>

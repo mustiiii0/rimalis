@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rimalis Group | Admin granska annonser</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="/static/css/admin/admin.css" />
+  <link rel="stylesheet" href="/static/css/admin/reviews.css" />
+</head>
+<body>
+  <div class="admin-shell">
+    <div class="admin-layout">
+      <aside class="admin-sidebar">
+        <div class="brand">
+          <div class="brand-badge"><i class="fas fa-crown"></i></div>
+          <div>
+            <h1 data-i18n="admin_brand_title">Rimalis Group Admin</h1>
+            <p>Intern kontrollpanel</p>
+          </div>
+        </div>
+        <nav class="nav-list">
+          <a class="nav-link " href="dashboard.html"><i class="fas fa-chart-line"></i><span data-i18n="admin_sidebar_overview">Översikt</span></a>
+          <a class="nav-link " href="properties.html"><i class="fas fa-building"></i><span data-i18n="admin_sidebar_properties">Fastigheter</span></a>
+          <a class="nav-link " href="users.html"><i class="fas fa-users"></i><span data-i18n="admin_sidebar_users">Användare</span></a>
+          <a class="nav-link active" href="review_queue.html"><i class="fas fa-clipboard-check"></i><span data-i18n="admin_sidebar_review_queue">Granska annonser</span></a>
+          <a class="nav-link " href="viewings.html"><i class="fas fa-calendar-check"></i><span>Visningar</span></a>
+          <a class="nav-link " href="messages.html"><i class="fas fa-envelope"></i><span data-i18n="admin_sidebar_messages">Meddelanden</span></a>
+          <a class="nav-link " href="support.html"><i class="fas fa-life-ring"></i><span data-i18n="admin_sidebar_support">Support</span></a>
+          <a class="nav-link " href="media_health.html"><i class="fas fa-hard-drive"></i><span data-i18n="admin_sidebar_media_health">Media health</span></a>
+          <a class="nav-link " href="settings.html"><i class="fas fa-sliders-h"></i><span data-i18n="admin_sidebar_settings">Inställningar</span></a>
+                    <a class="nav-link " href="site_controls.html"><i class="fas fa-sitemap"></i><span data-i18n="admin_sidebar_site_controls">Sidstyrning</span></a>
+          <a class="nav-link " href="audit_log.html"><i class="fas fa-shield-alt"></i><span>Audit-logg</span></a>
+          <a class="nav-link logout" href="../auth/login.html"><i class="fas fa-sign-out-alt"></i><span data-i18n="common_logout">Logga ut</span></a>
+        </nav>
+      </aside>
+
+      <main class="admin-main">
+        <header class="topbar">
+          <div>
+            <h2 class="page-title">Granska nya annonser</h2>
+            <p class="page-subtitle">Godkänn, avvisa eller begär ändringar.</p>
+          </div>
+          <div class="admin-top-actions">
+            <div class="admin-lang">
+              <button class="admin-lang-btn" id="adminLanguageBtn" type="button">
+                <span id="adminSelectedLanguage">🇸🇪 SV</span>
+                <i class="fas fa-chevron-down text-xs"></i>
+              </button>
+              <div class="admin-lang-menu" id="adminLanguageMenu">
+                <button class="admin-lang-option active" type="button" data-lang="sv">🇸🇪 Svenska</button>
+                <button class="admin-lang-option" type="button" data-lang="en">🇬🇧 English</button>
+              </div>
+            </div>
+            <button class="btn btn-primary" id="massApproveBtn" type="button">Massgodkänn</button>
+          </div>
+        </header>
+        
+<section class="list" id="reviewList"></section>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="/static/js/shared/api.js"></script>
+  <script src="/static/js/shared/page-guards.js"></script>
+  <script src="/static/js/shared/menu-config.js"></script>
+  <script src="/static/js/admin/admin-menu.js"></script>
+  <script src="/static/js/public/i18n.js"></script>
+  <script src="/static/js/admin/admin-language.js"></script>
+  <script src="/static/js/admin/reviews.js?v=20260303d"></script>
+</body>
+</html>

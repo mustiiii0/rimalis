@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title data-i18n="title_home">Rimalis Group | Bostadsplattform för annonser</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/mobile/mobile.css">
+    <link rel="stylesheet" href="/static/css/mobile/public.css">
+    <link rel="stylesheet" href="/static/css/mobile/public/home.css">
+</head>
+<body class="mobile-home-app">
+    <div class="app">
+        <header class="header">
+            <a href="home.html" class="logo" aria-label="Rimalis Hem">
+                <img src="/static/image/Rimalis-Group.png" alt="Rimalis Group">
+            </a>
+            <div class="header-actions">
+                <div class="language-switch">
+                    <button class="icon-btn language-btn" type="button" id="languageBtn" aria-label="Byt språk">
+                        <span id="currentLanguage">SV</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown">
+                        <div class="language-option active" data-lang="sv" data-flag="🇸🇪">
+                            <span class="language-flag">🇸🇪</span>
+                            <span class="language-name" data-i18n="language_swedish">Svenska</span>
+                            <i class="fas fa-check language-check"></i>
+                        </div>
+                        <div class="language-option" data-lang="en" data-flag="🇬🇧">
+                            <span class="language-flag">🇬🇧</span>
+                            <span class="language-name" data-i18n="language_english">English</span>
+                            <i class="fas fa-check language-check"></i>
+                        </div>
+                        <div class="language-option" data-lang="ar" data-flag="🇸🇦">
+                            <span class="language-flag">🇸🇦</span>
+                            <span class="language-name" data-i18n="language_arabic">العربية</span>
+                            <i class="fas fa-check language-check"></i>
+                        </div>
+                    </div>
+                </div>
+                <button class="icon-btn" type="button" data-mobile-login-target="../auth/login.html" aria-label="Profil">
+                    <i class="far fa-user"></i>
+                </button>
+            </div>
+        </header>
+
+        <section class="hero">
+            <h1>
+                <span data-i18n="home_hero_line1">hitta ditt</span>
+                <span data-i18n="home_hero_line2">drömhem</span>
+            </h1>
+            <p data-i18n="home_mobile_hero_desc">Utforska tusentals bostäder över hela landet.</p>
+        </section>
+
+        <div class="search-section">
+            <div class="search-container">
+                <input type="text" class="search-input" id="searchInput" placeholder="Sök på plats, område..." data-i18n-placeholder="home_mobile_search_placeholder">
+                <button class="search-submit-btn" id="pageSearchButton" type="button" data-perform-search aria-label="Sök">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            <div class="quick-filters">
+                <span class="filter-chip active" data-i18n="messages_tab_all">Alla</span>
+                <span class="filter-chip" data-i18n="property_type_apartment">Lägenhet</span>
+                <span class="filter-chip" data-i18n="property_type_house">Villa</span>
+                <span class="filter-chip" data-i18n="property_type_townhouse">Radhus</span>
+                <span class="filter-chip" data-i18n="property_type_holiday_home">Fritidshus</span>
+                <span class="filter-chip" data-i18n="property_tag_new_build">Nyproduktion</span>
+            </div>
+            <div class="mobile-home-hook-panel" aria-hidden="true" id="mobileFilterPanel">
+                <select id="propertyType" tabindex="-1">
+                    <option>Välj bostadstyp</option>
+                </select>
+                <select id="roomCount" tabindex="-1">
+                    <option>Antal rum</option>
+                </select>
+                <select id="livingArea" tabindex="-1">
+                    <option>Boarea</option>
+                </select>
+                <button type="button" id="priceBtn" tabindex="-1">
+                    <span>Välj pris</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div id="pricePanel">
+                    <input type="text" id="minPrice" placeholder="Min pris" tabindex="-1">
+                    <input type="text" id="maxPrice" placeholder="Max pris" tabindex="-1">
+                    <button type="button" id="applyPrice" tabindex="-1">Använd</button>
+                </div>
+            </div>
+        </div>
+
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title" id="homeFeaturedTitle" data-i18n="home_mobile_featured_title">Utvalda objekt</h2>
+                <a href="properties.html" class="section-link" id="homeFeaturedBtn" data-i18n="home_featured_btn">Se alla</a>
+            </div>
+            <div class="property-list" id="featuredPropertiesGrid"></div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title" id="homeAreasTitle" data-i18n="home_mobile_areas_title">Populära områden</h2>
+                <a href="properties.html" class="section-link" id="homeAreasBtn" data-i18n="home_areas_btn">Utforska</a>
+            </div>
+            <div class="areas-grid" id="homeAreasGrid"></div>
+        </section>
+
+        <div class="cta-section">
+            <div class="cta-card">
+                <h3 class="cta-title" data-i18n="home_mobile_sell_title_html" data-i18n-html>Sälja din <span>bostad?</span></h3>
+                <p class="cta-text" data-i18n="home_mobile_sell_desc">Publicera gratis och nå tusentals potentiella köpare direkt.</p>
+                <button class="cta-button" type="button" data-create-listing-trigger>
+                    <span data-i18n="home_mobile_create_listing">Skapa annons</span>
+                </button>
+            </div>
+        </div>
+
+        <footer class="home-footer">
+            <div class="home-footer__brand">
+                <img src="/static/image/Rimalis-Group.png" alt="Rimalis Group" class="home-footer__logo">
+                <p class="home-footer__desc" data-i18n="footer_desc">En modern bostadsplattform där användare kan publicera och upptäcka fastighetsannonser.</p>
+            </div>
+
+            <div class="home-footer__grid">
+                <div class="home-footer__col">
+                    <h3 data-i18n="footer_services">Tjänster</h3>
+                    <a href="/templates/public/services/sell.html" data-i18n="footer_sell">Sälj</a>
+                    <a href="/templates/public/services/buy.html" data-i18n="footer_buy">Köp</a>
+                    <a href="/templates/public/services/invest.html" data-i18n="footer_invest">Investera</a>
+                    <a href="/templates/public/services/valuation.html" data-i18n="footer_valuation">Värdering</a>
+                </div>
+                <div class="home-footer__col">
+                    <h3 data-i18n="footer_contact">Kontakt</h3>
+                    <a href="tel:+46812345678">08-123 456 78</a>
+                    <a href="mailto:support@rimalis.se">support@rimalis.se</a>
+                    <a href="/templates/mobile/public/contact.html" data-i18n="nav_contact">Kontakt</a>
+                </div>
+            </div>
+
+            <div class="home-footer__legal">
+                <a href="/templates/legal/privacy.html" data-i18n="footer_privacy">Integritetspolicy</a>
+                <a href="/templates/legal/terms.html" data-i18n="footer_terms">Användarvillkor</a>
+                <a href="/templates/legal/cookies.html" data-i18n="footer_cookies">Cookies</a>
+            </div>
+
+            <div class="home-footer__meta" data-i18n="footer_copyright">© 2026 Rimalis Group. Alla rättigheter förbehållna.</div>
+        </footer>
+
+        <nav class="bottom-nav">
+                <a href="home.html" class="nav-item active">
+                    <i class="fas fa-home"></i>
+                    <span data-i18n="nav_home">Hem</span>
+                </a>
+                <a href="properties.html" class="nav-item">
+                    <i class="fas fa-search"></i>
+                    <span data-i18n="nav_search">Sök</span>
+                </a>
+                <a href="../user/dashboard.html" class="nav-item">
+                    <i class="fas fa-chart-pie"></i>
+                    <span data-i18n="nav_dashboard">Dashboard</span>
+                </a>
+                <a href="../user/favorites.html" class="nav-item">
+                    <i class="far fa-heart"></i>
+                    <span data-i18n="nav_saved">Sparade</span>
+                </a>
+                <a href="../user/messages.html" class="nav-item">
+                    <i class="far fa-comment"></i>
+                    <span data-i18n="nav_chat">Chat</span>
+                </a>
+                <a href="../auth/login.html" class="nav-item">
+                    <i class="fas fa-user"></i>
+                    <span data-i18n="nav_profile">Profil</span>
+                </a>
+        </nav>
+    </div>
+
+    <div class="mobile-home-chat chat-widget">
+        <button type="button" class="chat-bubble chat-button" id="chatButton" aria-label="Öppna chatt">
+            <i class="fas fa-comment"></i>
+        </button>
+        <div class="chat-box" id="chatBox">
+            <div class="chat-header">
+                <span data-i18n="chat_customer_service">Kundtjänst</span>
+                <button id="closeChat" aria-label="Stäng chatt"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input">
+                <input type="text" placeholder="Skriv ditt meddelande..." id="chatInput" enterkeyhint="send" data-i18n-placeholder="messages_write_message_placeholder">
+                <button id="sendMessage" aria-label="Skicka" data-i18n-title="send"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script src="/static/js/mobile/mobile.js"></script>
+    <script src="/static/js/shared/api.js"></script>
+    <script src="/static/js/shared/page-guards.js"></script>
+    <script src="/static/js/public/main.js" defer></script>
+    <script src="/static/js/public/favorites.js" defer></script>
+    <script src="/static/js/public/filters.js" defer></script>
+    <script src="/static/js/public/chat.js" defer></script>
+    <script src="/static/js/public/modal.js?v=20260301" defer></script>
+    <script src="/static/js/shared/menu-config.js" defer></script>
+    <script src="/static/js/public/navigation.js" defer></script>
+    <script src="/static/js/public/i18n.js" defer></script>
+    <script src="/static/js/public/listings.js?v=20260305b" defer></script>
+</body>
+</html>

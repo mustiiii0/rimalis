@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover" />
+  <title>Rimalis Group | FAQ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/mobile/mobile.css">
+    <link rel="stylesheet" href="/static/css/mobile/public.css">
+</head>
+<body>
+  <div id="nav-container"></div>
+
+  <main class="max-w-[1100px] mx-auto px-6 lg:px-12 py-32">
+    <section class="mb-10">
+      <h1 class="text-5xl font-black tracking-tighter mb-3">FAQ</h1>
+      <p class="text-white/60">Vanliga frågor om visning, budgivning och köp via Rimalis Group.</p>
+    </section>
+
+    <section class="space-y-4" id="faqList">
+      <article class="glass-dark rounded-3xl p-6">
+        <button class="w-full text-left flex items-center justify-between font-bold text-lg" data-faq-btn>
+          Hur bokar jag en visning?
+          <i class="fas fa-chevron-down text-white/40"></i>
+        </button>
+        <p class="mt-4 text-white/70 hidden" data-faq-content>Öppna objektet i listan och klicka på boka visning. Du får bekräftelse via e-post.</p>
+      </article>
+      <article class="glass-dark rounded-3xl p-6">
+        <button class="w-full text-left flex items-center justify-between font-bold text-lg" data-faq-btn>
+          Hur fungerar budgivningen?
+          <i class="fas fa-chevron-down text-white/40"></i>
+        </button>
+        <p class="mt-4 text-white/70 hidden" data-faq-content>Bud lämnas digitalt och uppdateras löpande. Du kan följa status i realtid.</p>
+      </article>
+      <article class="glass-dark rounded-3xl p-6">
+        <button class="w-full text-left flex items-center justify-between font-bold text-lg" data-faq-btn>
+          Kan jag sälja med Rimalis Group?
+          <i class="fas fa-chevron-down text-white/40"></i>
+        </button>
+        <p class="mt-4 text-white/70 hidden" data-faq-content>Ja. Kontakta oss via kontaktsidan så hjälper vi dig vidare till rätt annonsör.</p>
+      </article>
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="/static/js/mobile/mobile.js"></script>
+  <script src="/static/js/shared/api.js"></script>
+    <script src="/static/js/shared/page-guards.js"></script>
+    <script src="/static/js/public/main.js"></script>
+  <script src="/static/js/public/favorites.js"></script>
+  <script src="/static/js/public/filters.js"></script>
+  <script src="/static/js/public/chat.js"></script>
+  <script src="/static/js/public/modal.js?v=20260301"></script>
+  <script src="/static/js/shared/menu-config.js"></script>
+  <script src="/static/js/public/navigation.js"></script>
+    <script src="/static/js/public/i18n.js"></script>
+    <script src="/static/js/public/page-hooks.js"></script>
+  
+</body>
+</html>

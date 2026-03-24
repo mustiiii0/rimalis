@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rimalis Group | Fastighetsdetaljer</title>
+    <meta name="description" content="Detaljerad information om bostaden, bilder, planlösning och kontaktvägar till ansvarig mäklare.">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Rimalis Group">
+    <meta property="og:title" content="Rimalis Group | Fastighetsdetaljer">
+    <meta property="og:description" content="Se objektdata, bilder och boka visning direkt från detaljsidan.">
+    <meta property="og:url" content="https://rimalis.group.se/templates/public/property-modal.html">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Våra gemensamma CSS-filer -->
+    <link rel="stylesheet" href="/static/css/public/style.css">
+    <link rel="stylesheet" href="/static/css/public/components.css">
+    <link rel="stylesheet" href="/static/css/public/responsive.css">
+    
+    <!-- Property Modal specifik CSS -->
+    <link rel="stylesheet" href="/static/css/public/property-modal.css?v=20260306h">
+</head>
+<body class="property-modal-zoomout">
+
+    <!-- ===== NAVIGERING (skapas av navigation.js) ===== -->
+    <div id="nav-container"></div>
+
+    <!-- ===== LOGIN MODAL ===== -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" data-close-login>&times;</span>
+            
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-[#e2ff31] rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-black tracking-tighter">Welcome back</h3>
+                <p class="text-white/40 text-sm mt-2">Log in to manage your listings and messages</p>
+            </div>
+
+            <form class="space-y-4" id="loginForm">
+                <input type="email" placeholder="E-post" class="input-field" id="loginEmail" required>
+                <input type="password" placeholder="Lösenord" class="input-field" id="loginPassword" required>
+                
+                <div class="flex justify-between items-center text-sm">
+                    <label class="flex items-center gap-2 text-white/50">
+                        <input type="checkbox" class="accent-[#e2ff31]" checked> Remember me
+                    </label>
+                    <a href="../auth/forgot_password.html" class="text-[#e2ff31] hover:underline">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn-primary w-full justify-center mt-6">
+                    Log in
+                </button>
+
+                <p class="text-center text-white/40 text-sm mt-6">
+                    Don't have an account? <a href="../auth/register.html" class="text-[#e2ff31] hover:underline">Register</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== MOBIL MENY ===== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-header">
+                <div class="flex items-center gap-2">
+                    <img src="/static/image/Rimalis-Group.png" alt="Rimalis Group" class="brand-logo brand-logo--mobile">
+                </div>
+                <button data-close-mobile-menu class="text-2xl opacity-50 hover:opacity-100">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="mobile-menu-links">
+                <a href="home.html" data-close-mobile-menu>Hem</a>
+                <a href="properties.html" data-close-mobile-menu>Bostäder</a>
+                <a href="areas.html" data-close-mobile-menu>Områden</a>
+                <a href="about.html" data-close-mobile-menu>Om oss</a>
+                <a href="contact.html" data-close-mobile-menu>Kontakt</a>
+                <a href="../auth/login.html" data-close-mobile-menu>Log in</a>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-white/10">
+                <p class="text-white/40 text-sm mb-4">Följ oss</p>
+                <div class="flex gap-4">
+                    <a href="https://www.instagram.com/rimalisgroup/" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-[#e2ff31]"><i class="fab fa-instagram text-xl"></i></a>
+                    <a href="https://www.linkedin.com/company/rimalis-group/" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-[#e2ff31]"><i class="fab fa-linkedin-in text-xl"></i></a>
+                    <a href="https://www.facebook.com/rimalisgroup/" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-[#e2ff31]"><i class="fab fa-facebook-f text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PROPERTY DETAILS ===== -->
+    <main class="pt-32 pb-20 px-6 lg:px-12">
+        <div class="max-w-[1400px] mx-auto">
+            
+            <!-- Tillbaka-knapp -->
+            <button data-call-fn="goBackToListings" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                <span>Tillbaka till sökresultat</span>
+            </button>
+
+            <!-- Property ID och favorit -->
+            <div class="property-actions">
+                <span class="property-ref" id="propertyRef">Referens: -</span>
+                <div class="property-action-buttons">
+                    <button class="btn-outline px-4 py-2 text-xs" id="sharePropertyBtn" type="button" data-call-fn="openShareModal">
+                        <i class="fas fa-share-nodes mr-2"></i>Dela annons
+                    </button>
+                </div>
+            </div>
+
+            <!-- Titel och pris -->
+            <div class="property-header">
+                <div class="property-title">
+                    <h1 id="propertyTitle">Laddar objekt...</h1>
+                    <div class="property-location" id="propertyLocation">
+                        <i class="fas fa-map-pin"></i><span id="propertyLocationText">-</span>
+                    </div>
+                    <div class="property-location mt-2" id="propertyAddressRow">
+                        <i class="fas fa-location-dot"></i><span id="propertyAddressText">-</span>
+                    </div>
+                </div>
+                <div class="property-price">
+                    <div class="current-price" id="propertyPrice">-</div>
+                    <div class="old-price" id="propertyOldPrice"></div>
+                </div>
+            </div>
+
+            <!-- Bildgalleri -->
+            <div class="property-gallery">
+                <div class="gallery-main" id="mainImage">
+                    <div class="w-full h-full bg-white/5 flex items-center justify-center text-white/40 text-sm">Laddar bild...</div>
+                </div>
+                <div class="gallery-aside">
+                    <div class="gallery-side" id="gallerySide">
+                        <!-- Fylls med JavaScript -->
+                    </div>
+                    <aside class="quick-contact-card" id="quickContactCard">
+                        <p class="quick-contact-label">Snabbkontakt</p>
+                        <h3 class="quick-contact-name" id="quickAgentName">Laddar...</h3>
+                        <p class="quick-contact-title" id="quickAgentTitle">Ansvarig agent</p>
+
+                        <div class="quick-contact-details" id="quickContactDetails" hidden>
+                            <div class="quick-contact-row" id="quickPhoneWrap" hidden>
+                                <i class="fas fa-phone-alt"></i>
+                                <span id="quickAgentPhone"></span>
+                            </div>
+                            <div class="quick-contact-row" id="quickWhatsappWrap" hidden>
+                                <i class="fab fa-whatsapp"></i>
+                                <span id="quickAgentWhatsapp"></span>
+                            </div>
+                            <div class="quick-contact-row" id="quickEmailWrap" hidden>
+                                <i class="fas fa-envelope"></i>
+                                <span id="quickAgentEmail"></span>
+                            </div>
+                        </div>
+
+                        <div class="quick-contact-actions">
+                            <button type="button" class="btn-call" data-call-fn="contactAgent" data-call-args="call">
+                                <i class="fas fa-phone-alt"></i>Ring
+                            </button>
+                            <button type="button" class="btn-whatsapp" data-call-fn="contactAgent" data-call-args="whatsapp">
+                                <i class="fab fa-whatsapp"></i>WhatsApp
+                            </button>
+                            <button type="button" class="btn-message" data-call-fn="toggleMessagePanel" data-call-args="true">
+                                <i class="fas fa-message"></i>Meddelande
+                            </button>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+
+            <!-- Lightbox -->
+            <div class="lightbox" id="lightbox">
+                <div class="lightbox-content">
+                    <img id="lightboxImg" src="" alt="Lightbox">
+                    <button class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+                    <button class="lightbox-nav prev" id="lightboxPrev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="lightbox-nav next" id="lightboxNext"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="fas fa-ruler-combined" id="featureAreaIcon"></i>
+                    <div class="feature-value" id="featureArea">240</div>
+                    <div class="feature-label" id="featureAreaLabel">kvm</div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-bed" id="featureSecondaryIcon"></i>
+                    <div class="feature-value" id="featureRooms">6</div>
+                    <div class="feature-label" id="featureRoomsLabel">rum</div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-bath" id="featureTertiaryIcon"></i>
+                    <div class="feature-value" id="featureBathrooms">4</div>
+                    <div class="feature-label" id="featureBathroomsLabel">badrum</div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-building" id="featureFloorIcon"></i>
+                    <div class="feature-value" id="featureFloor">3</div>
+                    <div class="feature-label" id="featureFloorLabel">våning</div>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-tag"></i>
+                    <div class="feature-value" id="featurePropertyType">Lägenhet</div>
+                    <div class="feature-label" id="featurePropertyTypeLabel">annons typ</div>
+                </div>
+            </div>
+
+            <!-- Beskrivning -->
+            <div class="description-section">
+                <h2>Om fastigheten</h2>
+                <p class="description-text" id="propertyDescription">
+                    Beskrivning saknas.
+                </p>
+            </div>
+
+            <!-- Detaljer -->
+            <div class="details-grid" id="propertyDetailsGrid"></div>
+
+            <!-- Planlösning -->
+            <div class="floorplan-section">
+                <h2>Planlösning</h2>
+                <div class="floorplan-image" data-call-fn="openFloorplanLightbox">
+                    <img id="floorplanImage" src="" alt="Floor plan">
+                </div>
+            </div>
+
+            <!-- Karta -->
+            <div class="floorplan-section">
+                <h2 data-i18n="property_map_title">Karta</h2>
+                <div class="floorplan-image floorplan-image--map cursor-default overflow-hidden">
+                    <iframe
+                        id="propertyMapFrame"
+                        title="Objektskarta"
+                        src="https://www.google.com/maps?q=Stockholm&output=embed"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        class="w-full h-full border-0 rounded-[28px]"
+                    ></iframe>
+                </div>
+                <a id="propertyMapLink" href="https://www.google.com/maps/search/?api=1&query=Stockholm" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-3 text-sm text-[#e2ff31] hover:underline">
+                    <i class="fas fa-up-right-from-square text-xs"></i>
+                    <span id="propertyMapLinkText" data-i18n="property_map_open_google">Öppna i Google Maps</span>
+                </a>
+            </div>
+
+            <!-- Mäklare -->
+            <div class="agent-card">
+                <div class="agent-avatar">
+                    <img id="agentImage" src="" alt="Ansvarig agent">
+                </div>
+                <div class="agent-info">
+                    <h3 id="agentName">Laddar...</h3>
+                    <p class="agent-title" id="agentTitle">Ansvarig agent</p>
+                    <p class="agent-bio" id="agentBio"></p>
+                    <div class="agent-contact-details" id="agentContactDetails" hidden>
+                        <div class="agent-contact-detail" id="agentContactPhoneWrap" hidden>
+                            <i class="fas fa-phone-alt"></i>
+                            <span id="agentContactPhone"></span>
+                        </div>
+                        <div class="agent-contact-detail" id="agentContactWhatsappWrap" hidden>
+                            <i class="fab fa-whatsapp"></i>
+                            <span id="agentContactWhatsapp"></span>
+                        </div>
+                        <div class="agent-contact-detail" id="agentContactEmailWrap" hidden>
+                            <i class="fas fa-envelope"></i>
+                            <span id="agentContactEmail"></span>
+                        </div>
+                    </div>
+                    <div class="agent-contact">
+                        <button id="agentCallBtn" type="button" class="btn-call" data-call-fn="contactAgent" data-call-args="call">
+                            <i class="fas fa-phone-alt"></i>Ring
+                        </button>
+                        <button id="agentWhatsappBtn" type="button" class="btn-whatsapp" data-call-fn="contactAgent" data-call-args="whatsapp">
+                            <i class="fab fa-whatsapp"></i>WhatsApp
+                        </button>
+                        <button id="agentMessageBtn" type="button" class="btn-message" data-call-fn="toggleMessagePanel">
+                            <i class="fas fa-message"></i>Meddelande
+                        </button>
+                        <button id="agentBookingBtn" type="button" class="btn-outline" data-call-fn="bookViewing">
+                            <i class="fas fa-calendar"></i>Boka visning
+                        </button>
+                    </div>
+                    <div class="property-message-panel" id="propertyMessagePanel" hidden>
+                        <h4>Skicka meddelande om annonsen</h4>
+                        <form id="propertyMessageForm">
+                            <div class="property-message-grid">
+                                <input id="propertyMsgName" type="text" placeholder="Ditt namn" required>
+                                <input id="propertyMsgEmail" type="email" placeholder="Din e-post" required>
+                                <input id="propertyMsgPhone" type="tel" placeholder="Ditt nummer" required>
+                            </div>
+                            <textarea id="propertyMsgText" placeholder="Skriv ditt meddelande..." rows="4" required></textarea>
+                            <div class="property-message-actions">
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-paper-plane"></i>Skicka
+                                </button>
+                                <button type="button" class="btn-outline" data-call-fn="toggleMessagePanel" data-call-args="false">Stäng</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="property-booking-panel" id="propertyBookingPanel" hidden>
+                        <h4>Boka visningstid</h4>
+                        <p class="text-white/60 text-sm mb-3">Välj datum och klicka på en ledig tid.</p>
+                        <div class="property-booking-toolbar">
+                            <input id="bookingDate" type="date">
+                            <button type="button" class="btn-outline" data-call-fn="refreshViewingSlots">
+                                <i class="fas fa-rotate-right"></i>Uppdatera
+                            </button>
+                        </div>
+                        <div class="slot-list" id="bookingSlotList">
+                            <div class="slot-empty">Laddar tider...</div>
+                        </div>
+                        <div class="slot-actions">
+                            <button id="confirmBookingBtn" type="button" class="btn-primary" data-call-fn="confirmViewingBooking" disabled>
+                                <i class="fas fa-calendar-check"></i>Boka vald tid
+                            </button>
+                            <button type="button" class="btn-outline" data-call-fn="toggleBookingPanel" data-call-args="false">Stäng</button>
+                        </div>
+
+                        <div class="owner-slot-panel" id="ownerSlotPanel" hidden>
+                            <h5>Hantera lediga tider (agent/admin)</h5>
+                            <div class="owner-slot-grid">
+                                <input id="ownerSlotStart" type="datetime-local" step="900">
+                                <input id="ownerSlotEnd" type="datetime-local" step="900">
+                                <input id="ownerSlotCapacity" type="number" min="1" max="20" value="1">
+                            </div>
+                            <button type="button" class="btn-outline" data-call-fn="createViewingSlot">
+                                <i class="fas fa-plus"></i>Lägg till tid
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Liknande objekt -->
+            <div class="similar-section">
+                <h2>Liknande objekt i närheten</h2>
+                <div class="similar-grid" id="similarProperties">
+                    <!-- Fylls med JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== CHAT WIDGET ===== -->
+    <div class="chat-widget">
+        <div class="chat-button" id="chatButton">
+            <i class="fas fa-comment"></i>
+        </div>
+        <div class="chat-box" id="chatBox">
+            <div class="chat-header">
+                <span>Rimalis Group CHAT</span>
+                <button id="closeChat"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input">
+                <input type="text" placeholder="Skriv ditt meddelande..." id="chatInput">
+                <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER (skapas av navigation.js) ===== -->
+    <div id="footer-container"></div>
+
+    <div class="share-modal" id="shareModal" hidden>
+        <div class="share-modal-backdrop" data-call-fn="closeShareModal"></div>
+        <div class="share-modal-card">
+            <div class="share-modal-head">
+                <h3>Dela annons</h3>
+                <button type="button" data-call-fn="closeShareModal"><i class="fas fa-times"></i></button>
+            </div>
+            <p class="text-white/60 text-sm mb-3">Dela objektet direkt till WhatsApp, Messenger eller kopiera länk.</p>
+            <div class="share-actions">
+                <button type="button" class="btn-whatsapp" data-call-fn="shareVia" data-call-args="whatsapp"><i class="fab fa-whatsapp"></i>WhatsApp</button>
+                <button type="button" class="btn-message" data-call-fn="shareVia" data-call-args="messenger"><i class="fab fa-facebook-messenger"></i>Messenger</button>
+                <button type="button" class="btn-outline" data-call-fn="shareVia" data-call-args="copy"><i class="fas fa-link"></i>Kopiera länk</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== VÅRA GEMENSAMMA JAVASCRIPT-FILER ===== -->
+    <script src="/static/js/shared/api.js"></script>
+    <script src="/static/js/shared/page-guards.js"></script>
+    <script src="/static/js/public/main.js"></script>
+    <script src="/static/js/public/favorites.js"></script>
+    <script src="/static/js/public/filters.js"></script>
+    <script src="/static/js/public/chat.js"></script>
+    <script src="/static/js/public/modal.js?v=20260301"></script>
+    <script src="/static/js/shared/menu-config.js"></script>
+  <script src="/static/js/public/navigation.js"></script>
+    <script src="/static/js/public/i18n.js"></script>
+    
+    <!-- ===== PROPERTY MODAL SPECIFIK JAVASCRIPT ===== -->
+    <script src="/static/js/public/property-modal.js?v=20260308a"></script>
+</body>
+</html>

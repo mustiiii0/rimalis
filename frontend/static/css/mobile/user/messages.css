@@ -1,0 +1,1375 @@
+/* Mobile user messages page */
+
+.mobile-user-messages-page {
+  background: #060b14;
+  color: #ffffff;
+  font-family: 'Outfit', sans-serif;
+}
+
+.mobile-user-messages-page [hidden] {
+  display: none !important;
+}
+
+.mobile-user-messages-page.mobile-chat-open {
+  overflow: hidden;
+}
+
+.mobile-user-messages-page #nav-container {
+  display: none;
+}
+
+.mobile-messages-shell {
+  max-width: 450px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #0b1220;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.45);
+}
+
+.mobile-messages-statusbar {
+  display: flex;
+  justify-content: space-between;
+  padding: max(12px, env(safe-area-inset-top)) 20px 8px;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.mobile-messages-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 8px 20px 16px;
+  background: #0b1220;
+  border-bottom: 1px solid #273246;
+}
+
+.mobile-messages-icon-btn {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #141d30;
+  color: #e5ff00;
+  border: 0;
+  text-decoration: none;
+}
+
+.mobile-messages-icon-btn--accent {
+  color: #12161c;
+}
+
+.detail-action-btn--danger {
+  color: #ff8f8f;
+}
+
+.mobile-messages-topbar__center {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+}
+
+.mobile-messages-topbar__center h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.mobile-messages-topbar__center p {
+  margin: 4px 0 0;
+  font-size: 0.82rem;
+  color: #98a2b3;
+}
+
+.mobile-messages-content {
+  padding: 12px 20px calc(18px + env(safe-area-inset-bottom));
+}
+
+.mobile-messages-search-card,
+.mobile-messages-card {
+  background: #111827;
+}
+
+.mobile-messages-hidden-user {
+  display: none;
+}
+
+.mobile-messages-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  min-height: 54px;
+  border: 1px solid #273246;
+  border-radius: 20px;
+  background: #141d30;
+}
+
+.mobile-messages-search i {
+  color: #7a8496;
+}
+
+.mobile-messages-search input {
+  width: 100%;
+  min-height: 52px !important;
+  border: 0;
+  background: transparent;
+  color: #ffffff;
+  font-size: 0.95rem !important;
+}
+
+.mobile-messages-search input::placeholder {
+  color: #98a2b3;
+}
+
+.mobile-messages-search input:focus {
+  outline: none;
+}
+
+.mobile-messages-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 8px 0 16px;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(229, 255, 0, 0.12);
+}
+
+.mobile-messages-tabs button {
+  flex: 1;
+  display: flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid rgba(229, 255, 0, 0.12);
+  border-radius: 999px;
+  background: #141d30;
+  color: #98a2b3;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.mobile-messages-tabs button.is-active {
+  background: #e5ff00;
+  color: #12161c;
+}
+
+.mobile-messages-tabs button i {
+  color: inherit;
+}
+
+.mobile-messages-tabs button b {
+  display: inline-flex;
+  min-width: 22px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.mobile-messages-thread-host {
+  min-height: 220px;
+}
+
+.mobile-messages-actions {
+  margin-bottom: 16px;
+}
+
+.mobile-messages-actions .btn-outline {
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid rgba(229, 255, 0, 0.25);
+  background: #141d30;
+  color: #12161c;
+  font-weight: 700;
+}
+
+.mobile-user-messages-page #userMessagesList .grid.gap-6.p-4.lg\:grid-cols-3 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  padding: 12px 0 0;
+}
+
+.mobile-user-messages-page #userMessagesList aside.max-h-\[620px\].space-y-2.overflow-auto.pr-1.lg\:col-span-1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
+}
+
+.mobile-user-messages-page #userMessagesList button.w-full.rounded-2xl.border.px-4.py-3.text-left.transition-all {
+  position: relative;
+  min-height: 92px;
+  padding: 16px 20px;
+  border: 0;
+  border-bottom: 1px solid rgba(229, 255, 0, 0.08);
+  border-radius: 0;
+  background: transparent;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+.mobile-user-messages-page #userMessagesList button.w-full.rounded-2xl.border.px-4.py-3.text-left.transition-all.mobile-message-list-item {
+  display: block;
+}
+
+.mobile-user-messages-page #userMessagesList .mobile-message-list-item__row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.mobile-user-messages-page #userMessagesList .mobile-message-list-item__avatar {
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #e5ff00, #95a800);
+  color: #12161c;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.mobile-user-messages-page #userMessagesList .mobile-message-list-item__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile-user-messages-page #userMessagesList .mobile-message-list-item__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.mobile-user-messages-page #userMessagesList button.w-full.rounded-2xl.border.px-4.py-3.text-left.transition-all .text-sm.font-bold {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.mobile-user-messages-page #userMessagesList .mobile-message-list-item__preview {
+  color: #98a2b3;
+  font-size: 0.88rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobile-user-messages-page #userMessagesList button.w-full.rounded-2xl.border.px-4.py-3.text-left.transition-all .mt-1.text-xs.text-white\/50 {
+  color: #98a2b3 !important;
+  margin-top: 0 !important;
+}
+
+.mobile-user-messages-page #userMessagesList button.border-\[\#e2ff31\].bg-\[\#e2ff31\]\/10 {
+  background: rgba(229, 255, 0, 0.06);
+}
+
+.mobile-user-messages-page #userMessagesList button.border-white\/10.hover\:border-\[\#e2ff31\]\/40.hover\:bg-white\/5 {
+  background: transparent;
+}
+
+.mobile-user-messages-page #userMessagesList .mobile-message-list-item__badge {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #e5ff00;
+  color: #12161c;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.mobile-user-messages-page #userMessagesList > div {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #98a2b3;
+}
+
+.mobile-chat-detail {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  max-width: 450px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: #0b1220;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.45);
+  animation: mobileChatSlideIn 0.24s ease;
+}
+
+.mobile-chat-detail[hidden] {
+  display: none;
+}
+
+.mobile-chat-detail__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 20px 14px;
+  border-bottom: 1px solid rgba(229, 255, 0, 0.12);
+  background: #0b1220;
+}
+
+.mobile-chat-detail__person {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-chat-detail__avatar {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #e5ff00, #95a800);
+  color: #12161c;
+  font-weight: 700;
+}
+
+.mobile-chat-detail__person strong,
+.mobile-chat-detail__person span,
+.mobile-chat-detail__context strong,
+.mobile-chat-detail__context span {
+  display: block;
+}
+
+.mobile-chat-detail__person strong {
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.mobile-chat-detail__person span {
+  color: #10b981;
+  font-size: 0.72rem;
+}
+
+.mobile-chat-detail__context {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 20px 0;
+  padding: 12px;
+  border-radius: 20px;
+  background: #141d30;
+}
+
+.mobile-chat-detail__context-thumb {
+  width: 60px;
+  height: 60px;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  object-fit: cover;
+  background: linear-gradient(135deg, #1b2436, #2c384f);
+}
+
+.mobile-chat-detail__context strong {
+  color: #ffffff;
+  font-size: 0.95rem;
+}
+
+.mobile-chat-detail__context span {
+  color: #98a2b3;
+  font-size: 0.8rem;
+  margin-top: 3px;
+}
+
+.mobile-chat-detail__messages {
+  flex: 1;
+  padding: 20px;
+  overflow: auto;
+  background: #0b1220;
+}
+
+.mobile-chat-detail__messages #threadMessagesScroll {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobile-chat-date-divider {
+  display: flex;
+  justify-content: center;
+  margin: 6px 0 2px;
+}
+
+.mobile-chat-date-divider span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: #141d30;
+  color: #98a2b3;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.mobile-chat-typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  margin: 2px 0 0;
+  padding: 12px 16px;
+  border-radius: 18px;
+  background: #141d30;
+}
+
+.mobile-chat-typing span {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #9ca3af;
+  animation: mobileChatBounce 1.3s infinite ease-in-out;
+}
+
+.mobile-chat-typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.mobile-chat-typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.mobile-chat-detail__messages #threadMessagesScroll article {
+  max-width: 82%;
+  border-radius: 20px;
+}
+
+.mobile-chat-detail__messages #threadMessagesScroll article.border-cyan-300\/40.bg-cyan-300\/10,
+.mobile-chat-detail__messages #threadMessagesScroll article.border-\[\#e2ff31\]\/35.bg-\[\#e2ff31\]\/10,
+.mobile-chat-detail__messages #threadMessagesScroll article[data-kind='owner'] {
+  margin-left: auto;
+}
+
+.mobile-chat-detail__messages #threadMessagesScroll article[data-kind='public'] {
+  margin-right: auto;
+}
+
+.mobile-chat-detail__composer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
+  border-top: 1px solid rgba(229, 255, 0, 0.12);
+  background: #0b1220;
+}
+
+.mobile-chat-detail__icon-btn,
+.mobile-chat-detail__send {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+}
+
+.mobile-chat-detail__icon-btn {
+  background: #141d30;
+  color: #e5ff00;
+}
+
+.mobile-chat-detail__send {
+  background: #e5ff00;
+  color: #12161c;
+}
+
+.mobile-chat-detail__input-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: #141d30;
+}
+
+.mobile-chat-detail__input-wrap #threadReplyText.input-field {
+  min-height: 24px !important;
+  max-height: 120px;
+  padding: 14px 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: #ffffff;
+  resize: none;
+  box-shadow: none !important;
+}
+
+.mobile-chat-detail__input-wrap #threadReplyText.input-field::placeholder {
+  color: #7a8496;
+}
+
+.mobile-chat-detail__emoji-btn {
+  border: 0;
+  background: transparent;
+  color: #98a2b3;
+}
+
+/* Compatibility layer for the current messages markup while we migrate away from legacy class names. */
+.mobile-user-messages-page .app,
+.mobile-user-messages-page .chat-detail {
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.mobile-user-messages-page .app {
+  min-height: 100vh;
+  background: #0b1220;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.45);
+}
+
+.mobile-user-messages-page .header,
+.mobile-user-messages-page .chat-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: max(10px, env(safe-area-inset-top)) 18px 12px;
+  background: #0b1220;
+  border-bottom: 1px solid rgba(229, 255, 0, 0.12);
+}
+
+.mobile-user-messages-page .header-title {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.mobile-user-messages-page .back-btn,
+.mobile-user-messages-page .new-chat-btn,
+.mobile-user-messages-page .detail-action-btn,
+.mobile-user-messages-page .attach-btn,
+.mobile-user-messages-page .send-btn,
+.mobile-user-messages-page .modal-close {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 13px;
+  background: #141d30;
+  color: #e5ff00;
+}
+
+.mobile-user-messages-page .search-section {
+  padding: 8px 18px 0;
+  background: #0b1220;
+}
+
+.mobile-user-messages-page .search-container,
+.mobile-user-messages-page .contact-search {
+  position: relative;
+}
+
+.mobile-user-messages-page .mobile-messages-modal-search {
+  margin-bottom: 20px;
+}
+
+.mobile-user-messages-page .search-input,
+.mobile-user-messages-page .contact-search input,
+.mobile-user-messages-page .input-wrapper input {
+  width: 100%;
+  border: 0;
+  outline: none;
+  font-family: 'Outfit', sans-serif;
+}
+
+.mobile-user-messages-page .search-input,
+.mobile-user-messages-page .contact-search input {
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: #141d30;
+  color: #ffffff;
+  border: 1px solid rgba(229, 255, 0, 0.12);
+  font-size: 0.9rem;
+}
+
+.mobile-user-messages-page .search-input::placeholder,
+.mobile-user-messages-page .contact-search input::placeholder,
+.mobile-user-messages-page .input-wrapper input::placeholder {
+  color: #7a8496;
+}
+
+.mobile-user-messages-page .chat-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(229, 255, 0, 0.12);
+}
+
+.mobile-user-messages-page .tab {
+  flex: 1;
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(229, 255, 0, 0.12);
+  background: #141d30;
+  color: #98a2b3;
+  font-size: 0.94rem;
+  font-weight: 600;
+}
+
+.mobile-user-messages-page .tab.active {
+  background: #e5ff00;
+  color: #12161c;
+}
+
+.mobile-user-messages-page .tab-badge {
+  display: inline-flex;
+  min-width: 22px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.mobile-user-messages-page .chat-list {
+  padding: 4px 0 calc(104px + env(safe-area-inset-bottom));
+}
+
+.mobile-user-messages-page .chat-item {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 18px;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid rgba(229, 255, 0, 0.08);
+  background: transparent;
+}
+
+.mobile-user-messages-page .chat-item.unread {
+  background: rgba(229, 255, 0, 0.02);
+}
+
+.mobile-user-messages-page .chat-item.active {
+  background: rgba(229, 255, 0, 0.05);
+}
+
+.mobile-user-messages-page .avatar {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.mobile-user-messages-page .avatar-image,
+.mobile-user-messages-page .chat-detail-avatar,
+.mobile-user-messages-page .message-avatar,
+.mobile-user-messages-page .contact-avatar,
+.mobile-user-messages-page .context-image-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e5ff00, #95a800);
+  color: #12161c;
+  font-weight: 700;
+}
+
+.mobile-user-messages-page .avatar-image {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+}
+
+.mobile-user-messages-page .online-indicator {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #10b981;
+  border: 2px solid #0b1220;
+}
+
+.mobile-user-messages-page .chat-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile-user-messages-page .chat-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.mobile-user-messages-page .chat-name {
+  color: #ffffff;
+  font-size: 0.94rem;
+  font-weight: 700;
+}
+
+.mobile-user-messages-page .chat-time,
+.mobile-user-messages-page .message-time {
+  color: #7a8496;
+  font-size: 0.68rem;
+}
+
+.mobile-user-messages-page .chat-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.mobile-user-messages-page .preview-text {
+  color: #98a2b3;
+  font-size: 0.82rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobile-user-messages-page .unread-badge {
+  display: inline-flex;
+  min-width: 22px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #e5ff00;
+  color: #12161c;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.mobile-user-messages-page .property-preview {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 176px;
+  margin-top: 8px;
+  padding: 6px 10px;
+  border-radius: 15px;
+  background: #141d30;
+  border: 1px solid rgba(229, 255, 0, 0.12);
+}
+
+.mobile-user-messages-page .property-preview img,
+.mobile-user-messages-page .context-image {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.mobile-user-messages-page .property-preview span {
+  color: #e5ff00;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobile-user-messages-page .empty-state {
+  padding: 56px 20px;
+  text-align: center;
+}
+
+.mobile-user-messages-page .empty-icon {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 20px;
+  border-radius: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #141d30;
+  color: #e5ff00;
+  font-size: 2rem;
+}
+
+.mobile-user-messages-page .empty-title {
+  margin-bottom: 8px;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.mobile-user-messages-page .empty-text {
+  margin-bottom: 20px;
+  color: #98a2b3;
+}
+
+.mobile-user-messages-page .start-chat-btn {
+  min-height: 52px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 999px;
+  background: #e5ff00;
+  color: #12161c;
+  font-weight: 700;
+}
+
+.mobile-user-messages-page .chat-detail {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: none;
+  flex-direction: column;
+  background:
+    radial-gradient(circle at top, rgba(10, 34, 86, 0.3), transparent 28%),
+    linear-gradient(180deg, #07101e 0%, #07101a 46%, #050c17 100%);
+}
+
+.mobile-user-messages-page .chat-detail.active {
+  display: flex;
+}
+
+.mobile-user-messages-page .chat-detail-info,
+.mobile-user-messages-page .chat-detail-name {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobile-user-messages-page .chat-detail-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-user-messages-page .chat-detail-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 18px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+}
+
+.mobile-user-messages-page .chat-detail-name h3,
+.mobile-user-messages-page .context-info h4 {
+  color: #ffffff;
+  font-size: 0.98rem;
+  font-weight: 800;
+}
+
+.mobile-user-messages-page .chat-detail-name p,
+.mobile-user-messages-page .context-info p {
+  color: #8793a9;
+  font-size: 0.84rem;
+}
+
+.mobile-user-messages-page .property-context {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 14px 18px 0;
+  padding: 15px 16px 14px;
+  border-radius: 24px;
+  background: rgba(20, 29, 48, 0.92);
+  border: 1px solid rgba(229, 255, 0, 0.18);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.22);
+}
+
+.mobile-user-messages-page .context-image,
+.mobile-user-messages-page .context-image-fallback {
+  width: 78px;
+  height: 78px;
+  flex: 0 0 auto;
+  border-radius: 22px;
+}
+
+.mobile-user-messages-page .context-image {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-user-messages-page .context-info {
+  min-width: 0;
+}
+
+.mobile-user-messages-page .context-info h4 {
+  margin: 0;
+  color: #e5ff00;
+  font-size: clamp(0.96rem, 4.1vw, 1.18rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.mobile-user-messages-page .context-info p {
+  margin: 8px 0 0;
+  color: #b0b9cb;
+  font-size: 0.84rem;
+  line-height: 1.35;
+}
+
+.mobile-user-messages-page .context-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin-top: 12px;
+}
+
+.mobile-user-messages-page .context-spec {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #f5f8ff;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.mobile-user-messages-page .context-spec i {
+  color: #e5ff00;
+}
+
+.mobile-user-messages-page .messages-container {
+  flex: 1;
+  overflow: auto;
+  padding: 18px 18px 10px;
+}
+
+.mobile-user-messages-page .messages-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.mobile-user-messages-page .message-row {
+  max-width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.mobile-user-messages-page .message-row.own {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+
+.mobile-user-messages-page .message-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 14px;
+  flex: 0 0 auto;
+  margin-top: 2px;
+  font-size: 0.85rem;
+}
+
+.mobile-user-messages-page .message-row.own .message-avatar {
+  display: none;
+}
+
+.mobile-user-messages-page .message-bubble {
+  max-width: min(70vw, 520px);
+  padding: 15px 17px 12px;
+  border-radius: 24px;
+  background: rgba(20, 29, 48, 0.96);
+  border: 1px solid rgba(229, 255, 0, 0.15);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+}
+
+.mobile-user-messages-page .message-row.own .message-bubble {
+  background: linear-gradient(180deg, #dff800 0%, #d2ef00 100%);
+  border-color: rgba(229, 255, 0, 0.45);
+  color: #08111d;
+  border-bottom-right-radius: 18px;
+}
+
+.mobile-user-messages-page .message-row:not(.own) .message-bubble {
+  border-bottom-left-radius: 18px;
+}
+
+.mobile-user-messages-page .message-text {
+  margin-bottom: 7px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.48;
+  white-space: pre-line;
+}
+
+.mobile-user-messages-page .message-row.own .message-text {
+  color: #09111a;
+}
+
+.mobile-user-messages-page .message-time {
+  text-align: right;
+  color: #91a0b8;
+  font-size: 0.68rem;
+  font-weight: 500;
+}
+
+.mobile-user-messages-page .message-row.own .message-time {
+  color: rgba(9, 17, 26, 0.74);
+}
+
+.mobile-user-messages-page .message-input-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px calc(22px + env(safe-area-inset-bottom));
+  background: rgba(7, 16, 30, 0.96);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(229, 255, 0, 0.12);
+}
+
+.mobile-user-messages-page .input-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(20, 29, 48, 0.96);
+  border: 1px solid rgba(229, 255, 0, 0.16);
+}
+
+.mobile-user-messages-page .input-wrapper input {
+  background: transparent;
+  color: #ffffff;
+  font-size: 0.94rem;
+}
+
+.mobile-user-messages-page .emoji-btn {
+  border: 0;
+  background: transparent;
+  color: #98a2b3;
+  font-size: 1.25rem;
+}
+
+.mobile-user-messages-page .attach-btn,
+.mobile-user-messages-page .send-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  font-size: 1.05rem;
+}
+
+.mobile-user-messages-page .send-btn {
+  background: #e5ff00;
+  color: #09111a;
+}
+
+.mobile-user-messages-page .mobile-chat-date-divider {
+  margin: 2px 0 -2px;
+}
+
+.mobile-user-messages-page .mobile-chat-date-divider span {
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 20px;
+  background: rgba(20, 29, 48, 0.92);
+  color: #aab5c8;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.mobile-user-messages-page .message-booking-card {
+  margin-top: 16px;
+  padding: 18px;
+  border-radius: 24px;
+  background: rgba(9, 17, 29, 0.72);
+  border: 2px solid rgba(229, 255, 0, 0.9);
+}
+
+.mobile-user-messages-page .message-booking-card__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #e5ff00;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.mobile-user-messages-page .message-booking-slots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.mobile-user-messages-page .message-booking-slot {
+  min-height: 86px;
+  padding: 14px 12px;
+  border: 1px solid rgba(229, 255, 0, 0.22);
+  border-radius: 22px;
+  background: #101a2a;
+  color: #ffffff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.98rem;
+  font-weight: 800;
+}
+
+.mobile-user-messages-page .message-booking-slot span {
+  display: block;
+  margin-top: 4px;
+  color: #a6b2c6;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.mobile-user-messages-page .message-booking-confirm {
+  width: 100%;
+  min-height: 56px;
+  margin-top: 16px;
+  border: 0;
+  border-radius: 999px;
+  background: #e5ff00;
+  color: #0a121d;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.mobile-user-messages-page .modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  align-items: flex-end;
+  background: rgba(3, 7, 18, 0.74);
+  backdrop-filter: blur(6px);
+}
+
+.mobile-user-messages-page .modal-overlay.show {
+  display: flex;
+}
+
+.mobile-user-messages-page .modal-content {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 24px 20px calc(20px + env(safe-area-inset-bottom));
+  border-top: 1px solid rgba(229, 255, 0, 0.18);
+  border-radius: 28px 28px 0 0;
+  background: #111827;
+}
+
+.mobile-user-messages-page .modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.mobile-user-messages-page .modal-title {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.mobile-user-messages-page .contact-list {
+  max-height: 360px;
+  overflow: auto;
+}
+
+.mobile-user-messages-page .contact-empty {
+  padding: 24px 0;
+  text-align: center;
+  color: #98a2b3;
+}
+
+.mobile-user-messages-page .contact-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(229, 255, 0, 0.08);
+}
+
+.mobile-user-messages-page .contact-avatar {
+  width: 52px;
+  height: 52px;
+  flex: 0 0 auto;
+  border-radius: 18px;
+}
+
+.mobile-user-messages-page .contact-info h4 {
+  color: #ffffff;
+  font-size: 0.96rem;
+  font-weight: 600;
+}
+
+.mobile-user-messages-page .contact-info p {
+  margin-top: 4px;
+  color: #98a2b3;
+  font-size: 0.78rem;
+}
+
+@keyframes mobileChatSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobileChatBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-5px); }
+}
+
+/* Shared mobile zoom-out pass */
+.mobile-user-messages-page .messages-header,
+.mobile-user-messages-page .chat-header {
+  padding: max(10px, env(safe-area-inset-top)) 18px 12px;
+}
+
+.mobile-user-messages-page .header-title,
+.mobile-user-messages-page .chat-contact-name {
+  font-size: 1.08rem;
+}
+
+.mobile-user-messages-page .header-btn,
+.mobile-user-messages-page .chat-back-btn,
+.mobile-user-messages-page .chat-action-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+}
+
+.mobile-user-messages-page .messages-search {
+  padding: 8px 18px 0;
+}
+
+.mobile-user-messages-page .messages-search input {
+  min-height: 42px;
+  border-radius: 18px;
+  font-size: 0.88rem;
+}
+
+.mobile-user-messages-page .messages-list {
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.mobile-user-messages-page .message-item {
+  padding: 12px 14px;
+  border-radius: 18px;
+}
+
+.mobile-user-messages-page .contact-avatar,
+.mobile-user-messages-page .chat-avatar,
+.mobile-user-messages-page .message-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+}
+
+.mobile-user-messages-page .chat-property-card {
+  padding: 10px;
+  border-radius: 18px;
+}
+
+.mobile-user-messages-page .chat-bubble {
+  padding: 14px 16px;
+  border-radius: 20px;
+}
+
+.mobile-user-messages-page .message-compose,
+.mobile-user-messages-page .chat-composer {
+  padding: 10px 18px calc(10px + env(safe-area-inset-bottom));
+}
+
+.mobile-user-messages-page .mobile-messages-statusbar {
+  padding: max(10px, env(safe-area-inset-top)) 18px 6px;
+  font-size: 0.8rem;
+}
+
+.mobile-user-messages-page .mobile-messages-topbar {
+  gap: 12px;
+  padding: 6px 18px 12px;
+}
+
+.mobile-user-messages-page .mobile-messages-icon-btn,
+.mobile-user-messages-page #userMessagesList .mobile-message-list-item__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+}
+
+.mobile-user-messages-page .mobile-messages-topbar__center h1 {
+  font-size: 1.12rem;
+}
+
+.mobile-user-messages-page .mobile-messages-search {
+  min-height: 48px;
+  border-radius: 18px;
+}
+
+.mobile-user-messages-page .mobile-messages-search input {
+  min-height: 46px !important;
+  font-size: 0.88rem !important;
+}
+
+.mobile-user-messages-page #userMessagesList button.w-full.rounded-2xl.border.px-4.py-3.text-left.transition-all {
+  min-height: 82px;
+  padding: 14px 18px;
+}
+
+.mobile-user-messages-page .chat-property-card,
+.mobile-user-messages-page .booking-card {
+  padding: 10px;
+  border-radius: 16px;
+}
+
+.mobile-user-messages-page .chat-bubble {
+  padding: 12px 14px;
+  border-radius: 18px;
+}
+
+.mobile-user-messages-page .chat-composer-input,
+.mobile-user-messages-page .composer-input {
+  min-height: 46px;
+  font-size: 0.88rem;
+}

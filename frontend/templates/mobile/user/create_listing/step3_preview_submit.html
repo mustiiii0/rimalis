@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title data-i18n="title_user_create_listing_step3">Rimalis Group | Skapa annons - Steg 3</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/mobile/mobile.css">
+  <link rel="stylesheet" href="/static/css/mobile/user.css">
+  <link rel="stylesheet" href="/static/css/mobile/user/create-listing.css">
+</head>
+<body class="mobile-user-create-listing-page" data-create-step="3">
+  <div class="mobile-create-shell">
+    <header class="mobile-create-topbar">
+      <a class="mobile-create-icon-btn" href="step2_media.html" aria-label="Tillbaka" data-i18n-aria-label="auth_back">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      <div class="mobile-create-topbar__titles">
+        <h1 data-i18n="listing_step_review_listing">Granska annons</h1>
+        <p data-i18n="listing_step3_subtitle">Steg 3 av 3: kontrollera och skicka till granskning</p>
+      </div>
+      <a class="mobile-create-topbar__draft" href="step1_listing_info.html" data-i18n="edit">Redigera</a>
+    </header>
+
+    <main class="mobile-create-content">
+      <section class="mobile-create-stepper-card">
+        <div class="mobile-create-inline-meta">
+          <span class="mobile-create-pill" data-i18n="listing_step_3_short">Steg 3</span>
+          <strong data-progress-text>100% klart</strong>
+        </div>
+        <div class="mobile-create-progress--inline">
+          <div class="mobile-create-progress__track"><span data-progress-fill></span></div>
+        </div>
+        <div class="mobile-create-stepper mobile-create-stepper--spaced">
+          <div class="mobile-create-stepper__item is-complete" data-stepper>
+            <span class="mobile-create-stepper__circle">1</span>
+            <span class="mobile-create-stepper__label" data-i18n="listing_step_basic_info">Grundinfo</span>
+          </div>
+          <div class="mobile-create-stepper__item is-complete" data-stepper>
+            <span class="mobile-create-stepper__circle">2</span>
+            <span class="mobile-create-stepper__label" data-i18n="listing_step_media">Media</span>
+          </div>
+          <div class="mobile-create-stepper__item is-active" data-stepper>
+            <span class="mobile-create-stepper__circle">3</span>
+            <span class="mobile-create-stepper__label" data-i18n="listing_step_review">Granska</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mobile-create-preview-hero-card">
+        <div class="mobile-create-preview-image-wrap">
+          <img id="previewImage" src="/static/image/app-logo.png" alt="Förhandsvisning">
+          <span class="mobile-create-preview-badge" data-i18n="listing_preview">Förhandsvisning</span>
+        </div>
+        <div class="mobile-create-preview-body">
+          <div class="mobile-create-preview-head">
+            <div>
+              <h2 id="previewTitle">-</h2>
+              <p><i class="fas fa-map-pin"></i><span id="previewLocation">-</span></p>
+              <small id="previewAddress">-</small>
+            </div>
+            <strong id="previewPrice">-</strong>
+          </div>
+
+          <p class="mobile-create-preview-description" id="previewDescription">-</p>
+
+          <div class="mobile-create-preview-stats">
+            <article>
+              <span data-i18n="listing_property_type_label">Objektstyp</span>
+              <strong id="previewPropertyType">-</strong>
+            </article>
+            <article>
+              <span id="previewAreaLabel" data-i18n="property_feature_living_area">Boarea</span>
+              <strong><span id="previewLivingArea">-</span> <span data-i18n="unit_sqm">kvm</span></strong>
+            </article>
+            <article id="previewRoomsCard">
+              <span data-i18n="property_feature_rooms">Rum</span>
+              <strong><span id="previewRooms">-</span> <span data-i18n="property_feature_rooms">rum</span></strong>
+            </article>
+          </div>
+
+          <div class="mobile-create-preview-extra" id="previewExtraDetails"></div>
+
+          <div class="mobile-create-preview-tags">
+            <span id="previewHasVideo" class="hidden" data-i18n="listing_video_attached">Video bifogad</span>
+            <span id="previewHasFloorPlan" class="hidden" data-i18n="listing_floorplan_attached">Planlösning bifogad</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mobile-create-quality-card">
+        <h3 class="mobile-create-card-title" data-i18n="listing_quality_check_title">Innan du skickar</h3>
+        <ul class="mobile-create-checklist">
+          <li><i class="fas fa-check-circle"></i><span data-i18n="listing_quality_check_1">Grundinfo följer desktop-flödet</span></li>
+          <li><i class="fas fa-check-circle"></i><span data-i18n="listing_quality_check_2">Media är uppladdat till rätt API</span></li>
+          <li><i class="fas fa-check-circle"></i><span data-i18n="listing_quality_check_3">Annonsen skapas som väntande granskning</span></li>
+        </ul>
+      </section>
+
+      <p id="createListingError" class="mobile-create-error hidden"></p>
+
+      <div class="mobile-create-actions mobile-create-actions--stack">
+        <a class="mobile-create-btn mobile-create-btn--ghost" href="step2_media.html" data-i18n="listing_back_to_media">Tillbaka till media</a>
+        <button class="mobile-create-btn mobile-create-btn--primary" id="submitListingBtn" type="button" data-i18n="listing_submit_for_review">Skicka till granskning</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/js/shared/api.js"></script>
+  <script src="/static/js/shared/page-guards.js"></script>
+  <script src="/static/js/public/i18n.js"></script>
+  <script src="/static/js/mobile/user/create-listing.js"></script>
+</body>
+</html>

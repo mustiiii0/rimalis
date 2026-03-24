@@ -1,0 +1,220 @@
+/* Separate mobile UI system for /templates/mobile/user/* */
+
+.mobile-user-app {
+  background: #07080a;
+}
+
+.mobile-user-app main.pt-40.lg\:pt-44 {
+  padding-top: 96px !important;
+}
+
+.mobile-user-app main .max-w-\[1600px\].mx-auto.px-6.lg\:px-12.py-12 {
+  padding: 10px 10px 28px !important;
+  max-width: 100% !important;
+}
+
+.mobile-user-app main .grid.lg\:grid-cols-4.gap-8 {
+  display: flex !important;
+  flex-direction: column;
+  gap: 12px !important;
+}
+
+.mobile-user-app main .grid.lg\:grid-cols-4.gap-8 > .lg\:col-span-3 {
+  order: 1;
+}
+
+.mobile-user-app main .grid.lg\:grid-cols-4.gap-8 > aside.lg\:col-span-1 {
+  order: 2;
+}
+
+.mobile-user-app aside .sticky.top-32 {
+  position: static !important;
+}
+
+/* Mobile sidebar card */
+.mobile-user-app aside .glass-dark.rounded-\[40px\].p-8.sticky.top-32 {
+  border-radius: 16px !important;
+  padding: 10px !important;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(165deg, rgba(16, 18, 22, 0.96), rgba(16, 18, 22, 0.84));
+}
+
+.mobile-user-app aside .text-center.mb-8 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  margin-bottom: 10px !important;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+html[dir='rtl'] .mobile-user-app aside .text-center.mb-8 {
+  text-align: right;
+}
+
+.mobile-user-app aside .w-28.h-28.mx-auto.mb-4.rounded-full {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px;
+  margin: 0 !important;
+  border-width: 2px !important;
+}
+
+.mobile-user-app aside #userSidebarName {
+  font-size: 0.98rem !important;
+  margin: 0;
+}
+
+.mobile-user-app aside #userSidebarEmail {
+  font-size: 0.76rem !important;
+  opacity: 0.75;
+  margin: 0;
+}
+
+.mobile-user-app aside nav.space-y-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.mobile-user-app aside nav.space-y-2 > a {
+  min-height: 40px !important;
+  border-radius: 12px !important;
+  padding: 8px !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  font-size: 0.82rem !important;
+  margin-top: 0 !important;
+}
+
+.mobile-user-app aside nav.space-y-2 > a i {
+  width: auto !important;
+  font-size: 0.9rem !important;
+}
+
+.mobile-user-app aside nav.space-y-2 > a.mt-8 {
+  grid-column: 1 / -1;
+}
+
+/* Main content */
+.mobile-user-app .space-y-12,
+.mobile-user-app .space-y-8 {
+  gap: 12px !important;
+}
+
+.mobile-user-app .space-y-12 h1.text-4xl,
+.mobile-user-app .space-y-8 h1.text-4xl,
+.mobile-user-app .space-y-12 h1.text-5xl,
+.mobile-user-app .space-y-8 h1.text-5xl {
+  font-size: 1.65rem !important;
+  line-height: 1.05 !important;
+  margin-bottom: 4px !important;
+}
+
+.mobile-user-app #dashboardIntroText,
+.mobile-user-app #favoritesCountText,
+.mobile-user-app #messagesUnreadText,
+.mobile-user-app .space-y-8 > div > p.text-white\/60,
+.mobile-user-app .space-y-12 > div > p.text-white\/60 {
+  font-size: 0.9rem !important;
+  line-height: 1.35;
+  opacity: 0.9;
+}
+
+.mobile-user-app .glass-dark,
+.mobile-user-app .glass-dark.rounded-\[40px\],
+.mobile-user-app .glass-dark.rounded-3xl {
+  border-radius: 14px !important;
+  padding: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-user-app .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4.gap-6 {
+  grid-template-columns: 1fr 1fr !important;
+  gap: 8px !important;
+}
+
+.mobile-user-app .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4.gap-6 > .glass-dark {
+  padding: 10px !important;
+}
+
+.mobile-user-app .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4.gap-6 > .glass-dark .text-4xl {
+  font-size: 1.42rem !important;
+}
+
+.mobile-user-app .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4.gap-6 > .glass-dark h3,
+.mobile-user-app .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4.gap-6 > .glass-dark .text-xl {
+  font-size: 0.95rem !important;
+  line-height: 1.22;
+}
+
+.mobile-user-app .space-y-8 > .flex.justify-between.items-center {
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 8px !important;
+}
+
+.mobile-user-app .space-y-8 > .flex.justify-between.items-center .btn-primary,
+.mobile-user-app .space-y-8 > .flex.justify-between.items-center .btn-outline,
+.mobile-user-app #userFavoritesSort {
+  width: 100% !important;
+}
+
+.mobile-user-app #myListingsTabs {
+  display: flex;
+  gap: 8px !important;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 4px;
+}
+
+.mobile-user-app #myListingsTabs > * {
+  flex: 0 0 auto;
+  min-height: 38px;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+}
+
+.mobile-user-app #myListingsContainer,
+.mobile-user-app #favoritesGrid,
+.mobile-user-app #bookingsContainer,
+.mobile-user-app #savedSearchesContainer,
+.mobile-user-app #recentPropertiesGrid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 10px !important;
+}
+
+.mobile-user-app #userMessagesList > div,
+.mobile-user-app #recentActivityFeed > div {
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.mobile-user-app input,
+.mobile-user-app select,
+.mobile-user-app textarea,
+.mobile-user-app .input-field {
+  min-height: 42px !important;
+  border-radius: 12px !important;
+  font-size: 0.92rem !important;
+}
+
+.mobile-user-app .btn-primary,
+.mobile-user-app .btn-outline,
+.mobile-user-app button {
+  min-height: 42px;
+  border-radius: 999px;
+}
+
+@media (max-width: 640px) {
+  .mobile-user-app aside nav.space-y-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .mobile-user-app .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4.gap-6 {
+    grid-template-columns: 1fr !important;
+  }
+}

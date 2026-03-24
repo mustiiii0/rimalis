@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title data-i18n="title_user_create_listing_step2">Rimalis Group | Skapa annons - Steg 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/mobile/mobile.css">
+  <link rel="stylesheet" href="/static/css/mobile/user.css">
+  <link rel="stylesheet" href="/static/css/mobile/user/create-listing.css">
+</head>
+<body class="mobile-user-create-listing-page" data-create-step="2">
+  <div class="mobile-create-shell">
+    <header class="mobile-create-topbar">
+      <a class="mobile-create-icon-btn" href="step1_listing_info.html" aria-label="Tillbaka" data-i18n-aria-label="auth_back">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      <div class="mobile-create-topbar__titles">
+        <h1 data-i18n="listing_step_media">Media</h1>
+        <p data-i18n="listing_step2_subtitle">Steg 2 av 3: ladda upp bilder och extra material</p>
+      </div>
+      <a class="mobile-create-topbar__draft" href="step1_listing_info.html" data-i18n="edit">Ändra</a>
+    </header>
+
+    <main class="mobile-create-content">
+      <section class="mobile-create-stepper-card">
+        <div class="mobile-create-inline-meta">
+          <span class="mobile-create-pill" data-i18n="listing_step_2_short">Steg 2</span>
+          <strong data-progress-text>67% klart</strong>
+        </div>
+        <div class="mobile-create-progress--inline">
+          <div class="mobile-create-progress__track"><span data-progress-fill></span></div>
+        </div>
+        <div class="mobile-create-stepper mobile-create-stepper--spaced">
+          <div class="mobile-create-stepper__item is-complete" data-stepper>
+            <span class="mobile-create-stepper__circle">1</span>
+            <span class="mobile-create-stepper__label" data-i18n="listing_step_basic_info">Grundinfo</span>
+          </div>
+          <div class="mobile-create-stepper__item is-active" data-stepper>
+            <span class="mobile-create-stepper__circle">2</span>
+            <span class="mobile-create-stepper__label" data-i18n="listing_step_media">Media</span>
+          </div>
+          <div class="mobile-create-stepper__item" data-stepper>
+            <span class="mobile-create-stepper__circle">3</span>
+            <span class="mobile-create-stepper__label" data-i18n="listing_step_review">Granska</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mobile-create-tip-card">
+        <i class="fas fa-camera"></i>
+        <div>
+          <strong data-i18n="listing_first_image_cover_title">Första bilden blir omslag</strong>
+          <p data-i18n="listing_first_image_cover_desc">Lägg minst en riktig bostadsbild. Video och planlösning är valfritt.</p>
+        </div>
+      </section>
+
+      <section class="mobile-create-card mobile-create-card--soft">
+        <div class="mobile-create-section-head">
+          <h3 data-i18n="listing_upload_images_title">Bilder och filer</h3>
+          <span id="step2Status">0/3 klara</span>
+        </div>
+
+        <div class="mobile-create-upload-drop" id="uploadZone">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <h3 data-i18n="listing_upload_images_cta">Ladda upp bilder</h3>
+          <p data-i18n="listing_upload_images_desc">Tryck här för att välja bilder från mobilen.</p>
+          <input id="listingImages" class="hidden" type="file" accept="image/*" multiple>
+        </div>
+
+        <div class="mobile-create-inline-upload mobile-create-inline-upload--spaced">
+          <p id="selectedFilesText" class="hint" data-i18n="listing_no_images_selected">Inga bilder valda</p>
+          <strong id="listingImageGridCount">0</strong>
+        </div>
+
+        <div class="preview-grid" id="listingImageGrid"></div>
+
+        <div class="mobile-create-form mobile-create-form--spaced">
+          <label>
+            <span data-i18n="listing_video_url">Video-länk</span>
+            <input class="input-field" id="listingVideoUrl" type="url" placeholder="https://youtube.com/watch?v=..." data-i18n-placeholder="listing_video_url_placeholder">
+          </label>
+          <label>
+            <span data-i18n="listing_floorplan">Planlösning</span>
+            <input class="input-field" id="listingFloorPlanUrl" type="url" placeholder="https://..." data-i18n-placeholder="listing_floorplan_placeholder">
+          </label>
+        </div>
+
+        <p id="stepMessage" class="mobile-create-error"></p>
+      </section>
+
+      <div class="mobile-create-actions">
+        <a class="mobile-create-btn mobile-create-btn--ghost" href="step1_listing_info.html" data-i18n="back">Tillbaka</a>
+        <button class="mobile-create-btn mobile-create-btn--primary" id="goToReviewBtn" type="button" data-i18n="listing_continue_to_review">Fortsätt till granskning</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/js/shared/api.js"></script>
+  <script src="/static/js/shared/page-guards.js"></script>
+  <script src="/static/js/public/i18n.js"></script>
+  <script src="/static/js/mobile/user/create-listing.js"></script>
+</body>
+</html>

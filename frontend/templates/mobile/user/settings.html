@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title data-i18n="title_user_profile_settings">Rimalis Group | Profilinställningar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/mobile/mobile.css">
+  <link rel="stylesheet" href="/static/css/mobile/user.css">
+  <link rel="stylesheet" href="/static/css/mobile/user/settings.css">
+</head>
+<body class="mobile-user-settings-page mobile-user-profile-page">
+  <div class="app">
+    <header class="header">
+      <a href="profile.html" class="back-btn" aria-label="Tillbaka">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      <span class="header-title" data-i18n="settings_title">Inställningar</span>
+      <div class="settings-spacer" aria-hidden="true"></div>
+    </header>
+
+    <div class="search-section">
+      <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" class="search-input" id="mobileSettingsSearch" placeholder="Sök inställningar..." data-i18n-placeholder="settings_search_placeholder">
+      </div>
+    </div>
+
+    <section class="profile-card settings-card">
+      <div class="profile-avatar">
+        <div class="avatar-image">
+          <img id="userProfileAvatarPreview" src="/static/image/avatar-placeholder.svg" alt="Profilbild">
+          <span class="avatar-initials" id="userProfileAvatarInitials">JD</span>
+        </div>
+        <div class="edit-avatar" id="userProfileChangePhotoTrigger" role="button" tabindex="0" aria-label="Byt profilbild">
+          <i class="fas fa-pen"></i>
+        </div>
+        <button id="userProfileChangePhotoBtn" type="button" class="hidden" aria-hidden="true"></button>
+        <input id="userProfileAvatarInput" type="file" accept="image/*" class="hidden">
+      </div>
+      <div class="profile-info">
+        <img id="userProfileSidebarAvatar" src="/static/image/avatar-placeholder.svg" alt="" class="hidden">
+        <h1 class="profile-name" id="userSidebarName">Johan Davidsson</h1>
+        <div class="profile-email">
+          <i class="fas fa-envelope profile-email-icon"></i>
+          <span id="userSidebarEmail">johan.d@example.com</span>
+        </div>
+        <span class="badge" id="userProfilePlanBadge">
+          <i class="fas fa-star"></i> <span data-i18n="user_role_member">Medlem</span>
+        </span>
+      </div>
+    </section>
+
+    <section class="menu-section settings-card" id="settingsOverviewAccount">
+      <div class="section-title" data-i18n="settings_account">Konto</div>
+      <div class="menu-item" data-open-panel="personal" role="button" tabindex="0">
+        <div class="menu-icon"><i class="fas fa-user"></i></div>
+        <div class="menu-content">
+          <div class="menu-title" data-i18n="settings_personal_info">Personlig information</div>
+          <div class="menu-subtitle" data-i18n="settings_personal_info_subtitle">Namn, email, telefon</div>
+        </div>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+      <div class="menu-item" data-open-panel="security" role="button" tabindex="0">
+        <div class="menu-icon"><i class="fas fa-lock"></i></div>
+        <div class="menu-content">
+          <div class="menu-title" data-i18n="settings_security">Säkerhet</div>
+          <div class="menu-subtitle" data-i18n="settings_security_subtitle">Lösenord och sessionssäkerhet</div>
+        </div>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+      <div class="menu-item" data-open-panel="notifications" role="button" tabindex="0">
+        <div class="menu-icon"><i class="fas fa-bell"></i></div>
+        <div class="menu-content">
+          <div class="menu-title" data-i18n="settings_notifications">Notiser</div>
+          <div class="menu-subtitle" data-i18n="settings_notifications_subtitle">Push, email, SMS</div>
+        </div>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+    </section>
+
+    <section class="menu-section settings-card" id="settingsOverviewPreferences">
+      <div class="section-title" data-i18n="settings_preferences">Preferenser</div>
+      <div class="menu-item" data-open-panel="saved-searches" role="button" tabindex="0">
+        <div class="menu-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="menu-content">
+          <div class="menu-title" data-i18n="user_profile_saved_searches">Sparade sökningar</div>
+          <div class="menu-subtitle" id="settingsSavedSearchesSubtitle" data-i18n="common_loading">Laddar...</div>
+        </div>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+      <div class="menu-item" data-open-panel="filters" role="button" tabindex="0">
+        <div class="menu-icon"><i class="fas fa-sliders-h"></i></div>
+        <div class="menu-content">
+          <div class="menu-title" data-i18n="settings_filter_settings">Filterinställningar</div>
+          <div class="menu-subtitle" data-i18n="settings_filter_settings_subtitle">Standardvärden för sök</div>
+        </div>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+      <div class="menu-item" data-open-panel="language" role="button" tabindex="0">
+        <div class="menu-icon"><i class="fas fa-globe"></i></div>
+        <div class="menu-content">
+          <div class="menu-title" data-i18n="language">Språk</div>
+          <div class="menu-subtitle" id="settingsLanguageSubtitle" data-i18n="language_swedish">Svenska</div>
+        </div>
+        <i class="fas fa-chevron-right arrow"></i>
+      </div>
+    </section>
+
+    <section class="menu-section settings-card">
+      <div class="section-title" data-i18n="settings_support">Support</div>
+      <a class="menu-item" href="../legal/terms.html">
+        <div class="menu-icon"><i class="fas fa-file-contract"></i></div>
+        <div class="menu-content">
+          <div class="menu-title" data-i18n="settings_terms_privacy">Villkor & integritet</div>
+          <div class="menu-subtitle" data-i18n="settings_terms_privacy_subtitle">Användarvillkor, GDPR</div>
+        </div>
+      </a>
+      <a class="menu-item" href="../public/faq.html">
+        <div class="menu-icon"><i class="fas fa-question-circle"></i></div>
+        <div class="menu-content">
+          <div class="menu-title" data-i18n="settings_help_support">Hjälp & support</div>
+          <div class="menu-subtitle" data-i18n="settings_help_support_subtitle">Vanliga frågor och kontakt</div>
+        </div>
+      </a>
+    </section>
+
+    <section class="danger">
+      <div class="danger-title">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span data-i18n="settings_risk_zone">Riskzon</span>
+      </div>
+      <div class="danger-text">
+        <span data-i18n="user_delete_account_warning">När du raderar ditt konto försvinner alla dina annonser, sparade objekt och meddelanden permanent.</span>
+      </div>
+      <button class="danger-btn" id="deleteAccountButton" type="button">
+        <i class="fas fa-trash"></i>
+        <span data-i18n="settings_delete_account">Radera konto</span>
+      </button>
+    </section>
+
+    <div class="logout-wrap">
+      <button class="logout-btn" type="button" id="mobileSettingsLogoutBtn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span data-i18n="logout">Logga ut</span>
+      </button>
+      <div class="version-info">Version 2.0.1</div>
+    </div>
+
+    <nav class="bottom-nav">
+      <a href="../public/home.html" class="nav-item">
+        <i class="fas fa-home"></i>
+        <span data-i18n="nav_home">Hem</span>
+      </a>
+      <a href="../public/properties.html" class="nav-item">
+        <i class="fas fa-search"></i>
+        <span data-i18n="nav_search">Sök</span>
+      </a>
+      <a href="dashboard.html" class="nav-item">
+        <i class="fas fa-chart-pie"></i>
+        <span data-i18n="nav_dashboard">Dashboard</span>
+      </a>
+      <a href="favorites.html" class="nav-item">
+        <i class="far fa-heart"></i>
+        <span data-i18n="nav_saved">Sparade</span>
+      </a>
+      <a href="messages.html" class="nav-item">
+        <i class="far fa-comment"></i>
+        <span data-i18n="nav_chat">Chat</span>
+      </a>
+      <a href="profile.html" class="nav-item active">
+        <i class="fas fa-user"></i>
+        <span data-i18n="nav_profile">Profil</span>
+      </a>
+    </nav>
+  </div>
+
+  <section class="info-panel" id="personalInfo">
+    <header class="panel-heading">
+      <button class="back-btn" type="button" data-close-panels>
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <div class="panel-title" data-i18n="settings_personal_info">Personlig information</div>
+    </header>
+    <div class="info-content">
+      <div class="info-field">
+        <div class="info-label" data-i18n="settings_full_name">Fullständigt namn</div>
+        <div class="info-value" id="settingsInfoName" data-i18n="common_loading">Laddar...</div>
+      </div>
+      <div class="info-field">
+        <div class="info-label" data-i18n="email">Email</div>
+        <div class="info-value" id="settingsInfoEmail" data-i18n="common_loading">Laddar...</div>
+      </div>
+      <div class="info-field">
+        <div class="info-label" data-i18n="user_profile_phone">Telefon</div>
+        <div class="info-value" id="settingsInfoPhone">Ej angivet</div>
+      </div>
+      <div class="info-field">
+        <div class="info-label" data-i18n="user_profile_address">Adress</div>
+        <div class="info-value" id="settingsInfoAddress">Ej angiven</div>
+      </div>
+      <form id="userProfileMainForm" class="settings-form">
+        <input id="profileFirstName" type="text" class="search-input" placeholder="Förnamn" data-i18n-placeholder="user_profile_first_name">
+        <input id="profileLastName" type="text" class="search-input" placeholder="Efternamn" data-i18n-placeholder="user_profile_last_name">
+        <input id="profileEmail" type="email" class="search-input" placeholder="Email" data-i18n-placeholder="email">
+        <input id="profilePhone" type="tel" class="search-input" placeholder="Telefon" data-i18n-placeholder="user_profile_phone">
+        <select id="profileWhatsappCountryCode" class="search-input">
+          <option value="+46">🇸🇪 +46</option>
+          <option value="+47">🇳🇴 +47</option>
+          <option value="+45">🇩🇰 +45</option>
+          <option value="+358">🇫🇮 +358</option>
+          <option value="+44">🇬🇧 +44</option>
+          <option value="+1">🇺🇸 +1</option>
+        </select>
+        <input id="profileWhatsappNumber" type="tel" class="search-input" placeholder="WhatsApp nummer" data-i18n-placeholder="user_profile_whatsapp_number">
+        <input id="profileAddress" type="text" class="search-input" placeholder="Adress" data-i18n-placeholder="user_profile_address">
+        <input id="profilePostalCode" type="text" class="search-input" placeholder="Postnummer" data-i18n-placeholder="user_profile_postal_code">
+        <input id="profileCity" type="text" class="search-input" placeholder="Stad" data-i18n-placeholder="city">
+        <input id="profileCountry" type="text" class="search-input" placeholder="Land" data-i18n-placeholder="country">
+        <button type="submit" class="profile-submit-btn" data-i18n="save_information">Spara information</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="info-panel" id="securityInfo">
+    <header class="panel-heading">
+      <button class="back-btn" type="button" data-close-panels>
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <div class="panel-title" data-i18n="settings_security">Säkerhet</div>
+    </header>
+    <div class="info-content">
+      <form id="userPasswordForm" class="settings-form">
+        <input id="profileCurrentPassword" type="password" class="search-input" placeholder="Nuvarande lösenord" data-i18n-placeholder="user_profile_current_password">
+        <input id="profileNewPassword" type="password" class="search-input" placeholder="Nytt lösenord" data-i18n-placeholder="user_profile_new_password">
+        <input id="profileConfirmPassword" type="password" class="search-input" placeholder="Bekräfta nytt lösenord" data-i18n-placeholder="user_profile_confirm_new_password">
+        <button type="submit" class="profile-submit-btn" data-i18n="settings_update_password">Uppdatera lösenord</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="info-panel" id="notificationsInfo">
+    <header class="panel-heading">
+      <button class="back-btn" type="button" data-close-panels>
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <div class="panel-title" data-i18n="settings_notifications">Notiser</div>
+    </header>
+    <div class="info-content" id="profilePreferences">
+      <div class="menu-item">
+        <div class="menu-icon"><i class="fas fa-bell"></i></div>
+        <div class="menu-content">
+          <div class="menu-title" data-i18n="settings_push_notifications">Push-notiser</div>
+          <div class="menu-subtitle" data-i18n="settings_push_notifications_subtitle">Aviseringar om nya meddelanden</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" data-setting-key="Push-notiser" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon"><i class="fas fa-envelope"></i></div>
+        <div class="menu-content">
+          <div class="menu-title" data-i18n="settings_email_notifications">E-postnotiser</div>
+          <div class="menu-subtitle" data-i18n="settings_email_notifications_subtitle">Nyhetsbrev och uppdateringar</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" data-setting-key="E-postnotiser">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon"><i class="fas fa-sms"></i></div>
+        <div class="menu-content">
+          <div class="menu-title" data-i18n="settings_sms_notifications">SMS-notiser</div>
+          <div class="menu-subtitle" data-i18n="settings_sms_notifications_subtitle">Viktiga uppdateringar</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" data-setting-key="SMS-notiser" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-panel" id="savedSearchesInfo">
+    <header class="panel-heading">
+      <button class="back-btn" type="button" data-close-panels>
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <div class="panel-title" data-i18n="user_profile_saved_searches">Sparade sökningar</div>
+    </header>
+    <div class="info-content">
+      <div class="info-field">
+        <div class="info-label" data-i18n="user_dashboard_active_alerts_title">Aktiva bevakningar</div>
+        <div class="info-value" id="settingsSavedSearchesValue" data-i18n="common_loading">Laddar...</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-panel" id="filtersInfo">
+    <header class="panel-heading">
+      <button class="back-btn" type="button" data-close-panels>
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <div class="panel-title" data-i18n="settings_filter_settings">Filterinställningar</div>
+    </header>
+    <div class="info-content">
+      <div class="info-field">
+        <div class="info-label" data-i18n="settings_default_filters">Standardfilter</div>
+        <div class="info-value" data-i18n="settings_default_filters_placeholder">Dina standardsökfilter kommer här.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="info-panel" id="languageInfo">
+    <header class="panel-heading">
+      <button class="back-btn" type="button" data-close-panels>
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <div class="panel-title" data-i18n="language">Språk</div>
+    </header>
+    <div class="info-content">
+      <div class="info-field">
+        <div class="info-label" data-i18n="settings_selected_language">Valt språk</div>
+        <div class="info-value" id="settingsLanguageValue" data-i18n="language_swedish">Svenska</div>
+      </div>
+      <div class="language-options" id="settingsLanguageOptions" role="list">
+        <button type="button" class="language-option" data-language-option="sv" role="listitem">
+          <span class="language-option__flag" aria-hidden="true">🇸🇪</span>
+          <span class="language-option__label" data-i18n="language_swedish">Svenska</span>
+          <i class="fas fa-check language-option__check" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="language-option" data-language-option="en" role="listitem">
+          <span class="language-option__flag" aria-hidden="true">🇬🇧</span>
+          <span class="language-option__label" data-i18n="language_english">English</span>
+          <i class="fas fa-check language-option__check" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="language-option" data-language-option="ar" role="listitem">
+          <span class="language-option__flag" aria-hidden="true">🇸🇦</span>
+          <span class="language-option__label" data-i18n="language_arabic">العربية</span>
+          <i class="fas fa-check language-option__check" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <script src="/static/js/mobile/mobile.js"></script>
+  <script src="/static/js/shared/api.js"></script>
+  <script src="/static/js/shared/page-guards.js"></script>
+  <script src="/static/js/shared/menu-config.js"></script>
+  <script src="/static/js/user/user-menu.js"></script>
+  <script src="/static/js/public/navigation.js"></script>
+  <script src="/static/js/public/i18n.js"></script>
+  <script src="/static/js/public/favorites.js"></script>
+  <script src="/static/js/user/profile.js"></script>
+  <script src="/static/js/mobile/user/profile.js"></script>
+</body>
+</html>

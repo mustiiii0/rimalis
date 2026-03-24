@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title data-i18n="title_user_favorites">Rimalis Group | Mina favoriter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/mobile/mobile.css">
+  <link rel="stylesheet" href="/static/css/mobile/user.css">
+  <link rel="stylesheet" href="/static/css/mobile/user/favorites.css">
+</head>
+<body class="mobile-user-favorites-page">
+  <div id="nav-container"></div>
+
+  <div class="mobile-favorites-modal" id="favoritesDeleteModal">
+    <div class="mobile-favorites-modal__content">
+      <div class="mobile-favorites-modal__icon mobile-favorites-modal__icon--danger"><i class="fas fa-trash"></i></div>
+      <div class="mobile-favorites-modal__title" data-i18n="favorites_delete_confirm_title">Ta bort favoriter?</div>
+      <div class="mobile-favorites-modal__text" id="favoritesDeleteModalText">0</div>
+      <div class="mobile-favorites-modal__actions">
+        <button class="mobile-favorites-modal__btn mobile-favorites-modal__btn--secondary" type="button" id="favoritesDeleteCancel" data-i18n="cancel">Avbryt</button>
+        <button class="mobile-favorites-modal__btn mobile-favorites-modal__btn--danger" type="button" id="favoritesDeleteConfirm" data-i18n="delete">Ta bort</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-favorites-shell">
+    <div class="mobile-favorites-statusbar">
+      <span>9:41</span>
+      <span><i class="fas fa-signal"></i> <i class="fas fa-wifi"></i> <i class="fas fa-battery-full"></i></span>
+    </div>
+
+    <header class="mobile-favorites-topbar">
+      <a href="profile.html" class="mobile-favorites-icon-btn" aria-label="Tillbaka" data-i18n-aria-label="auth_back">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      <h1 class="mobile-favorites-topbar__title" data-i18n="nav_saved">Sparade</h1>
+        <button class="mobile-favorites-icon-btn" type="button" id="favoritesEditModeBtn" aria-label="Redigera favoriter" data-i18n-aria-label="edit">
+        <i class="fas fa-pen"></i>
+      </button>
+    </header>
+
+    <main class="mobile-favorites-content">
+      <section class="mobile-favorites-stats" id="favoritesStats">
+        <article class="mobile-favorites-stat">
+          <div class="mobile-favorites-stat__number" id="favoritesStatTotal">0</div>
+          <div class="mobile-favorites-stat__label" data-i18n="favorites_total">Totalt</div>
+        </article>
+        <article class="mobile-favorites-stat">
+          <div class="mobile-favorites-stat__number" id="favoritesStatVilla">0</div>
+          <div class="mobile-favorites-stat__label" data-i18n="favorites_houses">Villor</div>
+        </article>
+        <article class="mobile-favorites-stat">
+          <div class="mobile-favorites-stat__number" id="favoritesStatApartment">0</div>
+          <div class="mobile-favorites-stat__label" data-i18n="favorites_apartments">Lägenh.</div>
+        </article>
+      </section>
+
+      <section class="mobile-favorites-controls-card">
+        <div class="mobile-favorites-search">
+          <i class="fas fa-search"></i>
+          <input type="text" id="favoritesSearchInput" placeholder="Sök bland sparade..." data-i18n-placeholder="favorites_search_placeholder">
+          <button class="mobile-favorites-search__clear" type="button" id="favoritesSearchClear" aria-label="Rensa sökning" data-i18n-aria-label="clear_search">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="mobile-favorites-tabs" id="favoritesCollectionGrid">
+          <button class="mobile-favorites-tab active" type="button" data-collection="all" data-i18n="messages_tab_all">Alla</button>
+          <button class="mobile-favorites-tab" type="button" data-collection="villa"><i class="fas fa-tree"></i> <span data-i18n="favorites_houses">Villor</span></button>
+          <button class="mobile-favorites-tab" type="button" data-collection="lagenhet"><i class="fas fa-building"></i> <span data-i18n="favorites_apartments">Lägenheter</span></button>
+        </div>
+
+        <div class="mobile-favorites-sortbar">
+          <span class="mobile-favorites-sortbar__info"><strong id="favoritesCountNumber">0</strong> <span id="favoritesCountText" data-i18n="favorites_count_plural">favoriter</span></span>
+          <label class="mobile-favorites-sortbar__select">
+            <select id="userFavoritesSort" aria-label="Sortera favoriter" data-i18n-aria-label="user_sort_by">
+              <option id="userFavoritesSortLatest" value="latest" data-i18n="favorites_sort_latest">Senast</option>
+              <option value="price_asc" data-i18n="user_favorites_sort_price_asc">Pris: Lägst först</option>
+              <option value="price_desc" data-i18n="user_favorites_sort_price_desc">Pris: Högst först</option>
+              <option value="area_asc" data-i18n="user_favorites_sort_area_asc">Ort: A-Ö</option>
+            </select>
+            <i class="fas fa-chevron-down"></i>
+          </label>
+        </div>
+      </section>
+
+      <section class="mobile-favorites-list-card">
+        <div class="mobile-favorites-list mobile-favorites-list--stack active" id="favoritesList"></div>
+        <div class="mobile-favorites-grid" id="favoritesGrid" hidden></div>
+      </section>
+
+      <div class="mobile-favorites-editbar" id="favoritesEditBar" hidden>
+        <span class="mobile-favorites-editbar__count" id="favoritesSelectedCount">0</span>
+        <div class="mobile-favorites-editbar__actions">
+          <button class="mobile-favorites-editbar__action" type="button" id="favoritesSelectAllBtn">
+            <i class="fas fa-check-double"></i> <span data-i18n="messages_tab_all">Alla</span>
+          </button>
+          <button class="mobile-favorites-editbar__action mobile-favorites-editbar__action--danger" type="button" id="favoritesDeleteSelectedBtn">
+            <i class="fas fa-trash"></i> <span data-i18n="delete">Ta bort</span>
+          </button>
+        </div>
+      </div>
+
+      <nav class="bottom-nav">
+        <a href="../public/home.html" class="nav-item"><i class="fas fa-home"></i><span data-i18n="nav_home">Hem</span></a>
+        <a href="../public/properties.html" class="nav-item"><i class="fas fa-search"></i><span data-i18n="nav_search">Sök</span></a>
+        <a href="dashboard.html" class="nav-item"><i class="fas fa-chart-pie"></i><span data-i18n="nav_dashboard">Dashboard</span></a>
+        <a href="favorites.html" class="nav-item active"><i class="far fa-heart"></i><span data-i18n="nav_saved">Sparade</span></a>
+        <a href="messages.html" class="nav-item"><i class="far fa-comment"></i><span data-i18n="nav_chat">Chat</span></a>
+        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i><span data-i18n="nav_profile">Profil</span></a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="/static/js/mobile/mobile.js"></script>
+  <script src="/static/js/shared/api.js"></script>
+  <script src="/static/js/shared/page-guards.js"></script>
+  <script src="/static/js/shared/menu-config.js"></script>
+  <script src="/static/js/user/user-menu.js"></script>
+  <script src="/static/js/public/navigation.js"></script>
+  <script src="/static/js/public/i18n.js"></script>
+  <script src="/static/js/public/favorites.js"></script>
+  <script src="/static/js/mobile/user/favorites.js"></script>
+</body>
+</html>

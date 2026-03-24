@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rimalis Group | Kontakt</title>
+    <meta name="description" content="Kontakta Rimalis Group för köp, försäljning, värdering eller visningsfrågor.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rimalis Group">
+    <meta property="og:title" content="Rimalis Group | Kontakt">
+    <meta property="og:description" content="Skicka meddelande till vårt team och få snabb återkoppling.">
+    <meta property="og:url" content="https://rimalis.group.se/templates/public/contact.html">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1600&q=80">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Våra egna CSS-filer -->
+    <link rel="stylesheet" href="/static/css/public/style.css">
+    <link rel="stylesheet" href="/static/css/public/components.css">
+    <link rel="stylesheet" href="/static/css/public/responsive.css">
+</head>
+
+<body>
+
+    <!-- ===== NAVIGERING ===== -->
+    <div id="nav-container"></div>
+
+    <!-- ===== LOGIN MODAL ===== -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" data-close-login>&times;</span>
+
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-[#e2ff31] rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-black tracking-tighter">Welcome back</h3>
+                <p class="text-white/40 text-sm mt-2">Log in to manage your listings and messages</p>
+            </div>
+
+            <form class="space-y-4" id="loginForm">
+                <input type="email" placeholder="E-post" class="input-field" id="loginEmail" required>
+                <input type="password" placeholder="Lösenord" class="input-field" id="loginPassword" required>
+
+                <div class="flex justify-between items-center text-sm">
+                    <label class="flex items-center gap-2 text-white/50">
+                        <input type="checkbox" class="accent-[#e2ff31]" checked> Remember me
+                    </label>
+                    <a href="../auth/forgot_password.html" class="text-[#e2ff31] hover:underline">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn-primary w-full justify-center mt-6">
+                    Log in
+                </button>
+
+                <p class="text-center text-white/40 text-sm mt-6">
+                    Don't have an account? <a href="../auth/register.html" class="text-[#e2ff31] hover:underline">Register</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== MOBIL MENY ===== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-header">
+                <div class="flex items-center gap-2">
+                    <img src="/static/image/Rimalis-Group.png" alt="Rimalis Group" class="brand-logo brand-logo--mobile">
+                </div>
+                <button data-close-mobile-menu class="text-2xl opacity-50 hover:opacity-100">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="mobile-menu-links">
+                <a href="home.html" data-close-mobile-menu>Hem</a>
+                <a href="properties.html" data-close-mobile-menu>Bostäder</a>
+                <a href="areas.html" data-close-mobile-menu>Områden</a>
+                <a href="about.html" data-close-mobile-menu>Om oss</a>
+                <a href="contact.html" data-close-mobile-menu>Kontakt</a>
+                <a href="../auth/login.html" data-close-mobile-menu>Log in</a>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-white/10">
+                <p class="text-white/40 text-sm mb-4">Följ oss</p>
+                <div class="flex gap-4">
+                    <a href="https://www.instagram.com/rimalisgroup/" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-[#e2ff31]"><i class="fab fa-instagram text-xl"></i></a>
+                    <a href="https://www.linkedin.com/company/rimalis-group/" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-[#e2ff31]"><i
+                            class="fab fa-linkedin-in text-xl"></i></a>
+                    <a href="https://www.facebook.com/rimalisgroup/" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-[#e2ff31]"><i class="fab fa-facebook-f text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HERO SECTION (Contact) ===== -->
+    <section class="pt-32 pb-16 px-6 lg:px-12">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-4" id="contactHeroTitle">
+                    Kontakta <span class="text-[#e2ff31]">oss</span>
+                </h1>
+                <p class="text-white/60 text-lg max-w-2xl mx-auto" id="contactHeroDesc">
+                    Vi finns här för dig – oavsett om du vill köpa, sälja eller bara har frågor. Hör av dig!
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Kontaktuppgifter -->
+                <div>
+                    <div class="glass-dark p-12 rounded-[40px] mb-8">
+                        <h2 class="text-2xl font-black mb-8" id="contactDetailsTitle">Kontaktuppgifter</h2>
+
+                        <div class="space-y-8">
+                            <div class="flex items-start gap-6">
+                                <div
+                                    class="w-14 h-14 bg-[#e2ff31]/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-map-pin text-2xl text-[#e2ff31]"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-2" id="contactVisitTitle">Besök oss</h4>
+                                    <p class="text-white/60">
+                                        Birger Jarlsgatan 18<br>
+                                        114 34 Stockholm
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-6">
+                                <div
+                                    class="w-14 h-14 bg-[#e2ff31]/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-phone text-2xl text-[#e2ff31]"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-2" id="contactCallTitle">Ring oss</h4>
+                                    <p class="text-white/60">
+                                        08-123 456 78<br>
+                                        mån-fre 09:00-17:00
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-6">
+                                <div
+                                    class="w-14 h-14 bg-[#e2ff31]/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-envelope text-2xl text-[#e2ff31]"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-2" id="contactEmailTitle">Mejla oss</h4>
+                                    <p class="text-white/60">
+                                        support@rimalis.se<br>
+                                        <span id="contactReplyText">Vi svarar inom 24h</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sociala medier -->
+                    <div class="glass-dark p-8 rounded-[40px]">
+                        <h3 class="font-bold mb-6" id="contactFollowTitle">Följ oss</h3>
+                        <div class="flex gap-4">
+                            <a href="https://www.instagram.com/rimalisgroup/" target="_blank" rel="noopener noreferrer"
+                                class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:border-[#e2ff31] hover:bg-[#e2ff31] hover:text-black transition-all">
+                                <i class="fab fa-instagram text-xl"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/company/rimalis-group/" target="_blank" rel="noopener noreferrer"
+                                class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:border-[#e2ff31] hover:bg-[#e2ff31] hover:text-black transition-all">
+                                <i class="fab fa-linkedin-in text-xl"></i>
+                            </a>
+                            <a href="https://www.facebook.com/rimalisgroup/" target="_blank" rel="noopener noreferrer"
+                                class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:border-[#e2ff31] hover:bg-[#e2ff31] hover:text-black transition-all">
+                                <i class="fab fa-facebook-f text-xl"></i>
+                            </a>
+                            <a href="https://x.com/rimalisgroup" target="_blank" rel="noopener noreferrer"
+                                class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:border-[#e2ff31] hover:bg-[#e2ff31] hover:text-black transition-all">
+                                <i class="fab fa-x-twitter text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kontaktformulär -->
+                <div class="glass-dark p-12 rounded-[40px]">
+                    <h2 class="text-2xl font-black mb-8" id="contactSendTitle">Skicka meddelande</h2>
+
+                    <form class="space-y-6" id="contactForm">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <input type="text" placeholder="Förnamn" class="input-field" id="firstName">
+                            <input type="text" placeholder="Efternamn" class="input-field" id="lastName">
+                        </div>
+
+                        <input type="email" placeholder="E-post" class="input-field" id="contactEmail">
+                        <input type="tel" placeholder="Telefon (valfritt)" class="input-field" id="phone">
+
+                        <select class="input-field" id="contactSubject">
+                            <option>Välj ämne</option>
+                            <option>Jag vill köpa</option>
+                            <option>Jag vill sälja</option>
+                            <option>Värdering av bostad</option>
+                            <option>Allmän fråga</option>
+                            <option>Annat</option>
+                        </select>
+
+                        <textarea rows="5" placeholder="Ditt meddelande" class="input-field" id="message"></textarea>
+
+                        <button type="submit" class="btn-primary w-full justify-center" id="contactSendBtn">
+                            Skicka meddelande <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== KARTA ===== -->
+    <section class="px-6 lg:px-12 mb-20">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="h-[500px] glass rounded-[40px] overflow-hidden">
+                <iframe
+                    title="Karta - Birger Jarlsgatan 18"
+                    class="w-full h-full border-0"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps?q=Birger+Jarlsgatan+18,+Stockholm&output=embed">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CHAT WIDGET ===== -->
+    <div class="chat-widget">
+        <div class="chat-button" id="chatButton">
+            <i class="fas fa-comment"></i>
+        </div>
+        <div class="chat-box" id="chatBox">
+            <div class="chat-header">
+                <span>Rimalis Group CHAT</span>
+                <button id="closeChat"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input">
+                <input type="text" placeholder="Skriv ditt meddelande..." id="chatInput">
+                <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div id="footer-container"></div>
+
+    <!-- ===== VÅRA JAVASCRIPT-FILER ===== -->
+    <script src="/static/js/shared/api.js"></script>
+    <script src="/static/js/shared/page-guards.js"></script>
+    <script src="/static/js/public/main.js"></script>
+    <script src="/static/js/public/favorites.js"></script>
+    <script src="/static/js/public/filters.js"></script>
+    <script src="/static/js/public/chat.js"></script>
+    <script src="/static/js/public/modal.js?v=20260301"></script>
+    <script src="/static/js/shared/menu-config.js"></script>
+  <script src="/static/js/public/navigation.js"></script>
+    <script src="/static/js/public/i18n.js"></script>
+    <script src="/static/js/public/page-hooks.js"></script>
+
+    
+</body>
+
+</html>

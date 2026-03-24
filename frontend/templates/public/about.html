@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rimalis Group | Om oss</title>
+    <meta name="description" content="Läs om Rimalis Group, våra värderingar och hur vår plattform gör det enkelt att publicera annonser.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rimalis Group">
+    <meta property="og:title" content="Rimalis Group | Om oss">
+    <meta property="og:description" content="En modern bostadsplattform grundad 2026 med fokus på trygg publicering och smidig kontakt mellan köpare och säljare.">
+    <meta property="og:url" content="https://rimalis.group.se/templates/public/about.html">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1600&q=80">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Våra egna CSS-filer -->
+    <link rel="stylesheet" href="/static/css/public/style.css">
+    <link rel="stylesheet" href="/static/css/public/components.css">
+    <link rel="stylesheet" href="/static/css/public/responsive.css">
+</head>
+
+<body>
+
+    <!-- ===== NAVIGERING ===== -->
+    <div id="nav-container"></div>
+
+    <!-- ===== LOGIN MODAL ===== -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" data-close-login>&times;</span>
+
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-[#e2ff31] rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-black tracking-tighter">Welcome back</h3>
+                <p class="text-white/40 text-sm mt-2">Log in to manage your listings and messages</p>
+            </div>
+
+            <form class="space-y-4" id="loginForm">
+                <input type="email" placeholder="E-post" class="input-field" id="loginEmail" required>
+                <input type="password" placeholder="Lösenord" class="input-field" id="loginPassword" required>
+
+                <div class="flex justify-between items-center text-sm">
+                    <label class="flex items-center gap-2 text-white/50">
+                        <input type="checkbox" class="accent-[#e2ff31]" checked> Remember me
+                    </label>
+                    <a href="../auth/forgot_password.html" class="text-[#e2ff31] hover:underline">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="btn-primary w-full justify-center mt-6">
+                    Log in
+                </button>
+
+                <p class="text-center text-white/40 text-sm mt-6">
+                    Don't have an account? <a href="../auth/register.html" class="text-[#e2ff31] hover:underline">Register</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== MOBIL MENY ===== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-header">
+                <div class="flex items-center gap-2">
+                    <img src="/static/image/Rimalis-Group.png" alt="Rimalis Group" class="brand-logo brand-logo--mobile">
+                </div>
+                <button data-close-mobile-menu class="text-2xl opacity-50 hover:opacity-100">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="mobile-menu-links">
+                <a href="home.html" data-close-mobile-menu>Hem</a>
+                <a href="properties.html" data-close-mobile-menu>Bostäder</a>
+                <a href="areas.html" data-close-mobile-menu>Områden</a>
+                <a href="about.html" data-close-mobile-menu>Om oss</a>
+                <a href="contact.html" data-close-mobile-menu>Kontakt</a>
+                <a href="../auth/login.html" data-close-mobile-menu>Log in</a>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-white/10">
+                <p class="text-white/40 text-sm mb-4">Följ oss</p>
+                <div class="flex gap-4">
+                    <a href="https://www.instagram.com/rimalisgroup/" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-[#e2ff31]"><i class="fab fa-instagram text-xl"></i></a>
+                    <a href="https://www.linkedin.com/company/rimalis-group/" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-[#e2ff31]"><i
+                            class="fab fa-linkedin-in text-xl"></i></a>
+                    <a href="https://www.facebook.com/rimalisgroup/" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-[#e2ff31]"><i class="fab fa-facebook-f text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HERO SECTION (About) ===== -->
+    <section class="pt-32 pb-16 px-6 lg:px-12">
+        <div class="max-w-[1400px] mx-auto">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <span id="aboutHeroBadge"
+                        class="inline-block px-4 py-2 glass rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-8 text-[#e2ff31]">
+                        <i class="fas fa-star mr-2 text-xs"></i>Om Rimalis Group
+                    </span>
+
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter mb-8" id="aboutHeroTitle">
+                        Vi sätter en<br>ny <span class="text-[#e2ff31]">standard</span>
+                    </h1>
+
+                    <p class="text-white/60 text-lg mb-8" id="aboutHeroDesc">
+                        Rimalis Group grundades 2026 med målet att göra bostadsannonsering enklare, tryggare och mer transparent.
+                        Vi bygger en modern plattform där personer med konto kan publicera annonser och komma i direkt kontakt
+                        med intresserade köpare.
+                    </p>
+
+                    <div class="flex gap-8">
+                        <div>
+                            <div class="text-4xl font-black text-[#e2ff31]">2026</div>
+                            <div class="text-white/40 text-sm uppercase tracking-widest mt-2" id="aboutStatSold">Grundat</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-black text-[#e2ff31]">100%</div>
+                            <div class="text-white/40 text-sm uppercase tracking-widest mt-2" id="aboutStatExperience">Digital plattform</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-black text-[#e2ff31]">24/7</div>
+                            <div class="text-white/40 text-sm uppercase tracking-widest mt-2" id="aboutStatHappy">Tillgänglighet</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=1000"
+                        class="rounded-[40px] shadow-2xl" alt="Rimalis Group team" loading="eager" fetchpriority="high">
+                    <div class="absolute -bottom-6 -right-6 bg-[#e2ff31] text-black p-8 rounded-[30px] max-w-xs">
+                        <p class="serif text-lg italic mb-2" id="aboutQuoteText">"Vi brinner för att matcha rätt person med rätt hem."</p>
+                        <p class="font-black uppercase text-xs tracking-widest" id="aboutQuoteAuthor">Grundarna, Rimalis Group</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== VÅRA VÄRDERINGAR ===== -->
+    <section class="bg-[#111] py-32 px-6 lg:px-12">
+        <div class="max-w-[1400px] mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-16 text-center" id="aboutValuesTitle">
+                Våra <span class="text-[#e2ff31]">värderingar</span>
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-[#e2ff31]/10 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-handshake text-3xl text-[#e2ff31]"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4" id="aboutValue1Title">Personlig service</h3>
+                    <p class="text-white/60" id="aboutValue1Desc">
+                        Vi ser varje kund som unik och skräddarsyr vår approach efter dina behov och önskemål.
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-[#e2ff31]/10 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-chart-line text-3xl text-[#e2ff31]"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4" id="aboutValue2Title">Marknadsexpertis</h3>
+                    <p class="text-white/60" id="aboutValue2Desc">
+                        Vi håller oss ständigt uppdaterade om marknadsläget och använder datadrivna metoder.
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-[#e2ff31]/10 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-shield-alt text-3xl text-[#e2ff31]"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4" id="aboutValue3Title">Trygghet & diskretion</h3>
+                    <p class="text-white/60" id="aboutValue3Desc">
+                        Vi hanterar varje affär med största diskretion och professionalism.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SÅ FUNGERAR DET ===== -->
+    <section class="py-32 px-6 lg:px-12">
+        <div class="max-w-[1400px] mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-16" id="aboutAgentsTitle">
+                Så <span class="text-[#e2ff31]">fungerar det</span>
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-dark rounded-3xl p-8">
+                    <div class="w-14 h-14 rounded-2xl bg-[#e2ff31]/15 text-[#e2ff31] flex items-center justify-center mb-5">
+                        <i class="fas fa-user-plus text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3" id="aboutHow1Title">1. Skapa konto</h3>
+                    <p class="text-white/60" id="aboutHow1Desc">Register gratis och verifiera din e-post för att komma igång.</p>
+                </div>
+
+                <div class="glass-dark rounded-3xl p-8">
+                    <div class="w-14 h-14 rounded-2xl bg-[#e2ff31]/15 text-[#e2ff31] flex items-center justify-center mb-5">
+                        <i class="fas fa-bullhorn text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3" id="aboutHow2Title">2. Publicera annons</h3>
+                    <p class="text-white/60" id="aboutHow2Desc">Lägg upp bilder, beskrivning, pris och kontaktuppgifter direkt från ditt konto.</p>
+                </div>
+
+                <div class="glass-dark rounded-3xl p-8">
+                    <div class="w-14 h-14 rounded-2xl bg-[#e2ff31]/15 text-[#e2ff31] flex items-center justify-center mb-5">
+                        <i class="fas fa-comments text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3" id="aboutHow3Title">3. Hantera intressenter</h3>
+                    <p class="text-white/60" id="aboutHow3Desc">Ta emot meddelanden och boka visningar med intresserade köpare.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CHAT WIDGET ===== -->
+    <div class="chat-widget">
+        <div class="chat-button" id="chatButton">
+            <i class="fas fa-comment"></i>
+        </div>
+        <div class="chat-box" id="chatBox">
+            <div class="chat-header">
+                <span>Rimalis Group CHAT</span>
+                <button id="closeChat"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input">
+                <input type="text" placeholder="Skriv ditt meddelande..." id="chatInput">
+                <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div id="footer-container"></div>
+
+    <!-- ===== VÅRA JAVASCRIPT-FILER ===== -->
+    <script src="/static/js/shared/api.js"></script>
+    <script src="/static/js/shared/page-guards.js"></script>
+    <script src="/static/js/public/main.js"></script>
+    <script src="/static/js/public/favorites.js"></script>
+    <script src="/static/js/public/filters.js"></script>
+    <script src="/static/js/public/chat.js"></script>
+    <script src="/static/js/public/modal.js?v=20260301"></script>
+    <script src="/static/js/shared/menu-config.js"></script>
+  <script src="/static/js/public/navigation.js"></script>
+    <script src="/static/js/public/i18n.js"></script>
+</body>
+
+</html>

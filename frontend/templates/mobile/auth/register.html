@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Registrera | Rimalis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/mobile/mobile.css">
+    <link rel="stylesheet" href="/static/css/mobile/auth.css">
+</head>
+<body class="mobile-auth-page mobile-auth-register-page">
+    <div class="mobile-shell mobile-auth-app">
+        <div class="mobile-auth-content">
+            <div class="auth-return">
+                <button type="button" class="auth-return__btn" data-history-back>
+                    <svg class="auth-return__icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M15 5L8 12L15 19" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="mobile-auth-logo-section">
+                <div class="mobile-auth-logo-icon">
+                    <img src="/static/image/app-logo.png" alt="Rimalis app logo" class="mobile-auth-logo-image">
+                </div>
+                <div class="mobile-auth-logo-text">Rimalis</div>
+                <div class="mobile-auth-logo-slogan">Skapa ditt konto</div>
+            </div>
+
+            <div class="mobile-auth-login-container">
+                <div class="mobile-auth-tab-container">
+                    <a href="login.html" class="mobile-auth-tab">Logga in</a>
+                    <a href="register.html" class="mobile-auth-tab active">Registrera</a>
+                </div>
+
+                <p id="registerFeedback" class="mobile-auth-feedback"></p>
+
+                <form id="registerForm">
+                    <div class="mobile-auth-form-section">
+                        <div class="mobile-auth-input-group">
+                            <label class="mobile-auth-input-label" for="firstName">Förnamn</label>
+                            <div class="mobile-auth-input-wrapper">
+                                <i class="fas fa-user mobile-auth-input-icon"></i>
+                                <input type="text" class="input-field mobile-auth-input-field" placeholder="Förnamn" id="firstName" required>
+                            </div>
+                        </div>
+
+                        <div class="mobile-auth-input-group">
+                            <label class="mobile-auth-input-label" for="lastName">Efternamn</label>
+                            <div class="mobile-auth-input-wrapper">
+                                <i class="fas fa-user mobile-auth-input-icon"></i>
+                                <input type="text" class="input-field mobile-auth-input-field" placeholder="Efternamn" id="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="mobile-auth-input-group">
+                            <label class="mobile-auth-input-label" for="registerEmail">E-post</label>
+                            <div class="mobile-auth-input-wrapper">
+                                <i class="fas fa-envelope mobile-auth-input-icon"></i>
+                                <input type="email" class="input-field mobile-auth-input-field" placeholder="din@email.se" id="registerEmail" required>
+                            </div>
+                        </div>
+
+                        <div class="mobile-auth-input-group">
+                            <label class="mobile-auth-input-label" for="phone">Telefon</label>
+                            <div class="mobile-auth-input-wrapper">
+                                <i class="fas fa-phone mobile-auth-input-icon"></i>
+                                <input type="tel" class="input-field mobile-auth-input-field" placeholder="Telefon" id="phone">
+                            </div>
+                        </div>
+
+                        <div class="mobile-auth-input-group">
+                            <label class="mobile-auth-input-label" for="registerPassword">Lösenord</label>
+                            <div class="mobile-auth-input-wrapper">
+                                <i class="fas fa-lock mobile-auth-input-icon"></i>
+                                <input type="password" class="input-field mobile-auth-input-field" placeholder="••••••••" id="registerPassword" required>
+                                <button type="button" class="mobile-auth-toggle-password" data-password-toggle="registerPassword" aria-label="Visa lösenord">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mobile-auth-input-group">
+                            <label class="mobile-auth-input-label" for="confirmPassword">Bekräfta lösenord</label>
+                            <div class="mobile-auth-input-wrapper">
+                                <i class="fas fa-lock mobile-auth-input-icon"></i>
+                                <input type="password" class="input-field mobile-auth-input-field" placeholder="••••••••" id="confirmPassword" required>
+                                <button type="button" class="mobile-auth-toggle-password" data-password-toggle="confirmPassword" aria-label="Visa lösenord">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mobile-auth-row-flex">
+                            <label class="mobile-auth-remember-me">
+                                <input type="checkbox" id="terms" required>
+                                <span>Jag accepterar villkoren</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="mobile-auth-login-btn" id="registerSubmitBtn">
+                            <span class="btn-text">Skapa konto</span>
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mobile-auth-divider">
+                    <div class="mobile-auth-divider-line"></div>
+                    <div class="mobile-auth-divider-text">eller fortsätt med</div>
+                    <div class="mobile-auth-divider-line"></div>
+                </div>
+
+                <div class="mobile-auth-social-grid">
+                    <button type="button" class="mobile-auth-social-btn google" aria-label="Registrera med Google">
+                        <i class="fab fa-google"></i>
+                    </button>
+                    <button type="button" class="mobile-auth-social-btn facebook" aria-label="Registrera med Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+                    <button type="button" class="mobile-auth-social-btn apple" aria-label="Registrera med Apple">
+                        <i class="fab fa-apple"></i>
+                    </button>
+                </div>
+
+                <div class="mobile-auth-register-section">
+                    Redan medlem?
+                    <a href="login.html" class="mobile-auth-register-link">Logga in</a>
+                </div>
+
+                <div class="mobile-auth-legal-note">
+                    När du skapar konto godkänner du våra
+                    <a href="../legal/terms.html">villkor</a>
+                    och vår
+                    <a href="../legal/privacy.html">integritetspolicy</a>.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/mobile/mobile.js"></script>
+    <script src="/static/js/shared/api.js"></script>
+    <script src="/static/js/auth/auth.js"></script>
+    <script src="/static/js/public/i18n.js"></script>
+    
+</body>
+</html>

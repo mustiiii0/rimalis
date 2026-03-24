@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>Mina visningar | Rimalis</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/mobile/mobile.css">
+  <link rel="stylesheet" href="/static/css/mobile/user.css">
+  <link rel="stylesheet" href="/static/css/mobile/user/bookings.css">
+</head>
+<body class="mobile-user-bookings-page">
+  <div id="nav-container"></div>
+
+  <div class="mobile-bookings-shell">
+    <div class="mobile-bookings-statusbar">
+      <span>9:41</span>
+      <span><i class="fas fa-signal"></i> <i class="fas fa-wifi"></i> <i class="fas fa-battery-full"></i></span>
+    </div>
+
+    <header class="mobile-bookings-topbar">
+      <a href="dashboard.html" class="mobile-bookings-icon-btn" aria-label="Tillbaka">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      <h1 class="mobile-bookings-topbar__title">Mina visningar</h1>
+      <span class="mobile-bookings-topbar__spacer" aria-hidden="true"></span>
+    </header>
+
+    <main class="mobile-bookings-content">
+      <section class="mobile-bookings-hero">
+        <div class="mobile-bookings-hero__meta">
+          <span class="mobile-bookings-pill">Visningar & tider</span>
+          <span class="mobile-bookings-identity">
+            <strong id="userSidebarName">Laddar...</strong>
+            <small id="userSidebarEmail">laddar...</small>
+          </span>
+        </div>
+        <h2>Mina <span>visningar</span></h2>
+        <p>Kommande och tidigare bokade visningar.</p>
+      </section>
+
+      <section class="mobile-bookings-summary">
+        <article>
+          <strong id="mobileBookingsBookedCount">0</strong>
+          <span>Bokade</span>
+        </article>
+        <article>
+          <strong id="mobileBookingsRescheduledCount">0</strong>
+          <span>Ombokade</span>
+        </article>
+        <article>
+          <strong id="mobileBookingsCancelledCount">0</strong>
+          <span>Avbokade</span>
+        </article>
+      </section>
+
+      <section class="mobile-bookings-list-card">
+        <div id="bookingsContainer" class="mobile-bookings-list"></div>
+      </section>
+
+      <nav class="bottom-nav">
+        <a href="../public/home.html" class="nav-item"><i class="fas fa-home"></i><span>Hem</span></a>
+        <a href="../public/properties.html" class="nav-item"><i class="fas fa-search"></i><span>Sök</span></a>
+        <a href="dashboard.html" class="nav-item active"><i class="fas fa-chart-pie"></i><span>Dashboard</span></a>
+        <a href="favorites.html" class="nav-item"><i class="far fa-heart"></i><span>Sparade</span></a>
+        <a href="messages.html" class="nav-item"><i class="far fa-comment"></i><span>Chat</span></a>
+        <a href="profile.html" class="nav-item"><i class="fas fa-user"></i><span>Profil</span></a>
+      </nav>
+    </main>
+  </div>
+
+  <script src="/static/js/mobile/mobile.js"></script>
+  <script src="/static/js/shared/api.js"></script>
+  <script src="/static/js/shared/page-guards.js"></script>
+  <script src="/static/js/shared/menu-config.js"></script>
+  <script src="/static/js/user/user-menu.js"></script>
+  <script src="/static/js/public/navigation.js"></script>
+  <script src="/static/js/public/i18n.js"></script>
+  <script src="/static/js/public/favorites.js"></script>
+  <script src="/static/js/mobile/user/bookings.js"></script>
+</body>
+</html>

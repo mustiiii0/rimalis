@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <title>Rimalis Group | Bostadsplattform för annonser</title>
+    <meta name="description" content="Rimalis Group är en modern bostadsplattform där användare kan publicera annonser och nå intresserade köpare.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Rimalis Group">
+    <meta property="og:title" content="Rimalis Group | Bostadsplattform för annonser">
+    <meta property="og:description" content="Publicera annonser, upptäck bostäder och kontakta säljare direkt på Rimalis Group.">
+    <meta property="og:url" content="https://rimalis.group.se/templates/public/home.html">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Våra egna CSS-filer -->
+    <link rel="stylesheet" href="/static/css/public/style.css">
+    <link rel="stylesheet" href="/static/css/public/components.css">
+    <link rel="stylesheet" href="/static/css/public/responsive.css">
+</head>
+
+<body class="home-page">
+
+    <!-- ===== NAVIGERING (skapas av navigation.js) ===== -->
+    <div id="nav-container"></div>
+
+    <!-- ===== MOBIL MENY ===== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-header">
+                <div class="flex items-center gap-2">
+                    <img src="/static/image/Rimalis-Group.png" alt="Rimalis Group" class="brand-logo brand-logo--mobile">
+                </div>
+                <button data-close-mobile-menu class="text-2xl opacity-50 hover:opacity-100">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="mobile-menu-links">
+                <!-- ⬇️ Alla public-sidor ligger i samma mapp, behöver bara filnamnet -->
+                <a href="home.html" data-close-mobile-menu>Hem</a>
+                <a href="properties.html" data-close-mobile-menu>Bostäder</a>
+                <a href="areas.html" data-close-mobile-menu>Områden</a>
+                <a href="about.html" data-close-mobile-menu>Om oss</a>
+                <a href="contact.html" data-close-mobile-menu>Kontakt</a>
+                <a href="faq.html" data-close-mobile-menu>FAQ</a>
+                <a href="../auth/login.html" data-close-mobile-menu>Logga in</a>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-white/10">
+                <p class="text-white/40 text-sm mb-4">Följ oss</p>
+                <div class="flex gap-4">
+                    <a href="https://www.instagram.com/rimalisgroup/" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-[#e2ff31]"><i class="fab fa-instagram text-xl"></i></a>
+                    <a href="https://www.linkedin.com/company/rimalis-group/" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-[#e2ff31]"><i
+                            class="fab fa-linkedin-in text-xl"></i></a>
+                    <a href="https://www.facebook.com/rimalisgroup/" target="_blank" rel="noopener noreferrer" class="text-white/40 hover:text-[#e2ff31]"><i class="fab fa-facebook-f text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero-bg relative flex items-center px-6 lg:px-12">
+        <div class="max-w-[1400px] mx-auto w-full">
+            <div class="max-w-4xl">
+                <span
+                    class="inline-block px-4 py-2 glass rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-8 text-[#e2ff31]">
+                    <i class="fas fa-star mr-2 text-xs"></i><span id="homeHeroBadge">Modern bostadsplattform sedan 2026</span>
+                </span>
+
+                <h1 class="text-6xl md:text-[90px] font-black leading-[0.9] tracking-tighter mb-8">
+                    <span id="homeHeroLine1">HITTA DITT</span><br>
+                    <span id="homeHeroLine2" class="serif italic text-7xl md:text-[100px] text-white/50">drömhem</span>
+                </h1>
+
+                <p class="text-lg text-white/70 mb-12 max-w-lg" id="homeHeroDescription">
+                    Publicera, upptäck och följ bostadsannonser på en plattform byggd för tydlighet och trygg kontakt.
+                </p>
+
+                <!-- Filter-sektion -->
+                <div class="glass-dark p-6 rounded-[40px] space-y-4">
+                    <!-- Huvudsökning -->
+                    <div class="flex flex-col md:flex-row gap-3">
+                        <div
+                            class="flex-1 flex items-center gap-3 bg-white/5 border border-white/10 rounded-full px-6 py-3">
+                            <i class="fas fa-search text-white/30"></i>
+                            <input type="text" placeholder="Sök på område, stad eller adress..."
+                                class="w-full bg-transparent outline-none text-sm" id="searchInput">
+                        </div>
+                        <button class="btn-primary px-8 justify-center whitespace-nowrap" id="pageSearchButton" data-perform-search>
+                            <i class="fas fa-search mr-2"></i>Sök
+                        </button>
+                    </div>
+
+                    <!-- Grundläggande filter -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                        <select
+                            class="bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm outline-none focus:border-[#e2ff31] transition"
+                            id="propertyType">
+                            <option>Alla typer</option>
+                            <option>Villa</option>
+                            <option>Lägenhet</option>
+                            <option>Radhus</option>
+                            <option>Fritidshus</option>
+                            <option>Gård</option>
+                        </select>
+
+                        <select
+                            class="bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm outline-none focus:border-[#e2ff31] transition"
+                            id="roomCount">
+                            <option>Antal rum</option>
+                            <option>1+ rum</option>
+                            <option>2+ rum</option>
+                            <option>3+ rum</option>
+                            <option>4+ rum</option>
+                            <option>5+ rum</option>
+                            <option>6+ rum</option>
+                        </select>
+
+                        <select
+                            class="bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm outline-none focus:border-[#e2ff31] transition"
+                            id="livingArea">
+                            <option>Boarea (kvm)</option>
+                            <option>50-100 kvm</option>
+                            <option>100-150 kvm</option>
+                            <option>150-200 kvm</option>
+                            <option>200-250 kvm</option>
+                            <option>250-300 kvm</option>
+                            <option>300+ kvm</option>
+                        </select>
+
+                        <!-- Pris dropdown -->
+                        <div class="price-dropdown">
+                            <button class="price-btn" id="priceBtn">
+                                <span>Välj pris</span>
+                                <i class="fas fa-chevron-down text-white/30 text-xs"></i>
+                            </button>
+
+                            <div class="price-panel" id="pricePanel">
+                                <div class="price-input-row">
+                                    <input type="text" placeholder="Min-pris" class="price-input" id="minPrice">
+                                    <span class="price-separator">–</span>
+                                    <input type="text" placeholder="Max-pris" class="price-input" id="maxPrice">
+                                </div>
+
+                                <div class="price-grid">
+                                    <div class="price-option" data-min="0" data-max="5000000">0–5 Mkr</div>
+                                    <div class="price-option" data-min="5000000" data-max="10000000">5–10 Mkr</div>
+                                    <div class="price-option" data-min="10000000" data-max="15000000">10–15 Mkr</div>
+                                    <div class="price-option" data-min="15000000" data-max="20000000">15–20 Mkr</div>
+                                    <div class="price-option" data-min="20000000" data-max="25000000">20–25 Mkr</div>
+                                    <div class="price-option" data-min="25000000" data-max="30000000">25–30 Mkr</div>
+                                    <div class="price-option" data-min="30000000" data-max="">30+ Mkr</div>
+                                </div>
+
+                                <button class="apply-price-btn" id="applyPrice">TILLÄMPA PRIS</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Populära sökningar -->
+                <div class="flex items-center gap-4 mt-6 flex-wrap" id="homePopularSearchRow">
+                    <span class="text-white/40 text-xs" id="homePopularSearchesLabel">Populära sökningar:</span>
+                    <span class="text-xs hover:text-[#e2ff31] cursor-pointer transition"
+                        data-popular-search="Damaskus" id="homePopularSearch1">Damaskus</span>
+                    <span class="text-xs hover:text-[#e2ff31] cursor-pointer transition"
+                        data-popular-search="Aleppo" id="homePopularSearch2">Aleppo</span>
+                    <span class="text-xs hover:text-[#e2ff31] cursor-pointer transition"
+                        data-popular-search="Idlib" id="homePopularSearch3">Idlib</span>
+                    <span class="text-xs hover:text-[#e2ff31] cursor-pointer transition"
+                        data-popular-search="Homs" id="homePopularSearch4">Homs</span>
+                    <span class="text-xs hover:text-[#e2ff31] cursor-pointer transition"
+                        data-popular-search="Latakia" id="homePopularSearch5">Latakia</span>
+                    <span class="text-xs hover:text-[#e2ff31] cursor-pointer transition"
+                        data-popular-search="Hama" id="homePopularSearch6">Hama</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="max-w-[1600px] mx-auto px-6 lg:px-12 py-20">
+
+        <!-- ===== UTVALDA FASTIGHETER ===== -->
+        <section class="mb-32">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-black tracking-tighter uppercase">
+                        <span id="homeFeaturedTitle">Utvalda<br>fastigheter</span>
+                    </h2>
+                </div>
+                <button class="btn-outline" data-nav-target="properties.html">
+                    <span id="homeFeaturedBtn">Visa alla</span> <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="featuredPropertiesGrid"></div>
+        </section>
+
+        <!-- ===== OM Rimalis Group ===== -->
+        <section class="mb-32 grid lg:grid-cols-2 gap-20 items-center">
+            <div>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-12 h-[2px] bg-[#e2ff31]"></div>
+                    <h4 class="text-[#e2ff31] font-black uppercase text-xs tracking-widest" id="homeAboutKicker">Om Rimalis Group</h4>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-8">
+                    <span id="homeAboutTitle">Vi sätter en<br>ny <span class="serif italic text-white/40">standard</span></span>
+                </h2>
+                <p class="text-white/60 text-lg leading-relaxed mb-10" id="homeAboutDesc">
+                    Vi startade 2026 med en tydlig idé: göra det enkelt för vanliga användare att publicera bostadsannonser
+                    och komma i kontakt med rätt köpare.
+                </p>
+
+                <div class="flex gap-8">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-[#e2ff31]/10 rounded-full flex items-center justify-center">
+                            <i class="fas fa-handshake text-[#e2ff31]"></i>
+                        </div>
+                        <span class="text-sm font-bold" id="homeAboutService1">Personlig service</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-[#e2ff31]/10 rounded-full flex items-center justify-center">
+                            <i class="fas fa-chart-line text-[#e2ff31]"></i>
+                        </div>
+                        <span class="text-sm font-bold" id="homeAboutService2">Datadriven plattform</span>
+                    </div>
+                </div>
+
+                <div class="mt-10">
+                    <button class="btn-primary" data-nav-target="about.html">
+                        <span id="homeAboutBtn">Läs mer om oss</span> <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative">
+                <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&q=80&w=1000"
+                    class="rounded-[40px] shadow-2xl" alt="Luxury interior" loading="lazy">
+                <div class="absolute -bottom-6 -left-6 glass-dark p-8 rounded-[30px] max-w-xs border border-white/10">
+                    <i class="fas fa-quote-left text-3xl text-[#e2ff31] mb-4"></i>
+                    <p class="serif text-lg italic mb-4" id="homeQuoteText">"Vi säljer inte bara hus – vi förmedlar hem och livsstilar."
+                    </p>
+                    <p class="font-black uppercase text-xs tracking-widest text-[#e2ff31]" id="homeQuoteAuthor">Rimalis Group</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== POPULÄRA OMRÅDEN ===== -->
+        <section class="mb-32">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-black tracking-tighter uppercase">
+                        <span id="homeAreasTitle">Populära<br>områden</span>
+                    </h2>
+                </div>
+                <button class="btn-outline" data-nav-target="areas.html">
+                    <span id="homeAreasBtn">Utforska alla</span> <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Damaskus -->
+                <div class="relative h-[400px] rounded-[40px] overflow-hidden group cursor-pointer"
+                    data-nav-target="areas.html?area=damascus">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="Damaskus" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8">
+                        <h3 class="text-3xl font-black mb-2" id="homeArea1Title">Damaskus</h3>
+                        <p class="text-white/70" id="homeArea1Count">23 objekt till salu</p>
+                    </div>
+                </div>
+
+                <!-- Aleppo -->
+                <div class="relative h-[400px] rounded-[40px] overflow-hidden group cursor-pointer"
+                    data-nav-target="areas.html?area=aleppo">
+                    <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="Aleppo" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8">
+                        <h3 class="text-3xl font-black mb-2" id="homeArea2Title">Aleppo</h3>
+                        <p class="text-white/70" id="homeArea2Count">18 objekt till salu</p>
+                    </div>
+                </div>
+
+                <!-- Homs -->
+                <div class="relative h-[400px] rounded-[40px] overflow-hidden group cursor-pointer"
+                    data-nav-target="areas.html?area=homs">
+                    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        alt="Homs" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8">
+                        <h3 class="text-3xl font-black mb-2" id="homeArea3Title">Homs</h3>
+                        <p class="text-white/70" id="homeArea3Count">12 objekt till salu</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== NEWSLETTER ===== -->
+        <section class="glass-dark rounded-[50px] p-16 text-center relative overflow-hidden mb-20">
+            <div class="relative z-10 max-w-2xl mx-auto">
+                <i class="far fa-envelope text-4xl text-[#e2ff31] mb-6"></i>
+                <h3 class="text-3xl md:text-4xl font-black tracking-tighter uppercase mb-4">
+                    <span id="homeNewsletterTitle">Få tillgång till exklusiva objekt</span>
+                </h3>
+                <p class="text-white/60 mb-8" id="homeNewsletterDesc">
+                    Anmäl dig till vårt nyhetsbrev och få först tillgång till off-market objekt.
+                </p>
+                <form class="flex flex-col md:flex-row gap-4" id="newsletterForm">
+                    <input type="email" placeholder="Din e-post"
+                        class="flex-1 bg-white/5 border border-white/10 rounded-full px-8 py-4 outline-none focus:border-[#e2ff31] transition"
+                        id="newsletterEmail">
+                    <button type="submit" class="btn-primary justify-center" id="homeNewsletterBtn">
+                        Prenumerera
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== CHAT WIDGET ===== -->
+    <div class="chat-widget">
+        <button type="button" class="chat-button" id="chatButton" aria-label="Öppna chatt">
+            <i class="fas fa-comment"></i>
+        </button>
+        <div class="chat-box" id="chatBox">
+            <div class="chat-header">
+                <span>Rimalis Group CHAT</span>
+                <button id="closeChat"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input">
+                <input type="text" placeholder="Skriv ditt meddelande..." id="chatInput">
+                <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER (skapas av navigation.js) ===== -->
+    <div id="footer-container"></div>
+
+    <!-- ===== VÅRA JAVASCRIPT-FILER (absoluta sökvägar) ===== -->
+    <script src="/static/js/shared/api.js"></script>
+    <script src="/static/js/shared/page-guards.js"></script>
+    <script src="/static/js/public/main.js"></script>
+    <script src="/static/js/public/favorites.js"></script>
+    <script src="/static/js/public/filters.js"></script>
+    <script src="/static/js/public/chat.js"></script>
+    <script src="/static/js/public/modal.js?v=20260301"></script>
+    <script src="/static/js/shared/menu-config.js"></script>
+    <script src="/static/js/public/navigation.js"></script>
+    <script src="/static/js/public/i18n.js"></script>
+    <script src="/static/js/public/listings.js?v=20260305b"></script>
+</body>
+
+</html>

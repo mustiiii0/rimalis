@@ -1,0 +1,10 @@
+.activity-feed .item {
+  display: grid;
+  gap: 4px;
+}
+
+.quick-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+}

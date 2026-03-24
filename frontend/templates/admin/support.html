@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="title_admin_support">Rimalis Group | Admin support</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="/static/css/admin/admin.css" />
+  <link rel="stylesheet" href="/static/css/admin/support.css" />
+</head>
+<body>
+  <div class="admin-shell">
+    <div class="admin-layout">
+      <aside class="admin-sidebar">
+        <div class="brand">
+          <div class="brand-badge"><i class="fas fa-crown"></i></div>
+          <div>
+            <h1 data-i18n="admin_brand_title">Rimalis Group Admin</h1>
+            <p>Intern kontrollpanel</p>
+          </div>
+        </div>
+        <nav class="nav-list">
+          <a class="nav-link " href="dashboard.html"><i class="fas fa-chart-line"></i><span data-i18n="admin_sidebar_overview">Översikt</span></a>
+          <a class="nav-link " href="properties.html"><i class="fas fa-building"></i><span data-i18n="admin_sidebar_properties">Fastigheter</span></a>
+          <a class="nav-link " href="users.html"><i class="fas fa-users"></i><span data-i18n="admin_sidebar_users">Användare</span></a>
+          <a class="nav-link " href="review_queue.html"><i class="fas fa-clipboard-check"></i><span data-i18n="admin_sidebar_review_queue">Granska annonser</span></a>
+          <a class="nav-link " href="viewings.html"><i class="fas fa-calendar-check"></i><span>Visningar</span></a>
+          <a class="nav-link " href="messages.html"><i class="fas fa-envelope"></i><span data-i18n="admin_sidebar_messages">Meddelanden</span></a>
+          <a class="nav-link active" href="support.html"><i class="fas fa-life-ring"></i><span data-i18n="admin_sidebar_support">Support</span></a>
+          <a class="nav-link " href="media_health.html"><i class="fas fa-hard-drive"></i><span data-i18n="admin_sidebar_media_health">Media health</span></a>
+          <a class="nav-link " href="settings.html"><i class="fas fa-sliders-h"></i><span data-i18n="admin_sidebar_settings">Inställningar</span></a>
+                    <a class="nav-link " href="site_controls.html"><i class="fas fa-sitemap"></i><span data-i18n="admin_sidebar_site_controls">Sidstyrning</span></a>
+          <a class="nav-link " href="audit_log.html"><i class="fas fa-shield-alt"></i><span>Audit-logg</span></a>
+          <a class="nav-link logout" href="../auth/login.html"><i class="fas fa-sign-out-alt"></i><span data-i18n="common_logout">Logga ut</span></a>
+        </nav>
+      </aside>
+
+      <main class="admin-main">
+        <header class="topbar">
+          <div>
+            <h2 class="page-title" data-i18n="admin_support_title">Supportcenter</h2>
+            <p class="page-subtitle" data-i18n="admin_support_subtitle">Översikt över supportärenden och snabb hantering.</p>
+          </div>
+          <div class="admin-top-actions">
+            <div class="admin-lang">
+              <button class="admin-lang-btn" id="adminLanguageBtn" type="button">
+                <span id="adminSelectedLanguage">🇸🇪 SV</span>
+                <i class="fas fa-chevron-down text-xs"></i>
+              </button>
+              <div class="admin-lang-menu" id="adminLanguageMenu">
+                <button class="admin-lang-option active" type="button" data-lang="sv">🇸🇪 Svenska</button>
+                <button class="admin-lang-option" type="button" data-lang="en">🇬🇧 English</button>
+              </div>
+            </div>
+            <button class="btn btn-primary" type="button" id="refreshSupportBtn" data-i18n="admin_support_refresh">Uppdatera</button>
+          </div>
+        </header>
+
+        <section class="row cols-4">
+          <article class="card">
+            <p class="kpi-label" data-i18n="admin_support_kpi_unread">Olästa ärenden</p>
+            <p class="kpi-value" id="supportUnreadCount">0</p>
+          </article>
+          <article class="card">
+            <p class="kpi-label" data-i18n="admin_support_kpi_total">Totala ärenden</p>
+            <p class="kpi-value" id="supportTotalCount">0</p>
+          </article>
+          <article class="card">
+            <p class="kpi-label" data-i18n="admin_support_kpi_replied">Besvarade ärenden</p>
+            <p class="kpi-value" id="supportRepliedCount">0</p>
+          </article>
+          <article class="card">
+            <p class="kpi-label" data-i18n="admin_support_support_email">Support e-post</p>
+            <p class="kpi-value support-email" id="supportEmailText">-</p>
+          </article>
+        </section>
+
+        <section class="card support-shell">
+          <div class="support-toolbar">
+            <label class="inline-flex items-center gap-2 text-sm text-white/70">
+              <input id="supportSelectAll" type="checkbox" />
+              <span>Select all</span>
+            </label>
+            <input id="supportSearch" class="input" data-i18n-placeholder="admin_support_search_placeholder" placeholder="Sök avsändare, ärende eller innehåll" />
+            <select id="supportStateFilter" class="select">
+              <option value="all" data-i18n="admin_messages_filter_all">Alla</option>
+              <option value="unread" data-i18n="admin_messages_filter_unread">Olästa</option>
+              <option value="read" data-i18n="admin_messages_filter_read">Lästa</option>
+              <option value="replied" data-i18n="admin_support_filter_replied">Besvarade</option>
+            </select>
+            <select id="supportAssigneeFilter" class="select">
+              <option value="all">All assignees</option>
+              <option value="unassigned">Unassigned</option>
+              <option value="me">Assigned to me</option>
+            </select>
+            <select id="supportSort" class="select">
+              <option value="newest" data-i18n="admin_support_sort_newest">Senaste först</option>
+              <option value="oldest" data-i18n="admin_support_sort_oldest">Äldsta först</option>
+              <option value="unread" data-i18n="admin_support_sort_unread">Olästa först</option>
+            </select>
+            <button class="btn" id="supportMarkAllReadBtn" type="button" data-i18n="admin_support_mark_all_read">Markera alla som lästa</button>
+          </div>
+          <div class="support-toolbar support-toolbar-secondary">
+            <select id="supportSavedView" class="select">
+              <option value="default">Saved views</option>
+              <option value="unread-24h">Unread + last 24h</option>
+            </select>
+            <button class="btn" id="supportSaveViewBtn" type="button">Save current view</button>
+            <select id="supportBulkAction" class="select">
+              <option value="">Bulk action…</option>
+              <option value="mark_read">Mark read</option>
+              <option value="assign">Assign</option>
+              <option value="close">Close</option>
+              <option value="reply_macro">Reply with macro</option>
+            </select>
+            <select id="supportBulkAssignee" class="select">
+              <option value="">Select assignee</option>
+            </select>
+            <input id="supportBulkMacroText" class="input" placeholder="Macro text with {namn} {annons_ref}" />
+            <button class="btn btn-primary" id="supportApplyBulkBtn" type="button">Apply bulk</button>
+          </div>
+
+          <div class="support-workspace">
+            <aside class="support-list" id="supportList"></aside>
+
+            <section class="support-detail" id="supportDetail">
+              <div class="support-empty" id="supportDetailEmpty" data-i18n="admin_support_select_ticket">Välj ett ärende i listan för att se detaljer och svara.</div>
+
+              <div id="supportDetailContent" class="support-detail-content hidden">
+                <div class="support-detail-head">
+                  <div>
+                    <h3 id="supportDetailSubject" class="support-detail-subject">-</h3>
+                    <p id="supportDetailMeta" class="support-detail-meta">-</p>
+                  </div>
+                  <span id="supportDetailBadge" class="support-status">-</span>
+                </div>
+
+                <article class="support-message-card">
+                  <p class="support-message-label" data-i18n="admin_support_customer_message">Kundens meddelande</p>
+                  <p id="supportDetailMessage" class="support-message-body">-</p>
+                </article>
+
+                <article class="support-message-card">
+                  <p class="support-message-label" data-i18n="admin_support_contact_details">Kontaktuppgifter</p>
+                  <p id="supportDetailContact" class="support-message-body">-</p>
+                </article>
+
+                <article class="support-message-card hidden" id="supportThreadHistoryWrap">
+                  <p class="support-message-label" data-i18n="admin_support_thread_history">Trådhistorik</p>
+                  <div id="supportThreadHistory" class="support-thread-history">-</div>
+                </article>
+
+                <article class="support-message-card" id="supportExistingReplyWrap">
+                  <p class="support-message-label" data-i18n="admin_support_existing_reply">Tidigare svar</p>
+                  <p id="supportExistingReply" class="support-message-body">-</p>
+                </article>
+
+                <div class="support-reply-wrap">
+                  <div class="support-meta-grid">
+                    <select id="supportDetailAssignee" class="select">
+                      <option value="">Unassigned</option>
+                    </select>
+                    <select id="supportDetailStatus" class="select">
+                      <option value="open">Open</option>
+                      <option value="in_progress">In progress</option>
+                      <option value="waiting_customer">Waiting customer</option>
+                      <option value="resolved">Resolved</option>
+                      <option value="closed">Closed</option>
+                    </select>
+                    <select id="supportDetailPriority" class="select">
+                      <option value="low">Low</option>
+                      <option value="normal">Normal</option>
+                      <option value="high">High</option>
+                      <option value="urgent">Urgent</option>
+                    </select>
+                    <button class="btn" id="supportSaveMetaBtn" type="button">Save meta</button>
+                  </div>
+                  <div class="support-meta-grid">
+                    <select id="supportMacroSelect" class="select">
+                      <option value="">Quick replies</option>
+                    </select>
+                    <input id="supportMacroName" class="input" placeholder="Macro name" />
+                    <button class="btn" id="supportSaveMacroBtn" type="button">Save macro</button>
+                  </div>
+                  <label class="small" for="supportReplyBox" data-i18n="admin_messages_reply_title">Svara</label>
+                  <textarea id="supportReplyBox" class="textarea" data-i18n-placeholder="admin_messages_reply_placeholder" placeholder="Skriv svar..."></textarea>
+                  <article class="support-message-card">
+                    <p class="support-message-label">Internal notes</p>
+                    <div id="supportNotesList" class="support-thread-history"></div>
+                    <div class="support-meta-grid">
+                      <input id="supportNoteInput" class="input" placeholder="Write internal note…" />
+                      <button class="btn" id="supportAddNoteBtn" type="button">Add note</button>
+                    </div>
+                  </article>
+                  <div class="support-detail-actions">
+                    <button class="btn" id="supportOpenInboxBtn" type="button" data-i18n="admin_support_open_inbox">Öppna inkorg</button>
+                    <button class="btn" id="supportMarkReadBtn" type="button" data-i18n="admin_support_mark_read">Markera läst</button>
+                    <button class="btn btn-primary" id="supportSendReplyBtn" type="button" data-i18n="admin_messages_send_reply">Skicka svar</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="/static/js/shared/api.js"></script>
+  <script src="/static/js/shared/page-guards.js"></script>
+  <script src="/static/js/shared/menu-config.js"></script>
+  <script src="/static/js/admin/admin-menu.js"></script>
+  <script src="/static/js/public/i18n.js"></script>
+  <script src="/static/js/admin/admin-language.js"></script>
+  <script src="/static/js/admin/admin-live.js"></script>
+  <script src="/static/js/admin/support.js?v=20260305c"></script>
+</body>
+</html>

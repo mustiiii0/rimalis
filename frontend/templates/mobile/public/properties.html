@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title data-i18n="title_properties">Rimalis Group | Alla bostäder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/mobile/mobile.css">
+    <link rel="stylesheet" href="/static/css/mobile/public/properties.css">
+</head>
+<body class="mobile-public-properties-page">
+    <div class="modal-overlay" id="mobileFilterModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" data-i18n="filters_title">Filter</div>
+                <button class="modal-close" type="button" id="mobileFilterClose"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="filter-section">
+                <span class="filter-label" data-i18n="filters_price_range">Prisintervall</span>
+                <div class="price-range">
+                    <input type="text" class="price-input" placeholder="Från" value="0" id="minPrice" data-i18n-placeholder="from">
+                    <span class="price-range-separator">-</span>
+                    <input type="text" class="price-input" placeholder="Till" value="20000000" id="maxPrice" data-i18n-placeholder="to">
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <span class="filter-label" data-i18n="listing_property_type_label">Boendetyp</span>
+                <div class="filter-options">
+                    <span class="mobile-properties-option" data-value="Villa" data-i18n="property_type_house">Villa</span>
+                    <span class="mobile-properties-option" data-value="Lägenhet" data-i18n="property_type_apartment">Lägenhet</span>
+                    <span class="mobile-properties-option" data-value="Radhus" data-i18n="property_type_townhouse">Radhus</span>
+                    <span class="mobile-properties-option" data-value="Fritidshus" data-i18n="property_type_holiday_home">Fritidshus</span>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <span class="filter-label" data-i18n="property_feature_rooms">Rum</span>
+                <div class="filter-options">
+                    <span class="mobile-properties-option" data-value="1+ rum">1+</span>
+                    <span class="mobile-properties-option" data-value="2+ rum">2+</span>
+                    <span class="mobile-properties-option" data-value="3+ rum">3+</span>
+                    <span class="mobile-properties-option" data-value="4+ rum">4+</span>
+                    <span class="mobile-properties-option" data-value="5+ rum">5+</span>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <span class="filter-label" data-i18n="properties_living_area">Boarea (m²)</span>
+                <div class="filter-options">
+                    <span class="mobile-properties-option" data-value="80+ kvm">80+</span>
+                    <span class="mobile-properties-option" data-value="120+ kvm">120+</span>
+                    <span class="mobile-properties-option" data-value="160+ kvm">160+</span>
+                    <span class="mobile-properties-option" data-value="200+ kvm">200+</span>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <span class="filter-label" data-i18n="filters_extended">Utökade filter</span>
+                <div class="filter-options">
+                    <span class="mobile-properties-option" data-value="Pool">Pool</span>
+                    <span class="mobile-properties-option" data-value="Balkong">Balkong</span>
+                    <span class="mobile-properties-option" data-value="Hiss">Hiss</span>
+                    <span class="mobile-properties-option" data-value="Nyproduktion" data-i18n="new_production">Nyproduktion</span>
+                </div>
+            </div>
+
+            <button class="apply-btn" type="button" id="applyPrice" data-i18n="show_properties">Visa bostäder</button>
+            <div class="reset-filters" id="mobileResetFilters" data-i18n="filters_reset_all">Återställ alla filter</div>
+        </div>
+    </div>
+
+    <div class="app">
+        <header class="header">
+            <button class="back-btn" type="button" id="mobileBackBtn"><i class="fas fa-arrow-left"></i></button>
+            <span class="header-title" data-i18n="nav_properties">Bostäder</span>
+            <div class="header-actions">
+                <button class="header-btn" type="button" id="mobileFilterOpen"><i class="fas fa-sliders-h"></i></button>
+                <button class="header-btn" type="button" id="mapToggleBtn"><i class="fas fa-map"></i></button>
+            </div>
+        </header>
+
+        <section class="search-section">
+            <div class="search-main">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Sök efter adress, område..." data-i18n-placeholder="properties_search_placeholder">
+                <button type="button" id="mobileSearchClear" class="mobile-search-clear"><i class="fas fa-arrow-right"></i></button>
+            </div>
+
+            <div class="filter-chips">
+                <span class="filter-chip active" data-i18n="messages_tab_all"><i class="fas fa-house"></i> Alla</span>
+                <span class="filter-chip" data-i18n="favorites_houses"><i class="fas fa-house-chimney"></i> Villor</span>
+                <span class="filter-chip" data-i18n="favorites_apartments"><i class="fas fa-building"></i> Lägenheter</span>
+                <span class="filter-chip" data-i18n="property_type_townhouse"><i class="fas fa-store"></i> Radhus</span>
+                <span class="filter-chip" data-i18n="property_type_holiday_home"><i class="fas fa-tree"></i> Fritidshus</span>
+                <span class="filter-chip" data-i18n="new_production"><i class="fas fa-bolt"></i> Nyproduktion</span>
+            </div>
+        </section>
+
+        <div class="active-filters" id="mobileFilterChips"></div>
+
+        <div class="quick-filters">
+            <div class="quick-filter-item active">
+                <i class="fas fa-clock"></i>
+                <span data-i18n="sort_latest">Senast</span>
+            </div>
+            <div class="quick-filter-item">
+                <i class="fas fa-arrow-down-wide-short"></i>
+                <span data-i18n="properties_quick_filter_price">Pris</span>
+            </div>
+            <div class="quick-filter-item">
+                <i class="fas fa-arrow-up-wide-short"></i>
+                <span data-i18n="properties_quick_filter_area">Area</span>
+            </div>
+            <div class="quick-filter-item">
+                <i class="fas fa-calendar"></i>
+                <span data-i18n="newest">Nyast</span>
+            </div>
+            <div class="quick-filter-item">
+                <i class="fas fa-percent"></i>
+                <span data-i18n="price_reduced">Prissänkt</span>
+            </div>
+        </div>
+
+        <div class="results-bar">
+            <div class="results-count" id="propertiesCountText"><span class="results-count__value">0</span><span class="results-count__label" data-i18n="properties_count_label">bostäder</span></div>
+            <div class="sort-dropdown">
+                <select id="propertiesSort">
+                    <option data-sort-key="latest" data-i18n="sort_latest">Senaste</option>
+                    <option data-sort-key="price_asc" data-i18n="sort_price_low_high">Pris: Lägst först</option>
+                    <option data-sort-key="price_desc" data-i18n="sort_price_high_low">Pris: Högst först</option>
+                    <option data-sort-key="area_desc" data-i18n="sort_area_large_small">Störst först</option>
+                    <option data-sort-key="area_asc" data-i18n="sort_area_small_large">Minst först</option>
+                </select>
+                <i class="fas fa-arrow-down-wide-short"></i>
+            </div>
+        </div>
+
+        <div class="property-grid" id="propertiesGrid"></div>
+
+        <div class="map-view" id="mapView">
+            <div class="map-placeholder">
+                <i class="fas fa-map-location-dot"></i>
+                <h3 class="map-placeholder-title" data-i18n="map_view">Kartvy</h3>
+                <p id="propertiesPaginationInfo">Här visas publicerade bostäder på karta.</p>
+                <button class="filter-switch-btn" type="button" id="mapBackToList" data-i18n="show_as_list">Visa som lista</button>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="home.html" class="nav-item"><i class="fas fa-home"></i><span data-i18n="nav_home">Hem</span></a>
+            <a href="properties.html" class="nav-item active"><i class="fas fa-search"></i><span data-i18n="nav_search">Sök</span></a>
+            <a href="../user/dashboard.html" class="nav-item"><i class="fas fa-chart-pie"></i><span data-i18n="nav_dashboard">Dashboard</span></a>
+            <a href="../user/favorites.html" class="nav-item"><i class="far fa-heart"></i><span data-i18n="nav_saved">Sparade</span></a>
+            <a href="../user/messages.html" class="nav-item"><i class="far fa-comment"></i><span data-i18n="nav_chat">Chat</span></a>
+            <a href="../user/profile.html" class="nav-item"><i class="fas fa-user"></i><span data-i18n="nav_profile">Profil</span></a>
+        </nav>
+    </div>
+
+    <script src="/static/js/shared/api.js"></script>
+    <script src="/static/js/public/i18n.js"></script>
+    <script src="/static/js/shared/page-guards.js"></script>
+    <script src="/static/js/public/navigation.js"></script>
+    <script src="/static/js/public/favorites.js"></script>
+    <script src="/static/js/mobile/public/properties.js?v=20260310c"></script>
+</body>
+</html>

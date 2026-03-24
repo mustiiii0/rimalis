@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title data-i18n="title_user_messages">Rimalis Group | Meddelanden</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/mobile/mobile.css">
+  <link rel="stylesheet" href="/static/css/mobile/user.css">
+  <link rel="stylesheet" href="/static/css/mobile/user/messages.css">
+</head>
+<body class="mobile-user-messages-page">
+  <div class="modal-overlay" id="newChatModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" data-i18n="messages_new_message">Nytt meddelande</div>
+        <button class="modal-close" type="button" id="mobileMessagesCloseModalBtn"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="contact-search mobile-messages-modal-search">
+        <input type="text" id="newChatSearchInput" placeholder="Sök efter användare..." data-i18n-placeholder="messages_search_user_placeholder">
+      </div>
+      <div class="contact-list" id="newChatContactList"></div>
+    </div>
+  </div>
+
+  <div class="chat-detail" id="mobileChatDetail">
+    <header class="chat-detail-header">
+      <button class="back-btn" type="button" id="mobileChatBackButton">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <div class="chat-detail-info">
+        <div class="chat-detail-avatar" id="mobileChatDetailAvatar">--</div>
+        <div class="chat-detail-name">
+          <h3 id="mobileChatDetailName" data-i18n="messages_select_conversation">Välj en konversation</h3>
+          <p id="mobileChatDetailMeta" data-i18n="messages_no_conversation_selected">Ingen konversation vald</p>
+        </div>
+      </div>
+      <button class="detail-action-btn detail-action-btn--danger" type="button" id="mobileChatDeleteButton" data-action="delete-thread" aria-label="Ta bort chat" data-i18n-aria-label="delete">
+        <i class="fas fa-trash"></i>
+      </button>
+    </header>
+
+    <div class="property-context" id="mobileChatContext">
+      <img class="context-image" id="mobileChatContextImage" alt="Objekt" hidden>
+      <div class="context-image-fallback" id="mobileChatContextFallback">--</div>
+      <div class="context-info">
+        <h4 id="mobileChatContextTitle" data-i18n="messages_no_conversation_selected">Ingen konversation vald</h4>
+        <p id="mobileChatContextMeta" data-i18n="messages_open_thread_details">Öppna en tråd för att se detaljer.</p>
+        <div class="context-specs" id="mobileChatContextSpecs" hidden>
+          <span class="context-spec" id="mobileChatContextArea" hidden>
+            <i class="fas fa-arrows-alt"></i>
+            <span></span>
+          </span>
+          <span class="context-spec" id="mobileChatContextRooms" hidden>
+            <i class="fas fa-bed"></i>
+            <span></span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="messages-container" id="mobileChatMessages"></div>
+
+    <div class="message-input-container">
+      <button class="attach-btn" type="button"><i class="fas fa-plus"></i></button>
+      <div class="input-wrapper">
+        <input type="text" placeholder="Skriv ett meddelande..." id="threadReplyText" data-i18n-placeholder="messages_write_message_placeholder">
+        <button class="emoji-btn" type="button"><i class="far fa-smile"></i></button>
+      </div>
+      <button class="send-btn" type="button" data-action="send-thread-reply"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <div class="app">
+    <header class="header">
+      <button class="back-btn" type="button" id="mobileMessagesBackBtn">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <span class="header-title" data-i18n="user_messages_title">Meddelanden</span>
+      <button class="new-chat-btn" type="button" id="mobileMessagesNewChatBtn">
+        <i class="fas fa-pen"></i>
+      </button>
+    </header>
+
+    <div class="search-section">
+      <div class="search-container">
+        <input type="text" class="search-input" placeholder="Sök i meddelanden..." id="searchChats" data-i18n-placeholder="messages_search_placeholder">
+      </div>
+    </div>
+
+    <div class="chat-tabs" id="chatTabs">
+      <button class="tab active" type="button" data-tab="all" data-i18n="messages_tab_all">Alla</button>
+      <button class="tab" type="button" data-tab="unread"><span data-i18n="messages_tab_unread">Olästa</span> <span class="tab-badge" id="messagesUnreadBadge">0</span></button>
+    </div>
+
+    <div class="chat-list" id="userMessagesList"></div>
+
+    <nav class="bottom-nav">
+      <a href="../public/home.html" class="nav-item"><i class="fas fa-home"></i><span data-i18n="nav_home">Hem</span></a>
+      <a href="../public/properties.html" class="nav-item"><i class="fas fa-search"></i><span data-i18n="nav_search">Sök</span></a>
+      <a href="dashboard.html" class="nav-item"><i class="fas fa-chart-pie"></i><span data-i18n="nav_dashboard">Dashboard</span></a>
+      <a href="favorites.html" class="nav-item"><i class="far fa-heart"></i><span data-i18n="nav_saved">Sparade</span></a>
+      <a href="messages.html" class="nav-item active"><i class="far fa-comment"></i><span data-i18n="nav_chat">Chat</span></a>
+      <a href="profile.html" class="nav-item"><i class="fas fa-user"></i><span data-i18n="nav_profile">Profil</span></a>
+    </nav>
+  </div>
+
+  <script src="/static/js/mobile/mobile.js"></script>
+  <script src="/static/js/shared/api.js"></script>
+  <script src="/static/js/shared/page-guards.js"></script>
+  <script src="/static/js/shared/menu-config.js"></script>
+  <script src="/static/js/user/user-menu.js"></script>
+  <script src="/static/js/public/navigation.js"></script>
+  <script src="/static/js/public/i18n.js"></script>
+  <script src="/static/js/public/favorites.js"></script>
+  <script src="/static/js/mobile/user/messages.js?v=20260310b"></script>
+</body>
+</html>

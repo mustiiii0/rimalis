@@ -1,0 +1,49 @@
+.audit-filters {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr auto;
+  gap: 12px;
+}
+
+.audit-table-wrap {
+  overflow-x: auto;
+}
+
+.audit-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 980px;
+}
+
+.audit-table th,
+.audit-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+  font-size: 13px;
+}
+
+.audit-table th {
+  color: rgba(255, 255, 255, 0.62);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.audit-badge {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.audit-badge.success {
+  background: rgba(36, 198, 120, 0.18);
+  color: #7ff4b8;
+}
+
+.audit-badge.failed {
+  background: rgba(255, 91, 91, 0.18);
+  color: #ffadad;
+}
