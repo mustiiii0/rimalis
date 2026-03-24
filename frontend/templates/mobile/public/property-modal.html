@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="/static/css/mobile/public/property-modal.css?v=20260324b">
 </head>
 <body class="mobile-public-property-page">
-  <div class="modal-overlay" id="propertyBookingPanel">
+  <div class="modal-overlay" id="propertyBookingPanel" hidden>
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-title" data-i18n="property_book_viewing">Boka visning</div>
@@ -60,7 +60,7 @@
     </div>
   </div>
 
-  <div class="modal-overlay" id="shareModal">
+  <div class="modal-overlay" id="shareModal" hidden>
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-title" data-i18n="property_share_listing">Dela annons</div>
@@ -80,7 +80,15 @@
         </button>
         <button type="button" class="share-item" data-share-channel="copy">
           <span class="share-icon share-icon--copy"><i class="fas fa-link"></i></span>
-          <span data-i18n="copy">Kopiera</span>
+          <span data-i18n="listing_copy_reference">Kopiera</span>
+        </button>
+        <button type="button" class="share-item" data-share-channel="telegram">
+          <span class="share-icon share-icon--telegram"><i class="fab fa-telegram-plane"></i></span>
+          <span data-i18n="share_telegram">Telegram</span>
+        </button>
+        <button type="button" class="share-item" data-share-channel="sms">
+          <span class="share-icon share-icon--sms"><i class="fas fa-comment-dots"></i></span>
+          <span data-i18n="share_sms">SMS</span>
         </button>
       </div>
     </div>
@@ -106,6 +114,16 @@
         </button>
       </div>
     </header>
+
+    <div class="pm-sticky" id="pmStickyBar" hidden>
+      <div class="pm-sticky__left">
+        <div class="pm-sticky__price" id="pmStickyPrice">-</div>
+        <div class="pm-sticky__meta" id="pmStickyMeta">-</div>
+      </div>
+      <div class="pm-sticky__right" aria-hidden="true">
+        <span class="pm-sticky__dot"></span>
+      </div>
+    </div>
 
     <section class="pm-hero">
       <div class="pm-gallery">
@@ -176,132 +194,167 @@
         </div>
       </section>
 
-      <section class="pm-section">
-        <div class="pm-section__header">
-          <div class="pm-section__title"><i class="fas fa-align-left"></i> <span data-i18n="property_description_title">Beskrivning</span></div>
-        </div>
-        <p class="pm-text" id="propertyDescription">Beskrivning saknas.</p>
-      </section>
-
-      <section class="pm-section">
-        <div class="pm-section__header">
-          <div class="pm-section__title"><i class="fas fa-star"></i> <span data-i18n="property_details_section_title">Detaljer</span></div>
-        </div>
-        <div class="pm-details-grid features-grid" id="propertyDetailsGrid"></div>
-        <div class="pm-inline-card">
-          <span class="pm-inline-card__label" id="featurePropertyTypeLabel">Annons typ</span>
-          <span class="pm-inline-card__value" id="featurePropertyType">-</span>
+      <section class="pm-section pm-accordion is-open" data-accordion>
+        <button class="pm-accordion__toggle" type="button" aria-expanded="true" aria-controls="pmDescBody">
+          <span class="pm-section__title"><i class="fas fa-align-left"></i> <span data-i18n="property_description_title">Beskrivning</span></span>
+          <i class="fas fa-chevron-down pm-accordion__chev" aria-hidden="true"></i>
+        </button>
+        <div class="pm-accordion__body" id="pmDescBody">
+          <p class="pm-text" id="propertyDescription">Beskrivning saknas.</p>
         </div>
       </section>
 
-      <section class="pm-section">
-        <div class="pm-section__header">
-          <div class="pm-section__title"><i class="fas fa-user-tie"></i> <span data-i18n="property_agent_title_full">Ansvarig mäklare</span></div>
-        </div>
-
-        <div class="pm-agent">
-          <img id="agentImage" src="" alt="Ansvarig mäklare" class="pm-agent__avatar">
-          <div class="pm-agent__body">
-            <div class="pm-agent__name" id="agentName" data-i18n="common_loading">Laddar...</div>
-            <div class="pm-agent__title" id="agentTitle">Ansvarig agent</div>
-            <p class="pm-agent__bio" id="agentBio"></p>
-
-            <div class="pm-agent__details" id="agentContactDetails" hidden>
-              <div class="pm-agent__detail" id="agentContactPhoneWrap" hidden><i class="fas fa-phone-alt"></i><span id="agentContactPhone"></span></div>
-              <div class="pm-agent__detail" id="agentContactWhatsappWrap" hidden><i class="fab fa-whatsapp"></i><span id="agentContactWhatsapp"></span></div>
-              <div class="pm-agent__detail" id="agentContactEmailWrap" hidden><i class="fas fa-envelope"></i><span id="agentContactEmail"></span></div>
-            </div>
-
-            <div class="quick-contact-details sr-only" id="quickContactDetails" hidden>
-              <div id="quickPhoneWrap" hidden><span id="quickAgentPhone"></span></div>
-              <div id="quickWhatsappWrap" hidden><span id="quickAgentWhatsapp"></span></div>
-              <div id="quickEmailWrap" hidden><span id="quickAgentEmail"></span></div>
-            </div>
-            <span id="quickAgentName" class="sr-only"></span>
-            <span id="quickAgentTitle" class="sr-only"></span>
-          </div>
-
-          <div class="pm-agent__actions">
-            <button class="pm-icon-btn pm-icon-btn--ghost" id="agentCallBtn" type="button" aria-label="Ring">
-              <i class="fas fa-phone"></i>
-            </button>
-            <button class="pm-icon-btn pm-icon-btn--ghost" id="agentWhatsappBtn" type="button" aria-label="WhatsApp">
-              <i class="fab fa-whatsapp"></i>
-            </button>
+      <section class="pm-section pm-accordion" data-accordion>
+        <button class="pm-accordion__toggle" type="button" aria-expanded="false" aria-controls="pmDetailsBody">
+          <span class="pm-section__title"><i class="fas fa-star"></i> <span data-i18n="property_details_section_title">Detaljer</span></span>
+          <i class="fas fa-chevron-down pm-accordion__chev" aria-hidden="true"></i>
+        </button>
+        <div class="pm-accordion__body" id="pmDetailsBody" hidden>
+          <div class="pm-details-grid features-grid" id="propertyDetailsGrid"></div>
+          <div class="pm-inline-card">
+            <span class="pm-inline-card__label" id="featurePropertyTypeLabel">Annons typ</span>
+            <span class="pm-inline-card__value" id="featurePropertyType">-</span>
           </div>
         </div>
-
-        <div class="pm-message" id="propertyMessagePanel" hidden>
-          <h4 data-i18n="property_send_message_heading">Skicka meddelande om annonsen</h4>
-          <form id="propertyMessageForm">
-            <div class="pm-message__grid">
-              <input id="propertyMsgName" type="text" placeholder="Ditt namn" required data-i18n-placeholder="property_your_name">
-              <input id="propertyMsgEmail" type="email" placeholder="Din e-post" required data-i18n-placeholder="property_your_email">
-              <input id="propertyMsgPhone" type="tel" placeholder="Ditt nummer" required data-i18n-placeholder="property_your_phone">
-            </div>
-            <textarea id="propertyMsgText" placeholder="Skriv ditt meddelande..." rows="4" required data-i18n-placeholder="messages_write_message_placeholder"></textarea>
-            <div class="pm-message__actions">
-              <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> <span data-i18n="send">Skicka</span></button>
-              <button type="button" class="btn-secondary btn-secondary--compact" id="propertyMessageCloseBtn" data-i18n="close">Stäng</button>
-            </div>
-          </form>
-        </div>
       </section>
 
-      <section class="pm-section">
-        <div class="pm-section__header">
-          <div class="pm-section__title"><i class="fas fa-clock"></i> <span data-i18n="property_viewing_times">Visningstider</span></div>
-          <button type="button" class="pm-link" id="inlineBookingLink" data-i18n="property_book">Boka</button>
-        </div>
-        <div class="pm-inline-card">
-          <span class="pm-inline-card__label" data-i18n="property_live_booking_hint">Boka nästa lediga visning eller privat tid direkt i systemet</span>
-          <span class="pm-inline-card__value" data-i18n="live">Live</span>
-        </div>
-        <button type="button" class="pm-row-btn" id="bookPrivateViewingLink">
-          <span data-i18n="property_book_private_viewing">Boka privat visning</span>
-          <i class="fas fa-arrow-right"></i>
+      <section class="pm-section pm-accordion" data-accordion>
+        <button class="pm-accordion__toggle" type="button" aria-expanded="false" aria-controls="pmAgentBody">
+          <span class="pm-section__title"><i class="fas fa-user-tie"></i> <span data-i18n="property_agent_title_full">Ansvarig mäklare</span></span>
+          <i class="fas fa-chevron-down pm-accordion__chev" aria-hidden="true"></i>
         </button>
+        <div class="pm-accordion__body" id="pmAgentBody" hidden>
+          <div class="pm-agent">
+            <img id="agentImage" src="" alt="Ansvarig mäklare" class="pm-agent__avatar">
+            <div class="pm-agent__body">
+              <div class="pm-agent__name" id="agentName" data-i18n="common_loading">Laddar...</div>
+              <div class="pm-agent__title" id="agentTitle">Ansvarig agent</div>
+              <p class="pm-agent__bio" id="agentBio"></p>
+
+              <div class="pm-agent__details" id="agentContactDetails" hidden>
+                <div class="pm-agent__detail" id="agentContactPhoneWrap" hidden><i class="fas fa-phone-alt"></i><span id="agentContactPhone"></span></div>
+                <div class="pm-agent__detail" id="agentContactWhatsappWrap" hidden><i class="fab fa-whatsapp"></i><span id="agentContactWhatsapp"></span></div>
+                <div class="pm-agent__detail" id="agentContactEmailWrap" hidden><i class="fas fa-envelope"></i><span id="agentContactEmail"></span></div>
+              </div>
+
+              <div class="quick-contact-details sr-only" id="quickContactDetails" hidden>
+                <div id="quickPhoneWrap" hidden><span id="quickAgentPhone"></span></div>
+                <div id="quickWhatsappWrap" hidden><span id="quickAgentWhatsapp"></span></div>
+                <div id="quickEmailWrap" hidden><span id="quickAgentEmail"></span></div>
+              </div>
+              <span id="quickAgentName" class="sr-only"></span>
+              <span id="quickAgentTitle" class="sr-only"></span>
+            </div>
+
+            <div class="pm-agent__actions">
+              <button class="pm-icon-btn pm-icon-btn--ghost" id="agentCallBtn" type="button" aria-label="Ring">
+                <i class="fas fa-phone"></i>
+              </button>
+              <button class="pm-icon-btn pm-icon-btn--ghost" id="agentWhatsappBtn" type="button" aria-label="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="pm-message" id="propertyMessagePanel" hidden>
+            <h4 data-i18n="property_send_message_heading">Skicka meddelande om annonsen</h4>
+            <form id="propertyMessageForm">
+              <div class="pm-message__grid">
+                <input id="propertyMsgName" type="text" placeholder="Ditt namn" required data-i18n-placeholder="property_your_name">
+                <input id="propertyMsgEmail" type="email" placeholder="Din e-post" required data-i18n-placeholder="property_your_email">
+                <input id="propertyMsgPhone" type="tel" placeholder="Ditt nummer" required data-i18n-placeholder="property_your_phone">
+              </div>
+              <textarea id="propertyMsgText" placeholder="Skriv ditt meddelande..." rows="4" required data-i18n-placeholder="messages_write_message_placeholder"></textarea>
+              <div class="pm-message__actions">
+                <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> <span data-i18n="send">Skicka</span></button>
+                <button type="button" class="btn-secondary btn-secondary--compact" id="propertyMessageCloseBtn" data-i18n="close">Stäng</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </section>
 
-      <section class="pm-section">
-        <div class="pm-section__header">
-          <div class="pm-section__title"><i class="fas fa-file-image"></i> <span data-i18n="property_floorplan">Planlösning</span></div>
-        </div>
-        <button class="pm-media" id="floorplanOpenTrigger" type="button">
-          <img id="floorplanImage" src="" alt="Planlösning" class="pm-media__img">
-          <span class="pm-media__hint"><i class="fas fa-up-right-and-down-left-from-center"></i> <span data-i18n="expand">Förstora</span></span>
+      <section class="pm-section pm-accordion" data-accordion>
+        <button class="pm-accordion__toggle" type="button" aria-expanded="false" aria-controls="pmViewingBody">
+          <span class="pm-section__title"><i class="fas fa-clock"></i> <span data-i18n="property_viewing_times">Visningstider</span></span>
+          <i class="fas fa-chevron-down pm-accordion__chev" aria-hidden="true"></i>
         </button>
-      </section>
-
-      <section class="pm-section">
-        <div class="pm-section__header">
-          <div class="pm-section__title"><i class="fas fa-map"></i> <span data-i18n="property_location_title">Plats</span></div>
-        </div>
-        <div class="pm-map">
-          <iframe
-            id="propertyMapFrame"
-            title="Objektskarta"
-            src="https://www.google.com/maps?q=Stockholm&output=embed"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            class="pm-map__frame"
-          ></iframe>
-          <a class="pm-map__expand" id="propertyMapLink" href="https://www.google.com/maps/search/?api=1&query=Stockholm" target="_blank" rel="noopener noreferrer">
-            <i class="fas fa-expand-alt"></i>
-            <span data-i18n="expand">Förstora</span>
-          </a>
+        <div class="pm-accordion__body" id="pmViewingBody" hidden>
+          <div class="pm-section__subactions">
+            <button type="button" class="pm-link" id="inlineBookingLink" data-i18n="property_book">Boka</button>
+          </div>
+          <div class="pm-inline-card">
+            <span class="pm-inline-card__label" data-i18n="property_live_booking_hint">Boka nästa lediga visning eller privat tid direkt i systemet</span>
+            <span class="pm-inline-card__value" data-i18n="live">Live</span>
+          </div>
+          <button type="button" class="pm-row-btn" id="bookPrivateViewingLink">
+            <span data-i18n="property_book_private_viewing">Boka privat visning</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
         </div>
       </section>
 
-      <section class="pm-section">
-        <div class="pm-section__header">
-          <div class="pm-section__title"><i class="fas fa-home"></i> <span data-i18n="property_similar_title">Liknande objekt</span></div>
+      <section class="pm-section pm-accordion" data-accordion>
+        <button class="pm-accordion__toggle" type="button" aria-expanded="false" aria-controls="pmFloorBody">
+          <span class="pm-section__title"><i class="fas fa-file-image"></i> <span data-i18n="property_floorplan">Planlösning</span></span>
+          <i class="fas fa-chevron-down pm-accordion__chev" aria-hidden="true"></i>
+        </button>
+        <div class="pm-accordion__body" id="pmFloorBody" hidden>
+          <button class="pm-media" id="floorplanOpenTrigger" type="button">
+            <img id="floorplanImage" src="" alt="Planlösning" class="pm-media__img">
+            <span class="pm-media__hint"><i class="fas fa-up-right-and-down-left-from-center"></i> <span data-i18n="expand">Förstora</span></span>
+          </button>
         </div>
-        <div class="pm-similar" id="similarProperties"></div>
+      </section>
+
+      <section class="pm-section pm-accordion" data-accordion>
+        <button class="pm-accordion__toggle" type="button" aria-expanded="false" aria-controls="pmMapBody">
+          <span class="pm-section__title"><i class="fas fa-map"></i> <span data-i18n="property_location_title">Plats</span></span>
+          <i class="fas fa-chevron-down pm-accordion__chev" aria-hidden="true"></i>
+        </button>
+        <div class="pm-accordion__body" id="pmMapBody" hidden>
+          <div class="pm-map">
+            <iframe
+              id="propertyMapFrame"
+              title="Objektskarta"
+              src="about:blank"
+              data-pm-lazy="1"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              class="pm-map__frame"
+            ></iframe>
+            <a class="pm-map__expand" id="propertyMapLink" href="https://www.google.com/maps/search/?api=1&query=Stockholm" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-expand-alt"></i>
+              <span data-i18n="expand">Förstora</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="pm-section pm-accordion" data-accordion>
+        <button class="pm-accordion__toggle" type="button" aria-expanded="false" aria-controls="pmSimilarBody">
+          <span class="pm-section__title"><i class="fas fa-home"></i> <span data-i18n="property_similar_title">Liknande objekt</span></span>
+          <i class="fas fa-chevron-down pm-accordion__chev" aria-hidden="true"></i>
+        </button>
+        <div class="pm-accordion__body" id="pmSimilarBody" hidden>
+          <div class="pm-similar" id="similarProperties"></div>
+          <button type="button" class="pm-row-btn pm-row-btn--secondary" id="pmSimilarMoreBtn">
+            <span data-i18n="property_see_more">Se fler</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
       </section>
     </main>
 
     <div class="bottom-bar pm-bottom-bar">
+      <div class="pm-bottom-mini">
+        <button class="pm-mini-btn" type="button" id="bottomCallBtn" aria-label="Ring" hidden>
+          <i class="fas fa-phone"></i>
+        </button>
+        <button class="pm-mini-btn" type="button" id="bottomWhatsappBtn" aria-label="WhatsApp" hidden>
+          <i class="fab fa-whatsapp"></i>
+        </button>
+      </div>
       <button class="btn-secondary" type="button" id="bottomBookingBtn">
         <i class="fas fa-calendar"></i>
         <span data-i18n="property_book">Boka</span>
@@ -334,5 +387,6 @@
   <script src="/static/js/public/navigation.js"></script>
   <script src="/static/js/public/i18n.js"></script>
   <script src="/static/js/public/property-modal.js?v=20260324a"></script>
+  <script src="/static/js/mobile/public/property-modal-mobile.js?v=20260324a"></script>
 </body>
 </html>

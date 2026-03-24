@@ -364,8 +364,16 @@ function updatePropertyMap(property) {
   const link = document.getElementById('propertyMapLink');
   const query = buildMapQuery(property);
   const encoded = encodeURIComponent(query);
-  if (frame) frame.src = `https://www.google.com/maps?q=${encoded}&output=embed`;
-  if (frame) frame.title = i18n('property_map_frame_title', 'Objektskarta');
+  const src = `https://www.google.com/maps?q=${encoded}&output=embed`;
+  if (frame) {
+    frame.title = i18n('property_map_frame_title', 'Objektskarta');
+    if (frame.dataset.pmLazy === '1') {
+      frame.dataset.mapSrc = src;
+      if (frame.dataset.pmMapReady === '1') frame.src = src;
+    } else {
+      frame.src = src;
+    }
+  }
   if (link) link.href = `https://www.google.com/maps/search/?api=1&query=${encoded}`;
 }
 
@@ -1455,6 +1463,19 @@ async function shareVia(channel) {
     window.open(`https://www.facebook.com/dialog/send?link=${encodeURIComponent(url)}&app_id=291494419107518&redirect_uri=${encodeURIComponent(url)}`, '_blank', 'noopener');
     closeShareModal();
     return;
+  }
+
+  if (channel === 'telegram') {
+    window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`, '_blank', 'noopener');
+    closeShareModal();
+    return;
+  }
+
+  if (channel === 'sms') {
+    const body = encodeURIComponent(text);
+    const isIos = /iPad|iPhone|iPod/i.test(navigator.userAgent || '');
+    window.location.href = isIos ? `sms:&body=${body}` : `sms:?&body=${body}`;
+    closeShareModal();
   }
 }
 

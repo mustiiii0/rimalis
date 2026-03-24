@@ -73,6 +73,58 @@ body.mobile-public-property-page #loginModal {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+.pm-sticky {
+  position: sticky;
+  top: calc(72px + env(safe-area-inset-top, 0px));
+  z-index: 39;
+  margin: 10px var(--pm-page-pad) 0;
+  padding: 10px 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 12, 16, 0.72);
+  backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pm-sticky[hidden] {
+  display: none !important;
+}
+
+.pm-sticky__left {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.pm-sticky__price {
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pm-sticky__meta {
+  color: var(--pm-text-dim);
+  font-weight: 700;
+  font-size: 0.86rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pm-sticky__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(229, 255, 0, 0.9);
+  box-shadow: 0 0 0 6px rgba(229, 255, 0, 0.08);
+  display: inline-block;
+}
+
 .pm-header__btn {
   width: 44px;
   height: 44px;
@@ -504,12 +556,10 @@ html[dir="rtl"] .main-gallery-nav.next i {
   background: rgba(255, 255, 255, 0.04);
 }
 
-.pm-section__header {
+.pm-section__subactions {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 12px;
+  justify-content: flex-end;
+  margin-bottom: 8px;
 }
 
 .pm-section__title {
@@ -530,6 +580,31 @@ html[dir="rtl"] .main-gallery-nav.next i {
   line-height: 1.55;
   font-size: 0.96rem;
   white-space: pre-line;
+}
+
+.pm-accordion__toggle {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0;
+}
+
+.pm-accordion__chev {
+  color: rgba(255, 255, 255, 0.7);
+  transition: transform 180ms ease;
+}
+
+.pm-accordion.is-open .pm-accordion__chev {
+  transform: rotate(180deg);
+}
+
+.pm-accordion__body {
+  margin-top: 12px;
 }
 
 .pm-details-grid {
@@ -611,6 +686,11 @@ html[dir="rtl"] .main-gallery-nav.next i {
   justify-content: space-between;
   gap: 10px;
   font-weight: 800;
+}
+
+.pm-row-btn--secondary {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 html[dir="rtl"] .pm-row-btn i.fa-arrow-right {
@@ -889,12 +969,39 @@ html[dir="rtl"] .pm-row-btn i.fa-arrow-right {
   width: min(460px, 100%);
   padding: 12px var(--pm-page-pad) calc(12px + env(safe-area-inset-bottom, 0px));
   display: grid;
-  grid-template-columns: 1fr 1.4fr;
+  grid-template-columns: auto 1fr 1.4fr;
   gap: 12px;
   z-index: 60;
   background: rgba(10, 12, 16, 0.86);
   backdrop-filter: blur(16px);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pm-bottom-bar.pm-bottom-bar--no-mini {
+  grid-template-columns: 1fr 1.4fr;
+}
+
+.pm-bottom-mini {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.pm-mini-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--pm-text);
+  display: grid;
+  place-items: center;
+  font-size: 1.12rem;
+}
+
+.pm-mini-btn[hidden] {
+  display: none !important;
 }
 
 .pm-bottom-bar .btn-primary,
@@ -914,14 +1021,14 @@ html[dir="rtl"] .pm-row-btn i.fa-arrow-right {
   inset: 0;
   background: rgba(0, 0, 0, 0.62);
   z-index: 100;
-  display: none;
+  display: flex;
   align-items: flex-end;
   justify-content: center;
   padding: 18px var(--pm-page-pad) calc(18px + env(safe-area-inset-bottom, 0px));
 }
 
-.modal-overlay.active {
-  display: flex;
+.modal-overlay[hidden] {
+  display: none !important;
 }
 
 .modal-content {
@@ -1117,6 +1224,14 @@ html[dir="rtl"] .pm-row-btn i.fa-arrow-right {
   color: var(--pm-accent);
 }
 
+.share-icon--telegram {
+  color: #2aabee;
+}
+
+.share-icon--sms {
+  color: rgba(255, 255, 255, 0.9);
+}
+
 /* ===== Lightbox ===== */
 .lightbox {
   position: fixed;
@@ -1142,6 +1257,8 @@ html[dir="rtl"] .pm-row-btn i.fa-arrow-right {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+  touch-action: none;
+  transform-origin: center center;
 }
 
 .lightbox-content.long-image-mode img {
