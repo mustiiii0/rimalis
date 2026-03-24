@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="/static/css/mobile/mobile.css">
   <link rel="stylesheet" href="/static/css/mobile/user.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <link rel="stylesheet" href="/static/css/mobile/user/dashboard.css">
 </head>
 <body class="mobile-user-dashboard-page">
@@ -37,56 +36,6 @@
           <span id="dashboardWelcomeName">...</span>
         </h2>
         <p class="mobile-dashboard-welcome__text" id="dashboardIntroText" data-i18n="user_dashboard_intro_text">Här är en översikt över ditt konto och dina aktiviteter.</p>
-        <div class="mobile-dashboard-welcome__stats">
-          <article>
-            <strong id="statUnreadMessages">0</strong>
-            <span data-i18n="user_dashboard_new_messages">nya meddelanden</span>
-          </article>
-          <article>
-            <strong id="mobileDashboardListings">0</strong>
-            <span data-i18n="user_dashboard_total_listings">annonser totalt</span>
-          </article>
-        </div>
-      </section>
-
-      <section class="mobile-dashboard-stat-grid">
-        <article class="mobile-dashboard-stat-card">
-          <div class="mobile-dashboard-stat-card__icon"><i class="fas fa-heart"></i></div>
-          <strong id="statFavorites">0</strong>
-          <span id="statFavoritesTitle" data-i18n="user_dashboard_saved_favorites_title">Sparade favoriter</span>
-          <small id="statFavoritesText">Du har 0 sparade objekt</small>
-        </article>
-        <article class="mobile-dashboard-stat-card">
-          <div class="mobile-dashboard-stat-card__icon"><i class="fas fa-calendar-check"></i></div>
-          <strong id="statBookings">0</strong>
-          <span id="statBookingsTitle" data-i18n="user_dashboard_booked_viewings_title">Bokade visningar</span>
-          <small id="statBookingsText">0 kommande visningar</small>
-        </article>
-        <article class="mobile-dashboard-stat-card">
-          <div class="mobile-dashboard-stat-card__icon"><i class="fas fa-bell"></i></div>
-          <strong id="statSavedSearches">0</strong>
-          <span id="statSavedSearchesTitle" data-i18n="user_dashboard_active_alerts_title">Aktiva bevakningar</span>
-          <small id="statSavedSearchesText">0 sparade sökningar</small>
-        </article>
-        <article class="mobile-dashboard-stat-card">
-          <div class="mobile-dashboard-stat-card__icon"><i class="fas fa-home"></i></div>
-          <strong id="statMyListings">0</strong>
-          <span data-i18n="user_dashboard_my_listings_title">Mina annonser</span>
-          <small id="statMyListingsText" data-i18n="user_dashboard_active_or_pending">0 aktiva eller väntande</small>
-        </article>
-      </section>
-
-      <section class="mobile-dashboard-chart-card">
-        <div class="mobile-dashboard-section-head">
-          <h2 data-i18n="user_dashboard_activity_7_days">Aktivitet senaste 7 dagarna</h2>
-          <div class="mobile-dashboard-periods">
-            <button type="button" class="is-active" data-period="week" data-i18n="week">Vecka</button>
-            <button type="button" data-period="month" data-i18n="month">Månad</button>
-          </div>
-        </div>
-        <div class="mobile-dashboard-chart-wrap">
-          <canvas id="mobileDashboardChart" aria-label="Visningar per period"></canvas>
-        </div>
       </section>
 
       <section class="mobile-dashboard-actions-card">
@@ -120,35 +69,6 @@
           <a href="messages.html" data-i18n="user_dashboard_cta_view_all">Se alla</a>
         </div>
         <div id="recentActivityFeed" class="mobile-dashboard-activity-list"></div>
-      </section>
-
-      <section class="mobile-dashboard-progress-card">
-        <div class="mobile-dashboard-section-head">
-          <h2 data-i18n="user_dashboard_goals_progress">Mål & framsteg</h2>
-        </div>
-        <div class="mobile-dashboard-progress-list">
-          <article>
-            <div class="mobile-dashboard-progress-head">
-              <span data-i18n="user_dashboard_saved_favorites_title">Sparade favoriter</span>
-              <strong id="goalFavoritesText">0 / 25</strong>
-            </div>
-            <div class="mobile-dashboard-progress-bar"><span id="goalFavoritesBar" class="mobile-dashboard-progress-fill"></span></div>
-          </article>
-          <article>
-            <div class="mobile-dashboard-progress-head">
-              <span data-i18n="user_dashboard_booked_viewings_title">Bokade visningar</span>
-              <strong id="goalBookingsText">0 / 10</strong>
-            </div>
-            <div class="mobile-dashboard-progress-bar"><span id="goalBookingsBar" class="mobile-dashboard-progress-fill"></span></div>
-          </article>
-          <article>
-            <div class="mobile-dashboard-progress-head">
-              <span data-i18n="user_dashboard_active_alerts_title">Aktiva bevakningar</span>
-              <strong id="goalSearchesText">0 / 12</strong>
-            </div>
-            <div class="mobile-dashboard-progress-bar"><span id="goalSearchesBar" class="mobile-dashboard-progress-fill"></span></div>
-          </article>
-        </div>
       </section>
 
       <section class="mobile-dashboard-properties-card">

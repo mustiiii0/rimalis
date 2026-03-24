@@ -4,6 +4,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   await hydrateMobileDashboardEnhancements();
 });
 
+function needsMobileDashboardEnhancements() {
+  return Boolean(
+    document.getElementById('mobileDashboardListings')
+    || document.getElementById('statMyListings')
+    || document.getElementById('statMyListingsText')
+    || document.getElementById('goalFavoritesText')
+    || document.getElementById('goalFavoritesBar')
+    || document.getElementById('goalBookingsText')
+    || document.getElementById('goalBookingsBar')
+    || document.getElementById('goalSearchesText')
+    || document.getElementById('goalSearchesBar')
+    || document.getElementById('mobileDashboardChart'),
+  );
+}
+
 function initMobileDashboardChart() {
   const canvas = document.getElementById('mobileDashboardChart');
   if (!canvas || typeof window.Chart === 'undefined') return;
@@ -155,6 +170,7 @@ function bindMobileDashboardPeriods() {
 
 async function hydrateMobileDashboardEnhancements() {
   if (!window.RimalisAPI?.request) return;
+  if (!needsMobileDashboardEnhancements()) return;
   try {
     const [listingsBody, favBody, msgBody, bookingsBody, searchesBody] = await Promise.all([
       window.RimalisAPI.request('/users/me/listings', { auth: true }),

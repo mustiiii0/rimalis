@@ -19,9 +19,20 @@ async function ensureI18nReady() {
 async function hydrateDashboard() {
   await ensureI18nReady();
   applyDashboardStaticTexts();
+  const needsStats = Boolean(
+    document.getElementById('statFavorites')
+    || document.getElementById('statBookings')
+    || document.getElementById('statSavedSearches')
+    || document.getElementById('statUnreadMessages')
+    || document.getElementById('mobileDashboardListings')
+    || document.getElementById('statFavoritesText')
+    || document.getElementById('statBookingsText')
+    || document.getElementById('statSavedSearchesText')
+    || document.getElementById('statUnreadMessagesText'),
+  );
   await Promise.allSettled([
     loadProfileSummary(),
-    loadDashboardStats(),
+    needsStats ? loadDashboardStats() : Promise.resolve(),
     loadRecentActivity(),
     loadRecentProperties(),
   ]);
