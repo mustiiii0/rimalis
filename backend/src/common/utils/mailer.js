@@ -4,6 +4,10 @@ const nodemailer = require('nodemailer');
 let cachedTransport = null;
 let cachedTransportKey = '';
 
+function isProduction() {
+  return String(process.env.NODE_ENV || '').trim().toLowerCase() === 'production';
+}
+
 function resolveSmtpConfig(override = {}) {
   const host = String(override.smtpHost || process.env.SMTP_HOST || '').trim();
   const portRaw = override.smtpPort ?? process.env.SMTP_PORT ?? '';
@@ -123,6 +127,8 @@ async function sendSupportReplyEmail({
     smtpOverride: { smtpHost, smtpPort, smtpUser, smtpPass, smtpSecure, supportEmail },
   });
   if (smtp.sent) return smtp;
+  if (isProduction() && smtp.reason !== 'smtp-not-configured') return smtp;
+  if (isProduction() && smtp.reason === 'smtp-not-configured') return smtp;
 
   const fromEmail = String(
     supportEmail ||
@@ -185,6 +191,8 @@ async function sendAdminTwoFactorEmail({ toEmail, userName, code, ttlMinutes }) 
     fromEmail: process.env.SMTP_FROM || process.env.SUPPORT_EMAIL || undefined,
   });
   if (smtp.sent) return smtp;
+  if (isProduction() && smtp.reason !== 'smtp-not-configured') return smtp;
+  if (isProduction() && smtp.reason === 'smtp-not-configured') return smtp;
 
   const fromEmail = String(process.env.SMTP_FROM || process.env.SUPPORT_EMAIL || 'support@rimalis.se').trim();
   const emailPayload = [
@@ -223,6 +231,8 @@ async function sendTransactionalEmail({ toEmail, subject, bodyText, fromEmail })
   if (!toEmail) return { sent: false, reason: 'missing-recipient' };
   const smtp = await sendViaSmtp({ toEmail, subject, bodyText, fromEmail });
   if (smtp.sent) return smtp;
+  if (isProduction() && smtp.reason !== 'smtp-not-configured') return smtp;
+  if (isProduction() && smtp.reason === 'smtp-not-configured') return smtp;
 
   const sender = String(fromEmail || process.env.SMTP_FROM || process.env.SUPPORT_EMAIL || 'support@rimalis.se').trim();
   const emailPayload = [
