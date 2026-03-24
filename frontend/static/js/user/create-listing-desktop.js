@@ -432,6 +432,25 @@
     const form = document.getElementById('createListingStep2Form');
     if (!form) return;
 
+    // Some pages don't load the global modal.js helper that wires up these attributes.
+    // Ensure the "Välj bilder" and floor plan upload buttons work everywhere.
+    function bindClickTargets(root) {
+      const scope = root || document;
+      scope.querySelectorAll('[data-click-target]').forEach((el) => {
+        if (el.dataset.clickTargetBound === '1') return;
+        el.dataset.clickTargetBound = '1';
+        el.addEventListener('click', (event) => {
+          event.preventDefault();
+          const targetId = el.getAttribute('data-click-target') || '';
+          if (!targetId) return;
+          const target = document.getElementById(targetId);
+          if (!target) return;
+          if (typeof target.click === 'function') target.click();
+          else target.focus?.();
+        });
+      });
+    }
+
     const imagesInput = document.getElementById('listingImages');
     const selectedFilesText = document.getElementById('selectedFilesText');
     const videoInput = document.getElementById('listingVideoUrl');
@@ -463,6 +482,8 @@
     if (imageUrlInput && draft.imageUrl) imageUrlInput.value = draft.imageUrl;
     if (floorPlanInput && draft.floorPlanUrl) floorPlanInput.value = draft.floorPlanUrl;
     if (watermarkInput) watermarkInput.checked = Boolean(draft.watermarkEnabled);
+
+    bindClickTargets(form);
 
     function updatePrimaryPreview(url) {
       if (!imagePreviewThumb || !imagePreviewCard) return;
