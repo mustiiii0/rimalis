@@ -96,8 +96,29 @@
     if (!trimmed) return '';
     if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) return trimmed;
     if (trimmed.startsWith('/static/uploads/')) return trimmed;
+    if (trimmed.startsWith('/api/media/private/')) return trimmed;
+    if (trimmed.startsWith('/uploads/')) return trimmed;
     if (trimmed.startsWith('data:image/')) return trimmed;
     return '';
+  }
+
+  function placeholderImage(title) {
+    const label = encodeURIComponent(title || i18n('no_image'));
+    return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="#121212"/><text x="50%" y="50%" fill="#888" font-size="42" text-anchor="middle" dominant-baseline="middle">${label}</text></svg>`
+    )}`;
+  }
+
+  function applyImgFallback(img, fallbackSrc) {
+    if (!img) return;
+    if (img.dataset.fallbackBound === '1') return;
+    img.dataset.fallbackBound = '1';
+    img.addEventListener('error', () => {
+      if (img.dataset.fallbackApplied === '1') return;
+      img.dataset.fallbackApplied = '1';
+      img.removeAttribute('srcset');
+      img.src = fallbackSrc;
+    });
   }
 
   function getAreaName(property) {
@@ -143,6 +164,7 @@
     image.src = imageUrl || areaImageFallback(name);
     image.alt = name;
     image.loading = 'lazy';
+    applyImgFallback(image, areaImageFallback(name));
 
     const overlay = document.createElement('div');
     overlay.className = 'area-overlay';
@@ -177,6 +199,7 @@
       img.className = 'w-full h-full object-cover';
       img.alt = property.title || 'Objekt';
       img.loading = 'lazy';
+      applyImgFallback(img, placeholderImage(property.title || i18n('no_image')));
       wrapper.appendChild(img);
       if (showWatermark) {
         const wm = document.createElement('span');

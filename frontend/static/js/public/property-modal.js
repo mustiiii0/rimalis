@@ -193,6 +193,18 @@ function placeholderImage(title) {
   )}`;
 }
 
+function applyImgFallback(img, fallbackSrc) {
+  if (!img) return;
+  if (img.dataset.fallbackBound === '1') return;
+  img.dataset.fallbackBound = '1';
+  img.addEventListener('error', () => {
+    if (img.dataset.fallbackApplied === '1') return;
+    img.dataset.fallbackApplied = '1';
+    img.removeAttribute('srcset');
+    img.src = fallbackSrc;
+  });
+}
+
 function placeholderAvatar(name) {
   const safeName = escapeHtml(name || i18n('property_agent_fallback'));
   return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(
@@ -456,6 +468,7 @@ function renderMainGalleryImage(container, imageUrl, index, title) {
   img.alt = title;
   img.setAttribute('data-open-lightbox', String(index));
   img.setAttribute('fetchpriority', 'high');
+  applyImgFallback(img, placeholderImage(title));
   container.appendChild(img);
 
   const topMeta = document.createElement('div');
@@ -533,6 +546,7 @@ function renderGalleryThumb(container, imageUrl, index, title, active) {
   img.src = safeImageUrl(imageUrl, placeholderImage(title));
   img.alt = title;
   img.loading = 'lazy';
+  applyImgFallback(img, placeholderImage(title));
   button.appendChild(img);
 
   if (shouldShowWatermark(currentProperty)) {
@@ -985,6 +999,7 @@ function updateSimilarProperties() {
     image.src = safeImageUrl(p.imageUrl, placeholderImage(p.title));
     image.alt = p.title || i18n('property_card_title_fallback');
     image.loading = 'lazy';
+    applyImgFallback(image, placeholderImage(p.title));
     imageWrap.appendChild(image);
 
     if (shouldShowWatermark(p)) {
@@ -1064,6 +1079,7 @@ function openLightbox(index) {
 
   currentImageIndex = index;
   lightboxImg.src = safeImageUrl(currentProperty.images[index], placeholderImage(currentProperty.title));
+  applyImgFallback(lightboxImg, placeholderImage(currentProperty.title));
   if (lightboxContent) {
     lightboxContent.classList.remove('long-image-mode');
   }
