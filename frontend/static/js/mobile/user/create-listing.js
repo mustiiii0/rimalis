@@ -57,8 +57,60 @@
     uploadedImageUrls: [],
   };
 
+  function setCoverIndex(index) {
+    const idx = Number(index);
+    if (!Number.isFinite(idx) || idx < 0) return;
+    if (state.files.length && idx < state.files.length) {
+      const next = state.files.slice();
+      const [picked] = next.splice(idx, 1);
+      if (!picked) return;
+      next.unshift(picked);
+      state.files = next;
+      renderMediaGrid();
+      updateStep2Status();
+      return;
+    }
+    const draft = readDraft();
+    const urls = Array.isArray(draft.imageUrls) ? draft.imageUrls.slice() : [];
+    if (urls.length && idx < urls.length) {
+      const [picked] = urls.splice(idx, 1);
+      if (!picked) return;
+      urls.unshift(picked);
+      writeDraft({ imageUrls: urls.slice(), imageUrl: urls[0] || '' });
+      state.uploadedImageUrls = urls.slice();
+      renderMediaGrid();
+      updateStep2Status();
+    }
+  }
+
   function i18n(key, fallback) {
     return window.RimalisI18n?.t?.(key, fallback) || fallback;
+  }
+
+  function withCount(key, fallback, count) {
+    const template = i18n(key, fallback);
+    const formatted = window.RimalisI18n?.formatNumber?.(count) || String(count);
+    return String(template).replace('{count}', formatted);
+  }
+
+  function withFields(key, fallback, fields) {
+    const template = i18n(key, fallback);
+    return String(template).replace('{fields}', fields);
+  }
+
+  function withDoneTotal(key, fallback, done, total) {
+    const template = i18n(key, fallback);
+    const formattedDone = window.RimalisI18n?.formatNumber?.(done) || String(done);
+    const formattedTotal = window.RimalisI18n?.formatNumber?.(total) || String(total);
+    return String(template)
+      .replace('{done}', formattedDone)
+      .replace('{total}', formattedTotal);
+  }
+
+  function withPercent(key, fallback, percent) {
+    const template = i18n(key, fallback);
+    const formatted = window.RimalisI18n?.formatNumber?.(percent) || String(percent);
+    return String(template).replace('{percent}', formatted);
   }
 
   async function ensureI18nReady() {
@@ -104,6 +156,28 @@
 
   function qs(id) {
     return document.getElementById(id);
+  }
+
+  function clearInvalidState() {
+    document.querySelectorAll('.is-invalid').forEach((node) => node.classList.remove('is-invalid'));
+  }
+
+  function markInvalid(id) {
+    const node = qs(id);
+    if (!node) return null;
+    node.classList.add('is-invalid');
+    return node;
+  }
+
+  function scrollToFirst(nodes = []) {
+    const first = nodes.find(Boolean);
+    if (!first) return;
+    try {
+      first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (typeof first.focus === 'function') first.focus({ preventScroll: true });
+    } catch (_err) {
+      // ignore
+    }
   }
 
   function formatSek(value) {
@@ -168,6 +242,7 @@
       if (!input) return;
       const value = draftDetails[field.key];
       if (value != null && value !== '') input.value = String(value);
+      input.addEventListener('input', () => input.classList.remove('is-invalid'));
       input.addEventListener('input', updateStep1Status);
       state.dynamicFields.push({ ...field, input });
     });
@@ -187,7 +262,7 @@
       node.style.width = `${percent}%`;
     });
     document.querySelectorAll('[data-progress-text]').forEach((node) => {
-      node.textContent = `${percent}% klart`;
+      node.textContent = withPercent('listing_percent_complete', '{percent}% klart', percent);
     });
   }
 
@@ -278,24 +353,58 @@
       Boolean(data.description && data.description.length >= 20),
     ].filter(Boolean).length;
     const badge = qs('step1Status');
-    if (badge) badge.textContent = `${done}/7 klara`;
+    if (badge) badge.textContent = withDoneTotal('listing_step_progress', '{done}/{total} klara', done, 7);
   }
 
   function validateStep1() {
     const data = currentPayload();
+    clearInvalidState();
     const missing = [];
+    const invalidNodes = [];
     const requiredByType = (CATEGORY_FIELDS[data.propertyType] || []).filter((field) => field.required);
-    if (!data.propertyType) missing.push(i18n('listing_property_type', 'objektstyp'));
-    if (!data.title || data.title.length < 3) missing.push(i18n('listing_title', 'rubrik'));
-    if (!(data.price > 0)) missing.push(i18n('price', 'pris'));
-    if (!data.location || data.location.length < 2) missing.push(i18n('city', 'stad'));
-    if (!data.address || data.address.length < 4) missing.push(i18n('address', 'adress'));
+    if (!data.propertyType) {
+      missing.push(i18n('listing_property_type', 'objektstyp'));
+      const grid = document.querySelector('.choice-grid');
+      if (grid) {
+        grid.classList.add('is-invalid');
+        invalidNodes.push(grid);
+      }
+    }
+    if (!data.title || data.title.length < 3) {
+      missing.push(i18n('listing_title', 'rubrik'));
+      invalidNodes.push(markInvalid('titleInput'));
+    }
+    if (!(data.price > 0)) {
+      missing.push(i18n('price', 'pris'));
+      invalidNodes.push(markInvalid('priceInput'));
+    }
+    if (!data.location || data.location.length < 2) {
+      missing.push(i18n('city', 'stad'));
+      invalidNodes.push(markInvalid('locationInput'));
+    }
+    if (!data.address || data.address.length < 4) {
+      missing.push(i18n('address', 'adress'));
+      invalidNodes.push(markInvalid('addressInput'));
+    }
     requiredByType.forEach((field) => {
       const value = data.listingDetails?.[field.key];
-      if (value === undefined || value === null || value === '') missing.push(field.label.toLowerCase());
+      if (value === undefined || value === null || value === '') {
+        missing.push(field.label.toLowerCase());
+        const input = qs(`field_${field.key}`);
+        if (input) {
+          input.classList.add('is-invalid');
+          invalidNodes.push(input);
+        }
+      }
     });
-    if (!data.description || data.description.length < 20) missing.push('beskrivning');
-    if (missing.length) throw new Error(`Fyll i ${missing.join(', ')}.`);
+    if (!data.description || data.description.length < 20) {
+      missing.push(i18n('listing_description', 'beskrivning'));
+      invalidNodes.push(markInvalid('descriptionInput'));
+    }
+    if (missing.length) {
+      scrollToFirst(invalidNodes);
+      throw new Error(withFields('listing_fill_fields_error', 'Fyll i {fields}.', missing.join(', ')));
+    }
   }
 
   function renderMediaGrid() {
@@ -305,35 +414,67 @@
     if (!grid || !count || !summary) return;
     grid.innerHTML = '';
     const draft = readDraft();
+    const coverLabel = i18n('listing_cover', 'Omslag');
+    const imageAlt = i18n('listing_image_alt', 'Bild');
     if (!state.files.length) {
       const urls = Array.isArray(draft.imageUrls) ? draft.imageUrls : [];
       if (!urls.length) {
-        summary.textContent = 'Inga bilder valda';
+        summary.textContent = i18n('listing_no_images_selected', 'Inga bilder valda');
         count.textContent = '0';
         return;
       }
       urls.forEach((url, index) => {
         const tile = document.createElement('div');
         tile.className = 'preview-tile';
-        tile.innerHTML = `<img src="${url}" alt="Bild">${index === 0 ? '<span class="preview-badge">Omslag</span>' : ''}`;
+        tile.dataset.coverIndex = String(index);
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = imageAlt;
+        tile.appendChild(img);
+        const order = document.createElement('span');
+        order.className = 'preview-order';
+        order.textContent = String(index + 1);
+        tile.appendChild(order);
+        if (index === 0) {
+          const badge = document.createElement('span');
+          badge.className = 'preview-badge';
+          badge.textContent = coverLabel;
+          tile.appendChild(badge);
+        }
         grid.appendChild(tile);
       });
-      summary.textContent = `${urls.length} sparade bild(er)`;
-      count.textContent = `${urls.length} bilder`;
+      summary.textContent = withCount('listing_saved_images_selected', '{count} sparade bild(er)', urls.length);
+      count.textContent = String(urls.length);
       return;
     }
     state.files.forEach((file, index) => {
       const tile = document.createElement('div');
       tile.className = 'preview-tile';
-      tile.innerHTML = `
-        <img src="${URL.createObjectURL(file)}" alt="Bild">
-        <button class="preview-remove" type="button" data-index="${index}"><i class="fas fa-times"></i></button>
-        ${index === 0 ? '<span class="preview-badge">Omslag</span>' : ''}
-      `;
+      tile.dataset.coverIndex = String(index);
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(file);
+      img.alt = imageAlt;
+      tile.appendChild(img);
+      const order = document.createElement('span');
+      order.className = 'preview-order';
+      order.textContent = String(index + 1);
+      tile.appendChild(order);
+      const button = document.createElement('button');
+      button.className = 'preview-remove';
+      button.type = 'button';
+      button.dataset.index = String(index);
+      button.innerHTML = '<i class="fas fa-times"></i>';
+      tile.appendChild(button);
+      if (index === 0) {
+        const badge = document.createElement('span');
+        badge.className = 'preview-badge';
+        badge.textContent = coverLabel;
+        tile.appendChild(badge);
+      }
       grid.appendChild(tile);
     });
-    summary.textContent = `${state.files.length} fil(er) valda`;
-    count.textContent = `${state.files.length} bilder`;
+    summary.textContent = withCount('listing_files_selected', '{count} fil(er) valda', state.files.length);
+    count.textContent = String(state.files.length);
   }
 
   async function uploadImages() {
@@ -347,7 +488,7 @@
         auth: true,
         body: formData,
       });
-      if (!body?.imageUrl) throw new Error('Kunde inte ladda upp en av bilderna.');
+      if (!body?.imageUrl) throw new Error(i18n('listing_upload_failed_one', 'Kunde inte ladda upp en av bilderna.'));
       uploaded.push(body.imageUrl);
     }
     state.uploadedImageUrls = uploaded.slice();
@@ -362,13 +503,18 @@
     const hasPlan = Boolean(draft.floorPlanUrl);
     const hasVideo = Boolean(draft.videoUrl);
     const badge = qs('step2Status');
-    if (badge) badge.textContent = `${[hasImages, hasPlan, hasVideo].filter(Boolean).length}/3 klara`;
+    if (badge) badge.textContent = withDoneTotal('listing_step_progress', '{done}/{total} klara', [hasImages, hasPlan, hasVideo].filter(Boolean).length, 3);
   }
 
   function validateStep2() {
     const draft = currentPayload();
+    clearInvalidState();
     const hasImages = state.files.length > 0 || draft.imageUrls.length > 0;
-    if (!hasImages) throw new Error('Lägg till minst en bild innan du fortsätter.');
+    if (!hasImages) {
+      const invalidNodes = [markInvalid('uploadZone'), qs('uploadZone')];
+      scrollToFirst(invalidNodes);
+      throw new Error(i18n('listing_add_image_required', 'Lägg till minst en bild innan du fortsätter.'));
+    }
   }
 
   function buildListingPayload(imageUrls) {
@@ -496,6 +642,7 @@
     ['titleInput', 'priceInput', 'locationInput', 'addressInput', 'postalCodeInput', 'descriptionInput'].forEach((id) => {
       const el = qs(id);
       if (!el) return;
+      el.addEventListener('input', () => el.classList.remove('is-invalid'));
       el.addEventListener('input', updateStep1Status);
     });
     qs('locationInput')?.addEventListener('input', function () {
@@ -509,7 +656,7 @@
     qs('saveDraftBtn')?.addEventListener('click', function () {
       currentPayload();
       clearStepMessage();
-      showStepMessage('Utkast sparat i denna session.');
+      showStepMessage(i18n('listing_draft_saved', 'Utkast sparat i denna session.'));
     });
     qs('nextStepBtn')?.addEventListener('click', function () {
       try {
@@ -540,6 +687,7 @@
     updateStep2Status();
     qs('listingImages')?.addEventListener('change', function () {
       state.files = Array.from(this.files || []);
+      qs('uploadZone')?.classList.remove('is-invalid');
       renderMediaGrid();
       updateStep2Status();
     });
@@ -549,6 +697,13 @@
       state.files.splice(Number(btn.dataset.index), 1);
       renderMediaGrid();
       updateStep2Status();
+    });
+    qs('listingImageGrid')?.addEventListener('click', function (event) {
+      const removeBtn = event.target.closest('[data-index]');
+      if (removeBtn) return;
+      const tile = event.target.closest('[data-cover-index]');
+      if (!tile) return;
+      setCoverIndex(Number(tile.dataset.coverIndex));
     });
     ['listingVideoUrl', 'listingFloorPlanUrl'].forEach((id) => {
       qs(id)?.addEventListener('input', function () {
@@ -578,7 +733,7 @@
         const button = qs('goToReviewBtn');
         if (button) {
           button.disabled = false;
-          button.textContent = 'Fortsätt till granskning';
+          button.textContent = i18n('listing_continue_to_review', 'Fortsätt till granskning');
         }
       }
     });
@@ -602,24 +757,75 @@
     if (!document.body.dataset.createStep || document.body.dataset.createStep !== 'success') return;
     const meta = qs('submittedListingMeta');
     if (!meta) return;
+    const copyBtn = qs('copyListingRefBtn');
+    if (copyBtn) copyBtn.hidden = true;
     const params = new URLSearchParams(window.location.search);
     const ref = (params.get('ref') || '').trim();
     const id = (params.get('id') || '').trim();
+
+    async function copyText(value) {
+      if (!value) return false;
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(value);
+          return true;
+        }
+      } catch (_err) {
+        // fall through
+      }
+      try {
+        const input = document.createElement('textarea');
+        input.value = value;
+        input.setAttribute('readonly', 'readonly');
+        input.style.position = 'fixed';
+        input.style.opacity = '0';
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        input.remove();
+        return true;
+      } catch (_err) {
+        return false;
+      }
+    }
+
+    function wireCopyButton(value) {
+      if (!copyBtn) return;
+      copyBtn.hidden = !value;
+      copyBtn.onclick = async () => {
+        const ok = await copyText(value);
+        if (!ok) return;
+        const original = i18n('listing_copy_reference', 'Kopiera');
+        copyBtn.textContent = i18n('listing_copied', 'Kopierat');
+        window.setTimeout(() => {
+          copyBtn.textContent = original;
+        }, 1200);
+      };
+    }
+
     if (ref) {
-      meta.textContent = `Annonsreferens: ${ref}`;
+      meta.textContent = `${i18n('listing_reference_prefix', 'Annonsreferens')}: ${ref}`;
+      wireCopyButton(ref);
       return;
     }
     if (!id || !window.RimalisAPI?.request) {
-      meta.textContent = id ? `Annons-ID: ${id}` : 'Annonsreferens: -';
+      meta.textContent = id
+        ? `${i18n('listing_id_prefix', 'Annons-ID')}: ${id}`
+        : `${i18n('listing_reference_prefix', 'Annonsreferens')}: -`;
+      wireCopyButton(id);
       return;
     }
     try {
       const body = await window.RimalisAPI.request('/users/me/listings', { auth: true });
       const listings = body?.listings || [];
       const listing = listings.find((item) => item.id === id);
-      meta.textContent = listing?.referenceCode ? `Annonsreferens: ${listing.referenceCode}` : `Annons-ID: ${id}`;
+      meta.textContent = listing?.referenceCode
+        ? `${i18n('listing_reference_prefix', 'Annonsreferens')}: ${listing.referenceCode}`
+        : `${i18n('listing_id_prefix', 'Annons-ID')}: ${id}`;
+      wireCopyButton(listing?.referenceCode || id);
     } catch (_err) {
-      meta.textContent = `Annons-ID: ${id}`;
+      meta.textContent = `${i18n('listing_id_prefix', 'Annons-ID')}: ${id}`;
+      wireCopyButton(id);
     }
   }
 

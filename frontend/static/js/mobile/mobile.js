@@ -68,7 +68,7 @@
 
   function handleCreateListingClick() {
     const isLoggedIn = Boolean(window.RimalisAPI?.getAccessToken?.());
-    const target = '../user/create_listing/start.html';
+    const target = '../user/create_listing/step1_listing_info.html';
     if (!isLoggedIn) {
       window.location.href = `../auth/login.html?next=${encodeURIComponent(target)}`;
       return;
