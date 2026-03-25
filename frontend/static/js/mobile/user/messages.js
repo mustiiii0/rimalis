@@ -244,7 +244,7 @@ function createMessagesEmptyState() {
 
   const body = document.createElement('div');
   body.className = 'empty-text';
-  body.textContent = i18n('user_no_messages_yet');
+  body.textContent = i18n('user_messages_empty_hint', 'När du kontaktar en säljare eller mäklare hamnar tråden här.');
 
   const button = document.createElement('button');
   button.className = 'start-chat-btn';
@@ -685,10 +685,18 @@ function bindEvents() {
 
   backButton?.addEventListener('click', closeMobileChatDetail);
 
-  document.getElementById('searchChats')?.addEventListener('input', function (event) {
-    chatSearch = String(event.target.value || '').trim().toLowerCase();
-    renderMessages();
-  });
+  const searchInput = document.getElementById('searchChats');
+  if (searchInput) {
+    let searchTimer = null;
+    searchInput.addEventListener('input', function (event) {
+      const next = String(event.target.value || '').trim().toLowerCase();
+      if (searchTimer) window.clearTimeout(searchTimer);
+      searchTimer = window.setTimeout(() => {
+        chatSearch = next;
+        renderMessages();
+      }, 120);
+    });
+  }
 
   document.querySelectorAll('#chatTabs [data-tab]').forEach((tab) => {
     tab.addEventListener('click', function () {

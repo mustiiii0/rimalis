@@ -308,8 +308,29 @@
     const form = document.getElementById('userProfileMainForm');
     if (!form || !window.RimalisAPI?.request) return;
 
+    function clearFieldErrors() {
+      form.querySelectorAll('.settings-field-error').forEach((node) => node.remove());
+      form.querySelectorAll('.is-invalid').forEach((node) => node.classList.remove('is-invalid'));
+    }
+
+    function setFieldError(inputId, message) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      input.classList.add('is-invalid');
+      const error = document.createElement('div');
+      error.className = 'settings-field-error';
+      error.textContent = message;
+      input.insertAdjacentElement('afterend', error);
+      try {
+        input.focus({ preventScroll: false });
+      } catch (_err) {
+        // ignore
+      }
+    }
+
     form.addEventListener('submit', async function (event) {
       event.preventDefault();
+      clearFieldErrors();
 
       const firstName = document.getElementById('profileFirstName')?.value?.trim() || '';
       const lastName = document.getElementById('profileLastName')?.value?.trim() || '';
@@ -325,19 +346,23 @@
       const country = document.getElementById('profileCountry')?.value?.trim() || '';
 
       if (!name || name.length < 2) {
-        notify('Ange ett giltigt namn', 'error');
+        setFieldError(firstName ? 'profileLastName' : 'profileFirstName', i18n('profile_validation_name', 'Ange ett giltigt namn'));
+        notify(i18n('profile_validation_name', 'Ange ett giltigt namn'), 'error');
         return;
       }
       if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-        notify('Ange en giltig e-postadress', 'error');
+        setFieldError('profileEmail', i18n('profile_validation_email', 'Ange en giltig e-postadress'));
+        notify(i18n('profile_validation_email', 'Ange en giltig e-postadress'), 'error');
         return;
       }
       if (whatsappNumber && !/^\+\d{1,4}$/.test(whatsappCountryCode)) {
-        notify('Välj giltig landskod för WhatsApp', 'error');
+        setFieldError('profileWhatsappCountryCode', i18n('profile_validation_whatsapp_code', 'Välj giltig landskod för WhatsApp'));
+        notify(i18n('profile_validation_whatsapp_code', 'Välj giltig landskod för WhatsApp'), 'error');
         return;
       }
       if (whatsappNumber && (whatsappNumber.length < 6 || whatsappNumber.length > 20)) {
-        notify('Ange ett giltigt WhatsApp-nummer', 'error');
+        setFieldError('profileWhatsappNumber', i18n('profile_validation_whatsapp_number', 'Ange ett giltigt WhatsApp-nummer'));
+        notify(i18n('profile_validation_whatsapp_number', 'Ange ett giltigt WhatsApp-nummer'), 'error');
         return;
       }
 
@@ -365,7 +390,7 @@
           user: { ...user, ...(body.user || {}) },
         });
         await hydrateMobileProfileSummary();
-        notify('Dina uppgifter sparades', 'success');
+        notify(i18n('profile_saved_success', 'Dina uppgifter sparades'), 'success');
       } catch (err) {
         notify(err.message || 'Kunde inte spara dina uppgifter', 'error');
       }
@@ -376,22 +401,48 @@
     const form = document.getElementById('userPasswordForm');
     if (!form || !window.RimalisAPI?.request) return;
 
+    function clearFieldErrors() {
+      form.querySelectorAll('.settings-field-error').forEach((node) => node.remove());
+      form.querySelectorAll('.is-invalid').forEach((node) => node.classList.remove('is-invalid'));
+    }
+
+    function setFieldError(inputId, message) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      input.classList.add('is-invalid');
+      const error = document.createElement('div');
+      error.className = 'settings-field-error';
+      error.textContent = message;
+      input.insertAdjacentElement('afterend', error);
+      try {
+        input.focus({ preventScroll: false });
+      } catch (_err) {
+        // ignore
+      }
+    }
+
     form.addEventListener('submit', async function (event) {
       event.preventDefault();
+      clearFieldErrors();
       const current = document.getElementById('profileCurrentPassword')?.value || '';
       const next = document.getElementById('profileNewPassword')?.value || '';
       const confirm = document.getElementById('profileConfirmPassword')?.value || '';
 
       if (!current || !next || !confirm) {
-        notify('Fyll i alla lösenordsfält', 'error');
+        if (!current) setFieldError('profileCurrentPassword', i18n('profile_validation_required', 'Det här fältet krävs'));
+        if (!next) setFieldError('profileNewPassword', i18n('profile_validation_required', 'Det här fältet krävs'));
+        if (!confirm) setFieldError('profileConfirmPassword', i18n('profile_validation_required', 'Det här fältet krävs'));
+        notify(i18n('profile_validation_password_fields', 'Fyll i alla lösenordsfält'), 'error');
         return;
       }
       if (next !== confirm) {
-        notify('De nya lösenorden matchar inte', 'error');
+        setFieldError('profileConfirmPassword', i18n('profile_validation_password_match', 'De nya lösenorden matchar inte'));
+        notify(i18n('profile_validation_password_match', 'De nya lösenorden matchar inte'), 'error');
         return;
       }
       if (next.length < 8) {
-        notify('Lösenordet måste vara minst 8 tecken', 'error');
+        setFieldError('profileNewPassword', i18n('profile_validation_password_len', 'Lösenordet måste vara minst 8 tecken'));
+        notify(i18n('profile_validation_password_len', 'Lösenordet måste vara minst 8 tecken'), 'error');
         return;
       }
 
@@ -405,7 +456,7 @@
           }),
         });
         form.reset();
-        notify('Lösenordet uppdaterades', 'success');
+        notify(i18n('profile_password_saved', 'Lösenordet uppdaterades'), 'success');
       } catch (err) {
         notify(err.message || 'Kunde inte uppdatera lösenordet', 'error');
       }

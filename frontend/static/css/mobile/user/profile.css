@@ -422,12 +422,16 @@
 }
 
 .mobile-user-profile-page .header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 14px;
   padding: max(12px, env(safe-area-inset-top)) 20px 14px;
-  background: #0b1220;
+  background: rgba(11, 18, 32, 0.92);
+  backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(229, 255, 0, 0.12);
 }
 
@@ -444,6 +448,14 @@
   background: #141d30;
   color: #e5ff00;
   text-decoration: none;
+}
+
+html[dir="rtl"] .mobile-user-profile-page .back-btn i.fa-arrow-left {
+  transform: rotate(180deg);
+}
+
+html[dir="rtl"] .mobile-user-profile-page .arrow {
+  transform: rotate(180deg);
 }
 
 .mobile-user-profile-page .header-title {
@@ -578,11 +590,16 @@
 }
 
 .mobile-user-profile-page .stat-box {
+  text-decoration: none;
   padding: 14px 8px;
   border-radius: 18px;
   background: #111827;
   border: 1px solid #273246;
   text-align: center;
+}
+
+.mobile-user-profile-page .stat-box:active {
+  transform: translateY(1px);
 }
 
 .mobile-user-profile-page .stat-number {
@@ -596,6 +613,37 @@
   color: #98a2b3;
   font-size: 0.7rem;
   text-transform: uppercase;
+}
+
+.mobile-user-profile-page .profile-quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 16px;
+}
+
+.mobile-user-profile-page .quick-action {
+  min-height: 56px;
+  padding: 0 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(17, 24, 39, 0.9);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.mobile-user-profile-page .quick-action i {
+  color: #e5ff00;
+}
+
+.mobile-user-profile-page .quick-action:active {
+  transform: translateY(1px);
 }
 
 .mobile-user-profile-page .menu-section {

@@ -3,14 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
-  <title>Mina visningar | Rimalis</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <title data-i18n="title_user_bookings">Rimalis Group | Mina visningar</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="/static/css/mobile/mobile.css">
   <link rel="stylesheet" href="/static/css/mobile/user.css">
-  <link rel="stylesheet" href="/static/css/mobile/user/bookings.css">
+  <link rel="stylesheet" href="/static/css/mobile/user/bookings.css?v=20260325a">
 </head>
 <body class="mobile-user-bookings-page">
   <div id="nav-container"></div>
@@ -20,36 +18,32 @@
       <a href="dashboard.html" class="mobile-bookings-icon-btn" aria-label="Tillbaka">
         <i class="fas fa-arrow-left"></i>
       </a>
-      <h1 class="mobile-bookings-topbar__title">Mina visningar</h1>
+      <h1 class="mobile-bookings-topbar__title" data-i18n="user_dashboard_viewings">Mina visningar</h1>
       <span class="mobile-bookings-topbar__spacer" aria-hidden="true"></span>
     </header>
 
     <main class="mobile-bookings-content">
-      <section class="mobile-bookings-hero">
-        <div class="mobile-bookings-hero__meta">
-          <span class="mobile-bookings-pill">Visningar & tider</span>
-          <span class="mobile-bookings-identity">
-            <strong id="userSidebarName">Laddar...</strong>
-            <small id="userSidebarEmail">laddar...</small>
-          </span>
+      <section class="mobile-bookings-controls" aria-label="Filter och sök">
+        <div class="mobile-bookings-search">
+          <i class="fas fa-search"></i>
+          <input id="bookingsSearchInput" type="text" placeholder="Sök visningar..." data-i18n-placeholder="bookings_search_placeholder">
+          <button class="mobile-bookings-search__clear" type="button" id="bookingsSearchClear" aria-label="Rensa sökning" data-i18n-aria-label="clear_search" hidden>
+            <i class="fas fa-times"></i>
+          </button>
         </div>
-        <h2>Mina <span>visningar</span></h2>
-        <p>Kommande och tidigare bokade visningar.</p>
-      </section>
 
-      <section class="mobile-bookings-summary">
-        <article>
-          <strong id="mobileBookingsBookedCount">0</strong>
-          <span>Bokade</span>
-        </article>
-        <article>
-          <strong id="mobileBookingsRescheduledCount">0</strong>
-          <span>Ombokade</span>
-        </article>
-        <article>
-          <strong id="mobileBookingsCancelledCount">0</strong>
-          <span>Avbokade</span>
-        </article>
+        <div class="mobile-bookings-tabs" id="bookingsTabs">
+          <button class="mobile-bookings-tab active" type="button" data-filter="all" data-i18n="messages_tab_all">Alla</button>
+          <button class="mobile-bookings-tab" type="button" data-filter="upcoming" data-i18n="bookings_tab_upcoming">Kommande</button>
+          <button class="mobile-bookings-tab" type="button" data-filter="past" data-i18n="bookings_tab_past">Tidigare</button>
+          <button class="mobile-bookings-tab" type="button" data-filter="cancelled" data-i18n="booking_status_cancelled">Avbokade</button>
+        </div>
+
+        <div class="mobile-bookings-summary">
+          <span class="mobile-bookings-summary-pill"><strong id="mobileBookingsBookedCount">0</strong> <span data-i18n="booking_status_booked">Bokad</span></span>
+          <span class="mobile-bookings-summary-pill"><strong id="mobileBookingsRescheduledCount">0</strong> <span data-i18n="booking_status_rescheduled">Ombokad</span></span>
+          <span class="mobile-bookings-summary-pill"><strong id="mobileBookingsCancelledCount">0</strong> <span data-i18n="booking_status_cancelled">Avbokad</span></span>
+        </div>
       </section>
 
       <section class="mobile-bookings-list-card">

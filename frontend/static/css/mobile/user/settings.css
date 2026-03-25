@@ -580,11 +580,15 @@
   align-items: center;
   gap: 14px;
   padding: max(12px, env(safe-area-inset-top)) 20px 14px;
-  background: #0b1220;
+  background: rgba(11, 18, 32, 0.92);
+  backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(229, 255, 0, 0.12);
 }
 
 .mobile-user-settings-page .header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
   justify-content: space-between;
 }
 
@@ -606,6 +610,14 @@
   text-decoration: none;
 }
 
+html[dir="rtl"] .mobile-user-settings-page .back-btn i.fa-arrow-left {
+  transform: rotate(180deg);
+}
+
+html[dir="rtl"] .mobile-user-settings-page .arrow {
+  transform: rotate(180deg);
+}
+
 .mobile-user-settings-page .header-title,
 .mobile-user-settings-page .panel-title {
   color: #ffffff;
@@ -624,8 +636,14 @@
 }
 
 .mobile-user-settings-page .search-section {
+  position: sticky;
+  top: calc(68px + env(safe-area-inset-top, 0px));
+  z-index: 55;
   padding-top: 14px;
   padding-bottom: 14px;
+  background: rgba(6, 11, 20, 0.68);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .mobile-user-settings-page .search-container {
@@ -653,6 +671,31 @@
   border: 1px solid rgba(229, 255, 0, 0.12);
   background: #141d30;
   color: #ffffff;
+}
+
+html[dir="rtl"] .mobile-user-settings-page .search-icon {
+  left: auto;
+  right: 16px;
+}
+
+html[dir="rtl"] .mobile-user-settings-page .search-input {
+  padding: 0 46px 0 18px;
+}
+
+.mobile-user-settings-page .settings-field-error {
+  margin-top: -6px;
+  margin-bottom: 6px;
+  padding: 0 4px;
+  color: rgba(255, 148, 148, 0.92);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.mobile-user-settings-page input.is-invalid,
+.mobile-user-settings-page select.is-invalid,
+.mobile-user-settings-page textarea.is-invalid {
+  border-color: rgba(239, 68, 68, 0.55) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
 }
 
 .mobile-user-settings-page .search-input::placeholder {
@@ -897,6 +940,21 @@
   pointer-events: none;
   transition: transform 0.3s ease, opacity 0.2s ease, visibility 0.2s ease;
   overflow-y: auto;
+}
+
+.mobile-user-settings-page .info-panel:focus {
+  outline: none;
+}
+
+html[dir="rtl"] .mobile-user-settings-page .info-panel {
+  right: auto;
+  left: 0;
+  transform: translate3d(-100%, 0, 0);
+  border-radius: 0 24px 24px 0;
+}
+
+html[dir="rtl"] .mobile-user-settings-page .info-panel.open {
+  transform: translate3d(0, 0, 0);
 }
 
 .mobile-user-settings-page .info-panel.open {

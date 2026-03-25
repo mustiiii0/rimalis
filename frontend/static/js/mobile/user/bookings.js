@@ -1,5 +1,7 @@
 (function () {
   let cachedBookings = [];
+  let bookingFilter = 'all';
+  let bookingSearch = '';
 
   async function ensureI18nReady() {
     if (typeof window.RimalisI18n?.ready === 'function') {
@@ -167,6 +169,187 @@
     return card;
   }
 
+  function normalizeText(value) {
+    return String(value || '').trim().toLowerCase();
+  }
+
+  function bookingWhen(booking) {
+    const raw = booking?.scheduledAt || booking?.startsAt || booking?.startAt || null;
+    const d = raw ? new Date(raw) : new Date(NaN);
+    return Number.isNaN(d.getTime()) ? null : d;
+  }
+
+  function isUpcoming(booking) {
+    const when = bookingWhen(booking);
+    if (!when) return false;
+    return when.getTime() >= Date.now();
+  }
+
+  function applyBookingFilters(bookings) {
+    return (Array.isArray(bookings) ? bookings : []).filter((booking) => {
+      const status = String(booking.status || '').toLowerCase();
+      if (bookingFilter === 'cancelled' && status !== 'cancelled') return false;
+      if (bookingFilter === 'upcoming' && (status === 'cancelled' || !isUpcoming(booking))) return false;
+      if (bookingFilter === 'past' && (status === 'cancelled' || isUpcoming(booking))) return false;
+
+      if (bookingSearch) {
+        const hay = normalizeText(`${booking.title || ''} ${booking.location || ''} ${booking.address || ''}`);
+        if (!hay.includes(bookingSearch)) return false;
+      }
+      return true;
+    });
+  }
+
+  function renderBookingsFromCache() {
+    const container = document.getElementById('bookingsContainer');
+    if (!container) return;
+    const bookings = applyBookingFilters(cachedBookings);
+
+    container.textContent = '';
+    if (!bookings.length) {
+      const empty = document.createElement('div');
+      empty.className = 'mobile-bookings-empty';
+      empty.textContent = bookingSearch
+        ? i18n('bookings_no_results', 'Inga visningar matchar din sökning.')
+        : i18n('user_no_bookings_yet', 'Du har inga bokningar ännu.');
+      container.appendChild(empty);
+      return;
+    }
+    bookings.forEach((booking) => container.appendChild(buildCard(booking)));
+
+    // Re-bind card actions (cards are recreated on each render)
+    bindCardActions(container);
+  }
+
+  function bindCardActions(container) {
+    container.querySelectorAll('[data-action="cancel"]').forEach((button) => {
+      if (button.dataset.bound) return;
+      button.dataset.bound = '1';
+      button.addEventListener('click', async () => {
+        const card = button.closest('[data-booking-id]');
+        const bookingId = card?.dataset.bookingId;
+        if (!bookingId) return;
+        try {
+          await window.RimalisAPI.request(`/viewings/me/bookings/${bookingId}/cancel`, {
+            method: 'POST',
+            auth: true,
+          });
+          if (typeof window.showNotification === 'function') {
+            window.showNotification(i18n('user_booking_cancelled', 'Bokningen är avbokad'), 'info');
+          }
+          await loadBookings();
+        } catch (error) {
+          if (typeof window.showNotification === 'function') {
+            window.showNotification(error.message || i18n('user_booking_cancel_failed', 'Kunde inte avboka bokningen'), 'error');
+          }
+        }
+      });
+    });
+
+    container.querySelectorAll('[data-action="history"]').forEach((button) => {
+      if (button.dataset.bound) return;
+      button.dataset.bound = '1';
+      button.addEventListener('click', async () => {
+        const card = button.closest('[data-booking-id]');
+        const bookingId = card?.dataset.bookingId;
+        const historyBox = card?.querySelector('.mobile-booking-inline');
+        if (!bookingId || !historyBox) return;
+        try {
+          const events = await loadBookingHistory(bookingId);
+          renderBookingHistory(historyBox, events);
+          historyBox.classList.toggle('hidden');
+        } catch (error) {
+          if (typeof window.showNotification === 'function') {
+            window.showNotification(error.message || i18n('booking_history_load_failed', 'Kunde inte ladda historiken'), 'error');
+          }
+        }
+      });
+    });
+
+    container.querySelectorAll('[data-action="reschedule"]').forEach((button) => {
+      if (button.dataset.bound) return;
+      button.dataset.bound = '1';
+      button.addEventListener('click', async () => {
+        const card = button.closest('[data-booking-id]');
+        const bookingId = card?.dataset.bookingId;
+        const propertyId = card?.dataset.propertyId;
+        const inlines = card?.querySelectorAll('.mobile-booking-inline');
+        const inline = inlines?.[1];
+        const slotList = inline?.querySelector('.mobile-booking-slot-list');
+        const confirmButton = inline?.querySelector('.mobile-booking-confirm');
+        const booking = cachedBookings.find((entry) => String(entry.id) === String(bookingId));
+        if (!bookingId || !propertyId || !inline || !slotList || !confirmButton || !booking) return;
+
+        try {
+          slotList.textContent = '';
+          confirmButton.disabled = true;
+          confirmButton.dataset.slotId = '';
+          const slots = await loadRescheduleSlots(propertyId, booking.scheduledAt);
+          const available = slots.filter((slot) => Number(slot.availableCount || 0) > 0 && String(slot.status || '').toLowerCase() === 'open');
+
+          if (!available.length) {
+            const empty = document.createElement('div');
+            empty.className = 'mobile-booking-history-empty';
+            empty.textContent = i18n('property_no_slots', 'Inga lediga tider tillgängliga.');
+            slotList.appendChild(empty);
+          } else {
+            available.forEach((slot) => {
+              const slotButton = document.createElement('button');
+              slotButton.type = 'button';
+              slotButton.className = 'mobile-booking-slot-item';
+              slotButton.dataset.slotId = String(slot.id || '');
+              const when = document.createElement('strong');
+              when.textContent = fmtDateTime(slot.startsAt);
+              const count = document.createElement('small');
+              count.textContent = `${i18n('property_slot_available', 'Lediga platser')}: ${slot.availableCount}`;
+              slotButton.appendChild(when);
+              slotButton.appendChild(count);
+              slotList.appendChild(slotButton);
+            });
+
+            slotList.querySelectorAll('[data-slot-id]').forEach((slotButton) => {
+              slotButton.addEventListener('click', () => {
+                slotList.querySelectorAll('[data-slot-id]').forEach((item) => item.classList.remove('is-selected'));
+                slotButton.classList.add('is-selected');
+                confirmButton.disabled = false;
+                confirmButton.dataset.slotId = slotButton.dataset.slotId || '';
+              });
+            });
+          }
+
+          inline.classList.toggle('hidden');
+
+          if (!confirmButton.dataset.bound) {
+            confirmButton.addEventListener('click', async () => {
+              const slotId = confirmButton.dataset.slotId;
+              if (!slotId) return;
+              try {
+                await window.RimalisAPI.request(`/viewings/me/bookings/${bookingId}/reschedule`, {
+                  method: 'POST',
+                  auth: true,
+                  body: JSON.stringify({ slotId }),
+                });
+                if (typeof window.showNotification === 'function') {
+                  window.showNotification(i18n('booking_rescheduled_success', 'Bokningen har uppdaterats'), 'success');
+                }
+                await loadBookings();
+              } catch (error) {
+                if (typeof window.showNotification === 'function') {
+                  window.showNotification(error.message || i18n('booking_reschedule_failed', 'Kunde inte boka om tiden'), 'error');
+                }
+              }
+            });
+            confirmButton.dataset.bound = '1';
+          }
+        } catch (error) {
+          if (typeof window.showNotification === 'function') {
+            window.showNotification(error.message || i18n('property_load_slots_failed', 'Kunde inte ladda tider'), 'error');
+          }
+        }
+      });
+    });
+  }
+
   async function loadBookings() {
     const container = document.getElementById('bookingsContainer');
     if (!container || !window.RimalisAPI) return;
@@ -177,138 +360,7 @@
       cachedBookings = bookings;
       updateSummary(bookings);
 
-      if (!bookings.length) {
-        const empty = document.createElement('div');
-        empty.className = 'mobile-bookings-empty';
-        empty.textContent = i18n('user_no_bookings_yet', 'Du har inga bokningar ännu.');
-        container.textContent = '';
-        container.appendChild(empty);
-        return;
-      }
-
-      container.textContent = '';
-      bookings.forEach((booking) => container.appendChild(buildCard(booking)));
-
-      container.querySelectorAll('[data-action="cancel"]').forEach((button) => {
-        button.addEventListener('click', async () => {
-          const card = button.closest('[data-booking-id]');
-          const bookingId = card?.dataset.bookingId;
-          if (!bookingId) return;
-          try {
-            await window.RimalisAPI.request(`/viewings/me/bookings/${bookingId}/cancel`, {
-              method: 'POST',
-              auth: true,
-            });
-            if (typeof window.showNotification === 'function') {
-              window.showNotification(i18n('user_booking_cancelled', 'Bokningen är avbokad'), 'info');
-            }
-            await loadBookings();
-          } catch (error) {
-            if (typeof window.showNotification === 'function') {
-              window.showNotification(error.message || i18n('user_booking_cancel_failed', 'Kunde inte avboka bokningen'), 'error');
-            }
-          }
-        });
-      });
-
-      container.querySelectorAll('[data-action="history"]').forEach((button) => {
-        button.addEventListener('click', async () => {
-          const card = button.closest('[data-booking-id]');
-          const bookingId = card?.dataset.bookingId;
-          const historyBox = card?.querySelector('.mobile-booking-inline');
-          if (!bookingId || !historyBox) return;
-          try {
-            const events = await loadBookingHistory(bookingId);
-            renderBookingHistory(historyBox, events);
-            historyBox.classList.toggle('hidden');
-          } catch (error) {
-            if (typeof window.showNotification === 'function') {
-              window.showNotification(error.message || i18n('booking_history_load_failed', 'Kunde inte ladda historiken'), 'error');
-            }
-          }
-        });
-      });
-
-      container.querySelectorAll('[data-action="reschedule"]').forEach((button) => {
-        button.addEventListener('click', async () => {
-          const card = button.closest('[data-booking-id]');
-          const bookingId = card?.dataset.bookingId;
-          const propertyId = card?.dataset.propertyId;
-          const inlines = card?.querySelectorAll('.mobile-booking-inline');
-          const inline = inlines?.[1];
-          const slotList = inline?.querySelector('.mobile-booking-slot-list');
-          const confirmButton = inline?.querySelector('.mobile-booking-confirm');
-          const booking = cachedBookings.find((entry) => String(entry.id) === String(bookingId));
-          if (!bookingId || !propertyId || !inline || !slotList || !confirmButton || !booking) return;
-
-          try {
-            slotList.textContent = '';
-            confirmButton.disabled = true;
-            confirmButton.dataset.slotId = '';
-            const slots = await loadRescheduleSlots(propertyId, booking.scheduledAt);
-            const available = slots.filter((slot) => Number(slot.availableCount || 0) > 0 && String(slot.status || '').toLowerCase() === 'open');
-
-            if (!available.length) {
-              const empty = document.createElement('div');
-              empty.className = 'mobile-booking-history-empty';
-              empty.textContent = i18n('property_no_slots', 'Inga lediga tider tillgängliga.');
-              slotList.appendChild(empty);
-            } else {
-              available.forEach((slot) => {
-                const slotButton = document.createElement('button');
-                slotButton.type = 'button';
-                slotButton.className = 'mobile-booking-slot-item';
-                slotButton.dataset.slotId = String(slot.id || '');
-                const when = document.createElement('strong');
-                when.textContent = fmtDateTime(slot.startsAt);
-                const count = document.createElement('small');
-                count.textContent = `${i18n('property_slot_available', 'Lediga platser')}: ${slot.availableCount}`;
-                slotButton.appendChild(when);
-                slotButton.appendChild(count);
-                slotList.appendChild(slotButton);
-              });
-
-              slotList.querySelectorAll('[data-slot-id]').forEach((slotButton) => {
-                slotButton.addEventListener('click', () => {
-                  slotList.querySelectorAll('[data-slot-id]').forEach((item) => item.classList.remove('is-selected'));
-                  slotButton.classList.add('is-selected');
-                  confirmButton.disabled = false;
-                  confirmButton.dataset.slotId = slotButton.dataset.slotId || '';
-                });
-              });
-            }
-
-            inline.classList.toggle('hidden');
-
-            if (!confirmButton.dataset.bound) {
-              confirmButton.addEventListener('click', async () => {
-                const slotId = confirmButton.dataset.slotId;
-                if (!slotId) return;
-                try {
-                  await window.RimalisAPI.request(`/viewings/me/bookings/${bookingId}/reschedule`, {
-                    method: 'POST',
-                    auth: true,
-                    body: JSON.stringify({ slotId }),
-                  });
-                  if (typeof window.showNotification === 'function') {
-                    window.showNotification(i18n('booking_rescheduled_success', 'Bokningen har uppdaterats'), 'success');
-                  }
-                  await loadBookings();
-                } catch (error) {
-                  if (typeof window.showNotification === 'function') {
-                    window.showNotification(error.message || i18n('booking_reschedule_failed', 'Kunde inte boka om tiden'), 'error');
-                  }
-                }
-              });
-              confirmButton.dataset.bound = '1';
-            }
-          } catch (error) {
-            if (typeof window.showNotification === 'function') {
-              window.showNotification(error.message || i18n('property_load_slots_failed', 'Kunde inte ladda tider'), 'error');
-            }
-          }
-        });
-      });
+      renderBookingsFromCache();
     } catch (error) {
       const fail = document.createElement('div');
       fail.className = 'mobile-bookings-error';
@@ -321,6 +373,33 @@
   document.addEventListener('DOMContentLoaded', () => {
     (async () => {
       await ensureI18nReady();
+      const searchInput = document.getElementById('bookingsSearchInput');
+      const clearBtn = document.getElementById('bookingsSearchClear');
+      if (searchInput) {
+        let timer = null;
+        searchInput.addEventListener('input', () => {
+          const next = String(searchInput.value || '').trim().toLowerCase();
+          if (clearBtn) clearBtn.hidden = !next;
+          if (timer) window.clearTimeout(timer);
+          timer = window.setTimeout(() => {
+            bookingSearch = next;
+            renderBookingsFromCache();
+          }, 120);
+        });
+      }
+      clearBtn?.addEventListener('click', () => {
+        if (searchInput) searchInput.value = '';
+        bookingSearch = '';
+        clearBtn.hidden = true;
+        renderBookingsFromCache();
+      });
+      document.querySelectorAll('#bookingsTabs [data-filter]').forEach((tab) => {
+        tab.addEventListener('click', () => {
+          bookingFilter = tab.dataset.filter || 'all';
+          document.querySelectorAll('#bookingsTabs [data-filter]').forEach((item) => item.classList.toggle('active', item === tab));
+          renderBookingsFromCache();
+        });
+      });
       await loadBookings();
     })();
   });
